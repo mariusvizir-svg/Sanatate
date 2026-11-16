@@ -1,9 +1,9 @@
-# Tensiunea Mea V3.0
+# Sănătate V3.2.0
 
 PWA (HTML/CSS/JS, fără server) pentru monitorizarea sănătății, cu dosar medical pe pacient. Datele rămân **doar pe telefon**: IndexedDB + copie localStorage, sumă de control, instantanee zilnice, parolă cu criptare AES-256 sau Face ID. Pozele sunt criptate separat (AES-256-GCM).
 
 ## Noutăți V3
-- **Aspect nou:** bară de navigare jos (Acasă, Tensiune, Pastile, Sănătate, Dosar), buton „+” pentru adăugare rapidă, Rapoarte și Setări în antet.
+- **Aspect nou (V3.2):** Acasă are 6 iconițe mari (Tensiune, Pastile, Activitate, Dosar, Rapoarte, Setări); în pagini apare săgeata „înapoi”. Meniu lateral (☰) pe Acasă, buton „+” pentru adăugare rapidă. Fără zoom accidental.
 - **Sănătate (nou):** jurnal de mișcare (tip + minute + kcal), alcool (băutură, cantitate, unități), apă, somn, pași, fumat, cafea, simptome; obiective (greutate dorită cu termen, mișcare, alcool, apă, somn, pași) cu progres.
 - **Profil extins:** peste 40 de câmpuri (stil de viață, istoric medical, antecedente familiale, contacte, ținte) cu procent de completare.
 - **Documente cu text:** „Citește textul” (OCR local, română) afișează textul pozei, îl face căutabil și poate trece valorile recunoscute în Analize, după confirmare.

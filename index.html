@@ -1,11 +1,11 @@
-<!doctype html><html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Tensiunea Mea</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><meta name="theme-color" content="#053a50"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="stylesheet" href="app.css"></head><body>
-<aside id="side"><div class="brand"><i>♥</i> Tensiunea Mea</div><nav id="nav"></nav><button class="nb" id="theme">🌓 Temă</button><small class="ver">V3.0.0 · date locale</small></aside>
+<!doctype html><html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>Sănătate</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><meta name="theme-color" content="#053a50"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="stylesheet" href="app.css"></head><body>
+<aside id="side"><div class="brand"><i>♥</i> Sănătate</div><nav id="nav"></nav><button class="nb" id="theme">🌓 Temă</button><small class="ver">V3.2.0 · date locale</small></aside>
 <div id="scrim"></div>
 <div id="splash" style="position:fixed;inset:0;display:grid;place-items:center;background:#eef6f8;color:#053a50;font:600 16px -apple-system,system-ui,sans-serif;z-index:5">Se încarcă…</div>
-<main><header><h1 id="title"></h1><select id="psel" aria-label="Pacient"></select><button class="hb" data-go="rep" aria-label="Rapoarte"></button><button class="hb" data-go="set" aria-label="Setări"></button><button class="btn" data-quick="1">＋ Adaugă</button></header><section id="view"></section></main>
-<nav id="tabbar"></nav>
+<main><header><button id="back" aria-label="Înapoi">‹</button><button id="burger" aria-label="Meniu">☰</button><h1 id="title"></h1><select id="psel" aria-label="Pacient"></select><button class="hb" data-go="rep" aria-label="Rapoarte"></button><button class="hb" data-go="set" aria-label="Setări"></button><button class="btn" data-quick="1">＋ Adaugă</button></header><section id="view"></section></main>
 <button class="btn fab" data-quick="1" aria-label="Adaugă rapid">＋</button>
 <script>
+['gesturestart','gesturechange','gestureend'].forEach(function(n){document.addEventListener(n,function(e){e.preventDefault()},{passive:false})});var _lt=0;document.addEventListener('touchend',function(e){var n=Date.now(),t=(e.target&&e.target.tagName)||'';if(n-_lt<350&&!/INPUT|TEXTAREA|SELECT/.test(t))e.preventDefault();_lt=n},{passive:false});
 (function(){
 var shown=false,booted=function(){return !!window.__booted};
 function ui(msg,fatal){
