@@ -1,22 +1,20 @@
-# Tensiunea Mea
+# Sănătate V3.1.0
 
-Aplicație PWA (HTML/CSS/JS, fără server) pentru monitorizarea tensiunii arteriale și a pastilelor, cu rapoarte pe pacient. Datele rămân **doar pe telefon** (IndexedDB + copie localStorage, sumă de control, instantanee zilnice, parolă/criptare AES-256 sau Face ID).
+PWA (HTML/CSS/JS, fără server) pentru monitorizarea sănătății, cu dosar medical pe pacient. Datele rămân **doar pe telefon**: IndexedDB + copie localStorage, sumă de control, instantanee zilnice, parolă cu criptare AES-256 sau Face ID. Pozele sunt criptate separat (AES-256-GCM).
 
-## Funcții
-- Pacienți multipli, fiecare cu țintă proprie (implicit 130/80)
-- Măsurare cu încadrare instantanee (ESC/ESH 2018, orientativ) și avertisment la ≥180/120
-- Orar pastile (ce pastilă la ce oră, zile, perioadă, „la nevoie”), bifare Luată/Sar, plan pe zi
-- Rapoarte: Rezumat cu concluzii, Tensiune, Pastile (aderență, ora programată vs. reală), Corelații TA↔pastile, Pentru medic (tipărire/PDF, CSV), Toți pacienții
-- Memento prin export `.ics` în Calendar (iPhone nu permite notificări locale pentru PWA fără server)
-- Backup/import JSON, restaurare din instantanee, verificare stocare
+## Noutăți V3
+- **Aspect nou:** bară de navigare jos (Acasă, Tensiune, Pastile, Sănătate, Dosar), buton „+” pentru adăugare rapidă, Rapoarte și Setări în antet.
+- **Sănătate (nou):** jurnal de mișcare (tip + minute + kcal), alcool (băutură, cantitate, unități), apă, somn, pași, fumat, cafea, simptome; obiective (greutate dorită cu termen, mișcare, alcool, apă, somn, pași) cu progres.
+- **Profil extins:** peste 40 de câmpuri (stil de viață, istoric medical, antecedente familiale, contacte, ținte) cu procent de completare.
+- **Documente cu text:** „Citește textul” (OCR local, română) afișează textul pozei, îl face căutabil și poate trece valorile recunoscute în Analize, după confirmare.
+- **Date legate între ele:** greutatea din profil intră în istoric, stilul de viață apare în Acasă, în concluzii și în corelații cu tensiunea, programările din documente intră în calendarul .ics.
+- **Rapoarte:** file noi Stil de viață, Corp, Analize; PDF cu 16 secțiuni (profil detaliat, obiective, simptome, lista documentelor cu text).
 
-## Publicare pe GitHub (repository NOU, ca să nu atingi Bugetul Meu)
-Încarcă în rădăcina repository-ului cele 9 fișiere, fără foldere: `index.html, app.js, app.css, store.js, sw.js, manifest.webmanifest, icon-180.png, icon-192.png, icon-512.png`. Activează Pages (Settings → Pages → branch main, folder root). Pe iPhone: Safari → Partajare → Adaugă pe ecranul principal.
+## Publicare pe GitHub
+Încarcă în rădăcina repository-ului, fără foldere, cele 16 fișiere: `index.html, app.js, app.css, store.js, sw.js, manifest.webmanifest, jspdf.min.js, pdffont.js, tesseract.min.js, worker.min.js, tesseract-core-simd-lstm.wasm.js, tesseract-core-lstm.wasm.js, ron.traineddata.gz, icon-180.png, icon-192.png, icon-512.png`.
+Fișierele OCR (~10 MB) se descarcă doar la prima citire de text, apoi rămân în telefon.
 
-**Nu încărca niciodată backup-ul JSON pe GitHub** (date medicale).
+**Nu încărca niciodată backup-ul JSON pe GitHub** (date medicale). Fă un backup înainte de fiecare versiune nouă.
 
-## Dezvoltare
-`python3 build.py` reconstruiește `app.js` din `src/`. Teste: `python3 -m http.server 8777` apoi `python3 tests/test_app.py` (Playwright).
-
-## Avertisment
-Aplicația ține evidența și nu înlocuiește medicul. Nu schimba tratamentul fără acordul lui. În urgență sună la 112.
+## Limite
+OCR-ul pe poze reale nu e perfect: verifică valorile înainte de a le salva. Intervalele și indicii sunt orientative, nu înlocuiesc medicul.
