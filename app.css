@@ -187,3 +187,6 @@ dialog.qlab{width:min(96vw,520px);max-height:94vh;overflow:auto;border:0;border-
 .qlab .eh{font-size:19px;margin-bottom:10px}.qlab .w{display:block;margin:8px 0}.qlab details.card{margin:10px 0;padding:12px 14px}.qlab summary{font-weight:750;cursor:pointer;padding:2px 0 8px}
 .ql{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--ln)}.ql span{flex:1;min-width:0}.ql small{display:block;color:var(--mu);font-size:12px}.ql input{width:104px;flex:none;text-align:right}
 .qlab .stickyact{position:sticky;bottom:0;margin-top:12px;margin-right:0}
+.spg{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.spc{display:flex;flex-direction:column;gap:4px;text-align:left;font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--ln);border-left:5px solid var(--ac);border-radius:16px;padding:14px;cursor:pointer;box-shadow:0 6px 20px #1a3b6a12}
+.spc b{font-size:16px}.spc small{color:var(--mu);font-size:12.5px;line-height:1.35}.spc:active{transform:scale(.98)}

@@ -20,3 +20,9 @@ PWA (HTML/CSS/JS, fără server) pentru monitorizarea sănătății, cu dosar me
 
 ## Limite
 Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verifică valorile. Intervalele și indicii sunt orientative. Aplicația nu trimite notificări (iOS nu permite fără server); folosește calendarul .ics.
+
+
+## V4.1
+- Dosar pe specialități: pagina Rezumat (afecțiuni, tratament, valori în afara limitelor, programări) și câte o secțiune pentru fiecare specialitate, cu PDF propriu și PDF pentru dosarul complet.
+- Specialitățile se gestionează în Setări (adaugă, redenumește, șterge). Fiecare înregistrare se asociază automat după conținut și poate fi schimbată manual.
+- Import de adăugare (fișier JSON cu `__merge`) care nu înlocuiește datele existente.
