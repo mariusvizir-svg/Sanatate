@@ -217,3 +217,12 @@ body.dark .hbt.lt{background:var(--card)}
 .hbt.w,.hbt.lt{justify-content:flex-start}.hbt.lt .htx{text-align:left}
 .seg.sc{flex-wrap:wrap}.seg.sc button{flex:1 1 auto;min-width:60px}
 @media(min-width:901px){.hubg{grid-template-columns:repeat(4,1fr)}.hbt.w{grid-column:span 4}.hhero{max-width:560px}}
+/* V4.4 programări */
+.row.ap{flex-wrap:wrap;align-items:flex-start;gap:8px 10px;border-left:4px solid var(--line,#dbe6ee);padding-left:10px;margin:6px 0;border-radius:4px}
+.row.ap>div:first-child{flex:1 1 100%;min-width:0}
+.row.ap .ac{flex:1 1 100%;display:flex;gap:8px;justify-content:flex-end;align-items:center}
+.row.ap.od{border-left-color:#d6314f}.row.ap.dn{opacity:.75;border-left-color:#2bb584}
+.card.odc{border:1.5px solid #f3b6c0;background:linear-gradient(180deg,#fff5f6,#fff)}
+.card.apc{border-top:4px solid #ee9a2c}
+.card.apc .row{align-items:center}
+details.card>summary{cursor:pointer;padding:2px 0}

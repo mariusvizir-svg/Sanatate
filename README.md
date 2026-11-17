@@ -36,3 +36,10 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 - **PDF-uri citite în aplicație**: butonul „Citește textul” extrage textul din PDF-urile tipărite (buletine de analize, scrisori medicale) cu pdf.js, apoi detectează valorile de analize, cu confirmare înainte de adăugare. Paginile scanate (fără text) sunt citite automat prin OCR.
 - **Orice fișier se poate atașa**: Word (.docx), text/CSV, Excel, imagini HEIC etc. Se păstrează criptat, se deschid/descarcă din aplicație. Textul se poate citi din .docx, .txt, .csv, .md, .json, .html.
 - Fișiere noi de pus pe GitHub (în rădăcină): `pdf.min.js`, `pdf.worker.min.js`.
+
+## V4.4.0 — Programări
+- Modul nou **Programări** (consultații, analize, investigații, proceduri): dată, oră, loc, medic, specialitate, notă.
+- Apare **primul pe Acasă** (cu „azi / mâine / în X zile”), ca buton mare la începutul Dosarului, în pagina fiecărei specialități, în Rezumat și în calendarul .ics.
+- Programările depășite apar separat („De bifat sau reprogramat”). La „Efectuat” aplicația îți propune să adaugi rezultatul în dosar.
+- Include și biletele de trimitere cu dată și controalele recomandate din consultații.
+- Fix: la ștergerea unui pacient se șterg acum și prevenția și programările lui.
