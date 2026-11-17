@@ -15,3 +15,5 @@ window.AGENDA_GO=k=>{if(typeof data==='undefined')return;if(k==='add'){entry='ex
 window.AGENDA_EXPORT=async()=>{data.lastBackup=today();await Store.save(data).catch(()=>{});return JSON.parse(JSON.stringify(data))};
 window.AGENDA_PEEK=j=>{const v=validate(j);if(v.err)return{err:v.err};const o=v.out;return{n:`${o.transactions.length} operațiuni, ${o.debts.length} datorii, ${o.loans.length} împrumuturi`,bad:v.bad||0}};
 window.AGENDA_IMPORT=async j=>{const v=validate(j);if(v.err)throw new Error(v.err);await Store.replace(v.out)};
+
+try{parent!==window&&parent.postMessage({agenda:'ready'},'*')}catch(e){}

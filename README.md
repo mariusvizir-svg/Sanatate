@@ -74,3 +74,6 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 - **Mai mult → Backup unic**: salvează Buget + Sănătate (cu pozele și documentele din dosar) într-un singur fișier; deschide foaia de partajare a iPhone-ului (Fișiere / iCloud Drive).
 - **Importă backup**: acceptă backup unic sau backup separat de Sănătate / Buget. Arată ce conține, cere confirmare, face instantaneu de siguranță.
 - **Setări Buget** accesibile din Mai mult. Acasă avertizează dacă ultimul backup unic e mai vechi de 14 zile.
+
+## V5.3.1
+- Acasă nu mai rămâne blocat pe „Se încarcă Sănătatea…” la redeschidere: aplicațiile din interior anunță când sunt gata, iar Acasă reîncearcă la fiecare 0,6 s (în loc să aștepte 20 s). Cardul Buget se arată imediat ce Bugetul e gata, chiar dacă Sănătatea încă se încarcă.

@@ -25,7 +25,7 @@ function home(){const a=api(),bg=bapi(),v=$('home');
  const ins=ln.length?`<div class="c ins"><h2>💡 Pe scurt</h2><p>${ln.join('<br>')}</p></div>`:'';
  const bd=days(lb()),bk=bd==null||bd>=14?`<div class="c" style="border:1.5px solid #f4d9a0"><h2>💾 ${bd==null?'Nu ai făcut încă backup':'Ultimul backup: acum '+bd+' zile'}</h2><button class="btn p" data-t="more">Fă backup unic</button></div>`:'';
  v.innerHTML=hd+ag+two+q+ins+bk+'<div style="height:18px"></div>'}
-const bugCard=()=>`<div class="two"><button class="m bg off" data-t="budget"><small>BUGET</small><b>în curând</b><i>pasul următor</i></button></div>`;
+const bugCard=()=>{const bg=bapi();return bg.ready?`<div class="two"><button class="m bg" data-bg="hub"><small>BUGET · cheltuit luna asta</small><b>${ron(bg.spent)}</b><i>disponibil ${ron(bg.avail)}</i></button></div>`:`<div class="two"><button class="m bg off" data-t="budget"><small>BUGET</small><b>—</b><i>se încarcă…</i></button></div>`};
 const LB='am-lastbackup',lb=()=>{try{return localStorage.getItem(LB)}catch{return null}},days=d=>d?Math.floor((Date.now()-new Date(d))/864e5):null;
 function toast(m){let t=$('toast');if(!t){t=document.createElement('div');t.id='toast';document.body.appendChild(t)}t.textContent=m;t.className='on';clearTimeout(t._t);t._t=setTimeout(()=>t.className='',3500)}
 function more(){const d=lb(),n=days(d);$('more').innerHTML=`<div class="hd"><small>Agenda Mea</small><h1>Mai mult</h1></div>
@@ -33,7 +33,7 @@ function more(){const d=lb(),n=days(d);$('more').innerHTML=`<div class="hd"><sma
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn p" data-act="backup">⬇ Salvează backup</button><button class="btn" data-act="restore">⬆ Importă backup</button></div><input type="file" id="impall" accept=".json,application/json" hidden></div>
 <div class="c"><div class="r" data-g="set" style="cursor:pointer"><div class="ic">❤️</div><span>Setări Sănătate<small>Parolă, Face ID, calendar .ics, specialități, pacienți</small></span></div>
 <div class="r" data-bg="set" style="cursor:pointer"><div class="ic">💰</div><span>Setări Buget<small>Securitate, categorii, backup separat</small></span></div></div>
-<div class="c ins"><h2>ℹ️ Despre</h2><p>Agenda Mea V5.3.0. Datele rămân pe telefonul tău. La import se face automat un instantaneu de siguranță, deci poți reveni dacă ceva nu e bine.</p></div>`}
+<div class="c ins"><h2>ℹ️ Despre</h2><p>Agenda Mea V5.3.1. Datele rămân pe telefonul tău. La import se face automat un instantaneu de siguranță, deci poți reveni dacă ceva nu e bine.</p></div>`}
 const kindOf=j=>j&&j.__agenda?'all':j&&Array.isArray(j.transactions)?'budget':j&&Array.isArray(j.patients)?'health':null;
 async function backupAll(){try{const h=await fs.contentWindow.AGENDA_EXPORT(),b=await bud.contentWindow.AGENDA_EXPORT(),dd=new Date(),z=x=>String(x).padStart(2,'0'),ds=dd.getFullYear()+'-'+z(dd.getMonth()+1)+'-'+z(dd.getDate()),nm='backup-agenda-mea-'+ds+'.json',txt=JSON.stringify({__agenda:1,created:dd.toISOString(),health:h,budget:b}),file=new File([txt],nm,{type:'application/json'});
  try{if(navigator.canShare&&navigator.canShare({files:[file]}))await navigator.share({files:[file],title:nm});else dl(nm,txt)}catch(e){if(e&&e.name==='AbortError'){toast('Backup anulat');return}dl(nm,txt)}
@@ -53,7 +53,9 @@ function dial(k){const d=$('dial');if(k==='toggle'){d.hidden=!d.hidden;return}d.
 document.addEventListener('change',e=>{if(e.target.id==='impall'){restoreAll(e.target.files[0]);e.target.value=''}});
 bud.addEventListener('load',()=>{if(cur==='home')home()});
 fs.addEventListener('load',()=>{if(cur==='home')home();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{})});
+let tries=0;(function retry(){if(cur==='home'&&!document.hidden&&(!api().ready||!bapi().ready)&&tries<120){tries++;home()}setTimeout(retry,tries<120?600:20000)})();
+window.addEventListener('message',e=>{if(e.data&&e.data.agenda==='ready'&&cur==='home')home()});
 setInterval(()=>{if(cur==='home'&&!document.hidden)home()},20000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&cur==='home')home()});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){tries=0;if(cur==='home')home()}});
 fs.src='sanatate.html';bud.src='buget.html';show('home');
 })();
