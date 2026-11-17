@@ -2,7 +2,7 @@
 (function(){
 const $=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let cur='home';const fs=$('fs'),bud=$('bud');
-const api=()=>{try{return fs.contentWindow&&fs.contentWindow.AGENDA_API?fs.contentWindow.AGENDA_API():{ready:false}}catch(e){return{ready:false}}};
+const api=()=>{try{const w=fs.contentWindow;if(!w||!w.AGENDA_API)return{ready:false,why:w&&w.document&&w.document.readyState==='complete'&&w.document.getElementById('view')?'old':'loading'};return w.AGENDA_API()}catch(e){return{ready:false,why:'err',err:String(e&&e.message||e)}}};
 const go=k=>{try{fs.contentWindow.AGENDA_GO(k)}catch(e){}},bapi=()=>{try{return bud.contentWindow&&bud.contentWindow.AGENDA_API?bud.contentWindow.AGENDA_API():{ready:false}}catch(e){return{ready:false}}},bgo=k=>{try{bud.contentWindow.AGENDA_GO(k)}catch(e){}};
 const ron=n=>new Intl.NumberFormat('ro-RO',{maximumFractionDigits:0}).format(Math.round(n))+' lei';
 const fmt=d=>{const[y,m,x]=d.split('-');return x+'.'+m+'.'+y};
@@ -11,7 +11,7 @@ function dayStr(){const d=new Date(),z=['Duminică','Luni','Marți','Miercuri','
 const chip=n=>`<span class="t ${n<=1?'hot':n<=7?'mid':'good'}">${n===0?'azi':n===1?'mâine':'în '+n+' zile'}</span>`;
 function home(){const a=api(),bg=bapi(),v=$('home');
  const hd=`<div class="hd"><small>${dayStr()}</small><h1>${greet()}${a.ready&&a.name?', '+esc(a.name):''}</h1></div>`;
- if(!a.ready){v.innerHTML=hd+`<div class="c"><h2>Se încarcă Sănătatea…</h2><p class="mu">Dacă ai parolă sau Face ID, deschide o dată tabul <b>Sănătate</b> ca să deblochezi datele. Dacă nu ai creat încă un profil, îl creezi acolo.</p><div style="margin-top:10px"><button class="btn p" data-t="health">Deschide Sănătate</button></div></div>`+bugCard();return}
+ if(!a.ready){const W={noprofile:['Nu ai creat încă un profil','Deschide Sănătate și creează profilul (sau importă backup-ul). După aceea apar aici pastilele, programările și tensiunea.'],old:['Fișierele Sănătății sunt vechi','Pe GitHub, fișierul app.js nu s-a înlocuit. Urcă din nou toate fișierele din arhivă și așteaptă 1-2 minute.'],err:['Sănătatea a dat o eroare',a.err||a.why||''],loading:['Se încarcă Sănătatea…','Dacă durează, sau ai parolă / Face ID, deschide o dată tabul Sănătate ca să deblochezi datele.']}[a.why||'loading'];v.innerHTML=hd+`<div class="c"><h2>${W[0]}</h2><p class="mu">${esc(W[1])}</p><div style="margin-top:10px"><button class="btn p" data-t="health">Deschide Sănătate</button></div></div>`+bugCard();return}
  const items=[];a.pills.forEach(p=>items.push({k:p.time,i:'💊',t:p.name+(p.dose?' '+p.dose:''),s:p.st==='miss'?p.time+' · întârziată':p.time+(p.st==='due'?' · acum':''),c:p.st==='miss'?'<span class="t hot">ratată?</span>':p.st==='due'?'<span class="t hot">acum</span>':'<span class="t mid">azi</span>',g:'pills'}));
  a.up.forEach(u=>items.push({k:'1'+u.date+(u.time||''),i:/^🧪/.test(u.title)?'🧪':/^🔬/.test(u.title)?'🔬':/^🏥/.test(u.title)?'🏥':'🩺',t:u.title.replace(/^\p{Extended_Pictographic}\uFE0F?\s*/u,''),s:fmt(u.date)+(u.time?' · '+u.time:'')+(u.sub?' · '+u.sub:''),c:chip(u.n),g:'prog'}));
  if(bg.ready)bg.up.forEach(u=>items.push({k:'1'+u.date+'~',i:'🧾',t:u.title+(u.amount?' · '+ron(u.amount):''),s:fmt(u.date)+' · plată planificată',c:chip(u.n),g:'bplan',b:1}));
@@ -28,7 +28,7 @@ const bugCard=()=>`<div class="two"><button class="m bg off" data-t="budget"><sm
 function more(){$('more').innerHTML=`<div class="hd"><small>Agenda Mea</small><h1>Mai mult</h1></div>
 <div class="c"><div class="r" data-g="set" style="cursor:pointer"><div class="ic">⚙️</div><span>Setări Sănătate<small>Backup, parolă, Face ID, calendar .ics, specialități</small></span></div>
 <div class="r"><div class="ic">💾</div><span>Backup unic<small>vine la pasul 3: Buget + Sănătate într-un singur fișier</small></span></div></div>
-<div class="c ins"><h2>ℹ️ Despre</h2><p>Agenda Mea V5.1.0. Datele rămân pe telefonul tău. Sănătatea și Bugetul funcționează ca aplicațiile de până acum, cu datele păstrate separat.</p></div>`}
+<div class="c ins"><h2>ℹ️ Despre</h2><p>Agenda Mea V5.1.2. Datele rămân pe telefonul tău. Sănătatea și Bugetul funcționează ca aplicațiile de până acum, cu datele păstrate separat.</p></div>`}
 function show(k){cur=k;['home','health','budget','more'].forEach(x=>{const e=x==='health'?fs:x==='budget'?bud:$(x);e.classList.toggle('on',x===k)});document.querySelectorAll('#nv button').forEach(b=>b.classList.toggle('on',b.dataset.t===k));if(k==='home')home();if(k==='more')more()}
 document.addEventListener('click',e=>{const t=e.target.closest('[data-t],[data-g],[data-bg]');if(!t)return;if(t.dataset.bg){bgo(t.dataset.bg);show('budget')}else if(t.dataset.g){go(t.dataset.g);show('health')}else show(t.dataset.t)});
 bud.addEventListener('load',()=>{if(cur==='home')home()});

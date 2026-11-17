@@ -3,7 +3,8 @@
 *{box-sizing:border-box;margin:0}html,body{height:100%}body{font-family:-apple-system,system-ui,Segoe UI,Inter,sans-serif;background:var(--bg);color:var(--tx);overflow:hidden}
 #app{max-width:620px;margin:0 auto;height:100%;display:flex;flex-direction:column;position:relative}
 .v{flex:1;min-height:0;overflow:auto;display:none;-webkit-overflow-scrolling:touch}.v.on{display:block}
-iframe.v{width:100%;border:0;background:var(--bg)}iframe.v.on{display:block}
+#vw{flex:1;min-height:0;position:relative}#vw>.v{position:absolute;inset:0}
+iframe.v{display:block;width:100%;height:100%;border:0;background:var(--bg);visibility:hidden;pointer-events:none}iframe.v.on{visibility:visible;pointer-events:auto}
 nav#nv{flex:none;display:flex;background:var(--card);border-top:1px solid var(--ln);padding:6px 4px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px #0a3f6612}
 nav#nv button{flex:1;border:0;background:none;color:var(--mu);font:600 11px inherit;font-family:inherit;display:grid;justify-items:center;gap:2px;padding:6px 0;cursor:pointer;border-radius:14px}
 nav#nv button b{font-size:23px;line-height:1;filter:grayscale(1);opacity:.7}nav#nv button.on{color:var(--ac)}nav#nv button.on b{filter:none;opacity:1}

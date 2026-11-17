@@ -56,3 +56,9 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 - **Acasă** arată acum: plățile planificate din buget în lista „Azi și în curând”, cardul Buget (rămas din plan, sau cheltuit luna asta) și acțiuni rapide (Scanează bon, Cheltuială, Măsoară, Am luat).
 - Datele Bugetului nu se mută singure din aplicația veche: fă **Backup** în aplicația veche și **Importă** în tab-ul Buget → Setări.
 - Fișiere noi (rădăcină): `buget.html`, `b_*.js`, `b_app.css`, `b-tesseract.min.js`, `b-worker.min.js`, `b-core.js`, `b-core-simd.js`, `ron.traineddata`.
+
+## V5.1.1
+- Acasă spune clar de ce nu arată datele Sănătății (fără profil, fișiere vechi, eroare, încărcare) în loc de „Se încarcă” permanent.
+
+## V5.1.2
+- Fix pentru iPhone: iframe-urile ascunse (Sănătate, Buget) nu se mai pornesc cu `display:none`, ci rămân încărcate în fundal, ca ecranul Acasă să le citească imediat, fără să deschizi mai întâi tabul.
