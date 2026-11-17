@@ -26,3 +26,8 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 - Dosar pe specialități: pagina Rezumat (afecțiuni, tratament, valori în afara limitelor, programări) și câte o secțiune pentru fiecare specialitate, cu PDF propriu și PDF pentru dosarul complet.
 - Specialitățile se gestionează în Setări (adaugă, redenumește, șterge). Fiecare înregistrare se asociază automat după conținut și poate fi schimbată manual.
 - Import de adăugare (fișier JSON cu `__merge`) care nu înlocuiește datele existente.
+
+## V4.2
+- Navigare cu butoane mari pentru Tensiune, Dosar, Rapoarte și Activitate (fără bare cu file); antet nou cu titlu și rezumat; ‹ urcă un nivel.
+- Alcool: băutură, porție, număr de porții, volum și % exacte, total în ml, unități și grame de alcool pur, marcă.
+- Medicamente la nevoie: cantitate exactă, dată, oră și motiv; stocul scade cu cantitatea luată.
