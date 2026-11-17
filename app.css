@@ -248,3 +248,5 @@ aside{background:linear-gradient(170deg,#7a3a14,#b05420)!important}
 }
 
 html.emb body{padding-bottom:110px}
+
+@media(max-width:900px){header{position:relative!important;top:0!important}}
