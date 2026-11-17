@@ -1,5 +1,5 @@
-:root{--bg:#f6f1ea;--card:#fffdf9;--tx:#2a2a26;--mu:#8a8478;--ac:#c2642a;--ln:#eee6d9;--ib:#f9e6d6}
-@media(prefers-color-scheme:dark){:root{--bg:#1c1814;--card:#26211b;--tx:#f1ebe0;--mu:#b0a698;--ac:#e08a52;--ln:#383128;--ib:#3a2a1e}}
+:root{--bg:#eef6f8;--card:#fff;--tx:#10303f;--mu:#5f7888;--ac:#0a6a8a;--ln:#e1ebf0}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1a21;--card:#16262f;--tx:#e6f0f5;--mu:#93aab8;--ac:#5cc2e3;--ln:#243844}}
 *{box-sizing:border-box;margin:0}html,body{height:100%}body{font-family:-apple-system,system-ui,Segoe UI,Inter,sans-serif;background:var(--bg);color:var(--tx);overflow:hidden}
 #app{max-width:620px;margin:0 auto;height:100%;display:flex;flex-direction:column;position:relative}
 .v{flex:1;min-height:0;overflow:auto;display:none;-webkit-overflow-scrolling:touch}.v.on{display:block}
@@ -31,23 +31,23 @@ nav#nv button b{font-size:23px;line-height:1;filter:grayscale(1);opacity:.7}nav#
 #dial button{border:0;background:var(--card);color:var(--tx);font:700 14px inherit;font-family:inherit;padding:11px 16px;border-radius:24px;box-shadow:0 6px 18px rgba(10,61,102,.3);cursor:pointer}
 #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:110px;background:#10303f;color:#fff;padding:11px 18px;border-radius:22px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;max-width:90vw;text-align:center}#toast.on{opacity:1}
 
-/* Tema A */
-.hd{background:none!important;color:var(--tx)!important;border-radius:0!important;padding:calc(26px + env(safe-area-inset-top)) 22px 8px!important}
-.hd small{order:-1;display:block;color:var(--mu);opacity:1;font-size:13.5px;margin-bottom:4px}.hd h1{font-size:32px;line-height:1.1;font-weight:800}
-.c{border-radius:26px;padding:16px 18px;margin:14px 16px 0;box-shadow:0 1px 2px rgba(60,40,20,.05),0 8px 22px rgba(60,40,20,.07)}
-.ic{background:var(--ib)!important;border-radius:13px;width:36px;height:36px;color:var(--ac)}
-.two{margin:14px 16px 0}.m{border-radius:26px;padding:16px}
-.bg{background:#3d7a68!important}.bp{background:#c2642a!important}
-.btn{background:var(--ib);color:var(--ac);border-radius:16px}.btn.p{background:var(--ac);color:#fff}
-.q button{border-radius:20px;box-shadow:0 1px 2px rgba(60,40,20,.05),0 8px 22px rgba(60,40,20,.07)}
-.hot{background:#f8dfe3;color:#a8324a}.mid{background:#fbe9cf;color:#935a10}.good{background:#dcefe7;color:#2f6a58}
-.ins{background:#fbf1de;border:0;color:#5a4420}
-nav#nv{position:absolute;left:16px;right:16px;bottom:calc(12px + env(safe-area-inset-bottom));padding:7px;border:0;border-radius:32px;background:var(--card);box-shadow:0 2px 4px rgba(60,40,20,.08),0 14px 34px rgba(60,40,20,.16);z-index:20;gap:2px}
-#app{padding-bottom:0}#vw{padding-bottom:0}.v{padding-bottom:96px}iframe.v{padding-bottom:0}
-nav#nv button{flex:0 0 auto;width:52px;height:46px;border-radius:24px;grid-auto-flow:column;align-items:center;gap:7px;font-size:13px;justify-content:center}
-nav#nv button span{display:none}nav#nv button.on{flex:1;width:auto;background:var(--ac);color:#fff}nav#nv button.on span{display:inline}
-nav#nv button svg,#dial svg,#fab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
-nav#nv button{justify-content:center}nav#nv:has(button){display:flex}nav#nv button:not(.on){flex:1}
-#fab{width:auto;height:50px;padding:0 20px 0 16px;border-radius:26px;background:var(--ac);display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700;font-family:inherit;box-shadow:0 8px 22px rgba(194,100,42,.4);bottom:calc(86px + env(safe-area-inset-bottom))}
-#dial{bottom:calc(146px + env(safe-area-inset-bottom))}#dial button{display:flex;align-items:center;gap:9px}#dial button svg{color:var(--ac)}
-#toast{background:#2a2a26;bottom:150px}
+/* V5.5: bară modernă, tranziții, Mai mult cu butoane mari */
+nav#nv{padding:8px 8px calc(10px + env(safe-area-inset-bottom));gap:4px;background:color-mix(in srgb,var(--card) 88%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-top:1px solid var(--ln)}
+nav#nv button{font-size:11.5px;gap:3px;padding:8px 0 7px;border-radius:18px;transition:background .2s,color .2s,transform .15s}
+nav#nv button svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav#nv button:active{transform:scale(.94)}
+nav#nv button.on{background:linear-gradient(150deg,#0e7aa0,#0a4f7c);color:#fff;box-shadow:0 6px 16px rgba(10,79,124,.35)}
+#dial svg,#fab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}#fab svg{width:30px;height:30px}
+#fab{display:grid;place-items:center}#fab{transition:transform .2s}
+#dial button{display:flex;align-items:center;gap:10px}#dial button svg{color:var(--ac)}
+.v.on{animation:vin .26s ease both}
+@keyframes vin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+iframe.v{opacity:0;transition:opacity .22s ease}iframe.v.on{opacity:1;animation:none}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 14px 0}
+.mt{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:12px;min-height:128px;padding:15px;border:0;border-radius:26px;color:#fff;text-align:left;font:inherit;cursor:pointer;box-shadow:0 10px 22px rgba(10,60,100,.2);transition:transform .15s}
+.mt:active{transform:scale(.97)}.mt .i{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.22);display:grid;place-items:center}
+.mt svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.mt b{display:block;font-size:15.5px}.mt small{display:block;font-size:11.5px;opacity:.9;margin-top:2px}
+.mt.t1{background:linear-gradient(150deg,#0e7aa0,#0a4f7c)}.mt.t2{background:linear-gradient(150deg,#8a5ae0,#5f37b8)}.mt.t3{background:linear-gradient(150deg,#2bb584,#16805c)}.mt.t4{background:linear-gradient(150deg,#ee9a2c,#c76f0b)}
+.bk{display:flex;align-items:center;gap:12px}.bk .ic{width:42px;height:42px;font-size:20px}
+.mt{width:100%;min-width:0;justify-self:stretch}

@@ -150,23 +150,3 @@ html.emb aside,html.emb #burger,html.emb #scrim,html.emb .fab,html.emb header>.b
 html.emb header #burger{display:none!important}
 @media(max-width:900px){#month{min-width:0;width:150px;font-size:14px;padding:8px 12px}#month::-webkit-calendar-picker-indicator{display:none}}
 
-/* ===== Tema A: aerisit și cald (Agenda Mea V5.4) ===== */
-:root{--bg:#f6f1ea;--card:#fffdf9;--tx:#2a2a26;--mu:#8a8478;--ln:#eee6d9;--ac:#c2642a;--ac2:#9a4a1a;--ok:#3d7a68;--er:#c2455a;--r:24px;--sh1:0 1px 2px rgba(60,40,20,.05),0 8px 22px rgba(60,40,20,.07);--sh2:0 2px 4px rgba(60,40,20,.08),0 16px 36px rgba(60,40,20,.12)}
-body.dark{--bg:#1c1814;--card:#26211b;--tx:#f1ebe0;--mu:#b0a698;--ln:#383128;--ac:#e08a52;--ac2:#c2642a}
-body{background:var(--bg);color:var(--tx)}
-.hero{background:linear-gradient(135deg,#9a4a1a,#c2642a)!important}
-.btn,#burger{box-shadow:0 5px 14px rgba(194,100,42,.28)}
-.hbt{box-shadow:0 10px 22px rgba(90,50,20,.2)}.hbt.lt{box-shadow:0 6px 18px rgba(90,50,20,.08)}
-aside{background:linear-gradient(170deg,#7a3a14,#b05420)!important}
-.card,.c{box-shadow:var(--sh1)}
-@media(max-width:900px){
- header{background:var(--bg)!important;color:var(--tx)!important;box-shadow:none!important;border-radius:0!important;border:0!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;padding-bottom:10px!important;margin-bottom:6px!important}
- header h1{color:var(--tx)!important;font-size:34px!important;line-height:1.1}
- #hsub{color:var(--mu)!important}
- header #back,header #burger{background:var(--card)!important;color:var(--tx)!important;box-shadow:var(--sh1)!important}
- header select#psel,#psel,#month{background:var(--card)!important;color:var(--tx)!important;box-shadow:var(--sh1)!important}
-}
-
-html.emb body{padding-bottom:110px}
-
-@media(max-width:900px){header{position:relative!important;top:0!important}}
