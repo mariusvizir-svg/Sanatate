@@ -31,3 +31,8 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 - Navigare cu butoane mari pentru Tensiune, Dosar, Rapoarte și Activitate (fără bare cu file); antet nou cu titlu și rezumat; ‹ urcă un nivel.
 - Alcool: băutură, porție, număr de porții, volum și % exacte, total în ml, unități și grame de alcool pur, marcă.
 - Medicamente la nevoie: cantitate exactă, dată, oră și motiv; stocul scade cu cantitatea luată.
+
+## V4.3.0 — citire PDF și orice tip de document
+- **PDF-uri citite în aplicație**: butonul „Citește textul” extrage textul din PDF-urile tipărite (buletine de analize, scrisori medicale) cu pdf.js, apoi detectează valorile de analize, cu confirmare înainte de adăugare. Paginile scanate (fără text) sunt citite automat prin OCR.
+- **Orice fișier se poate atașa**: Word (.docx), text/CSV, Excel, imagini HEIC etc. Se păstrează criptat, se deschid/descarcă din aplicație. Textul se poate citi din .docx, .txt, .csv, .md, .json, .html.
+- Fișiere noi de pus pe GitHub (în rădăcină): `pdf.min.js`, `pdf.worker.min.js`.
