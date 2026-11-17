@@ -43,3 +43,16 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 - Programările depășite apar separat („De bifat sau reprogramat”). La „Efectuat” aplicația îți propune să adaugi rezultatul în dosar.
 - Include și biletele de trimitere cu dată și controalele recomandate din consultații.
 - Fix: la ștergerea unui pacient se șterg acum și prevenția și programările lui.
+
+## V5.0.0 — Agenda Mea (pasul 1)
+- Aplicația se numește acum **Agenda Mea**: ecran principal comun + bară jos (Acasă, Buget, Sănătate, Mai mult).
+- **Acasă** adună pastilele rămase azi, programările din 30 de zile, ultima tensiune și o observație simplă (media pe 7 zile față de săptămâna dinainte).
+- **Sănătate** este aplicația de până acum, neschimbată (`sanatate.html`), deschisă în interior. Datele rămân la fel dacă urci fișierele în același repository.
+- **Buget**: loc rezervat, vine la pasul următor. Backup unic: pasul 3.
+- Fișiere noi: `sanatate.html`, `agenda.js`, `agenda.css`; `index.html` este acum ecranul Agenda Mea; icon nou.
+
+## V5.1.0 — Agenda Mea: Bugetul intră înăuntru (pasul 2)
+- Tab-ul **Buget** deschide Bugetul Meu V29 (`buget.html`), cu scanarea de bonuri. Datele lui rămân separate de ale Sănătății.
+- **Acasă** arată acum: plățile planificate din buget în lista „Azi și în curând”, cardul Buget (rămas din plan, sau cheltuit luna asta) și acțiuni rapide (Scanează bon, Cheltuială, Măsoară, Am luat).
+- Datele Bugetului nu se mută singure din aplicația veche: fă **Backup** în aplicația veche și **Importă** în tab-ul Buget → Setări.
+- Fișiere noi (rădăcină): `buget.html`, `b_*.js`, `b_app.css`, `b-tesseract.min.js`, `b-worker.min.js`, `b-core.js`, `b-core-simd.js`, `ron.traineddata`.
