@@ -69,3 +69,8 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 - **Apăs din nou pe tabul curent** = revin la ecranul lui cu butoane mari.
 - Titlurile sunt unice: „Buget”, „Sănătate” (nu mai sunt trei „Acasă”).
 - Acasă: un singur card „Pe scurt” (tensiune + buget).
+
+## V5.3.0 — Backup unic funcțional
+- **Mai mult → Backup unic**: salvează Buget + Sănătate (cu pozele și documentele din dosar) într-un singur fișier; deschide foaia de partajare a iPhone-ului (Fișiere / iCloud Drive).
+- **Importă backup**: acceptă backup unic sau backup separat de Sănătate / Buget. Arată ce conține, cere confirmare, face instantaneu de siguranță.
+- **Setări Buget** accesibile din Mai mult. Acasă avertizează dacă ultimul backup unic e mai vechi de 14 zile.
