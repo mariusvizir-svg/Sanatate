@@ -51,3 +51,5 @@ iframe.v{opacity:0;transition:opacity .22s ease}iframe.v.on{opacity:1;animation:
 .mt.t1{background:linear-gradient(150deg,#0e7aa0,#0a4f7c)}.mt.t2{background:linear-gradient(150deg,#8a5ae0,#5f37b8)}.mt.t3{background:linear-gradient(150deg,#2bb584,#16805c)}.mt.t4{background:linear-gradient(150deg,#ee9a2c,#c76f0b)}
 .bk{display:flex;align-items:center;gap:12px}.bk .ic{width:42px;height:42px;font-size:20px}
 .mt{width:100%;min-width:0;justify-self:stretch}
+
+#fab{transition:transform .25s,opacity .25s}#fab.sh{transform:translateY(90px) scale(.8);opacity:0;pointer-events:none}

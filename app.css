@@ -239,3 +239,6 @@ html.emb aside,html.emb #burger,html.emb #scrim,html.emb .fab,html.emb header>.b
 .card h2{font-size:17px;letter-spacing:-.2px}
 .noprint .seg.sc{box-shadow:inset 0 0 0 1px var(--ln)}
 .grid .card.kpi:first-child::before{display:none}
+
+html.emb header{position:relative!important;top:0!important}
+html.emb body{padding-bottom:96px}

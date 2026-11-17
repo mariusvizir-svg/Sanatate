@@ -806,6 +806,8 @@ window.AGENDA_EXPORT=async()=>{data.lastBackup=today();await Store.save(data).ca
 window.AGENDA_PEEK=j=>{const v=validate(j);if(v.err)return{err:v.err};const o=v.out;return{n:`${o.patients.length} pacienți, ${o.bp.length} măsurători, ${o.meds.length} medicamente`+((j.__files||[]).length?`, ${j.__files.length} fișiere`:''),bad:v.bad||0}};
 window.AGENDA_IMPORT=async j=>{const v=validate(j);if(v.err)throw new Error(v.err);const o=v.out,files=Array.isArray(j.__files)?j.__files:[];delete o.__files;if(files.length)await Files.importAll(files);await Store.replace(o)};
 
+if(window.parent!==window){let ly=0;addEventListener('scroll',()=>{const y=scrollY;try{parent.postMessage({agenda:'scroll',d:y>ly+4?1:y<ly-4?-1:0,y},'*')}catch(e){}ly=y},{passive:true})}
+
 /* ===== src/spec.js ===== */
 /* Sănătate · Dosar pe specialități: rezumat, secțiuni, PDF, gestionare în Setări */
 const SPDEF=['Cardiologie','Endocrinologie','Gastro / ficat','ORL','Medicină de familie'],SPGEN='General / alte',

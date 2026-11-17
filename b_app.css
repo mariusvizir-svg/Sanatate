@@ -150,3 +150,13 @@ html.emb aside,html.emb #burger,html.emb #scrim,html.emb .fab,html.emb header>.b
 html.emb header #burger{display:none!important}
 @media(max-width:900px){#month{min-width:0;width:150px;font-size:14px;padding:8px 12px}#month::-webkit-calendar-picker-indicator{display:none}}
 
+
+/* ===== V5.6 ===== */
+html.emb header{position:relative!important;top:0!important}
+html.emb body{padding-bottom:96px}
+.rback{display:flex;align-items:center;gap:6px;font:inherit;font-size:14px;color:var(--ac);background:var(--card);border:0;border-radius:999px;padding:10px 16px;margin:0 0 12px;box-shadow:0 4px 14px rgba(10,60,100,.1);cursor:pointer}.rback b{color:var(--tx)}
+.dash .card.kpi{position:relative;overflow:hidden;border:0;box-shadow:0 8px 22px rgba(10,60,100,.09)}
+.dash .card.kpi small{font-weight:650}.dash .card.kpi b{font-size:22px;letter-spacing:-.4px}
+.dash .card.kpi:first-child{background:linear-gradient(150deg,#0e7aa0,#0a4f7c);color:#fff}.dash .card.kpi:first-child small,.dash .card.kpi:first-child b{color:#fff}
+.tb td,.tb th{padding:9px 8px}.tb tr:nth-child(even) td{background:rgba(120,140,170,.07)}
+.tb{width:100%;font-size:13px}.tb td,.tb th{padding:9px 5px}

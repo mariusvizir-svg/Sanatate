@@ -2,7 +2,7 @@
 ICON.hub=ICON.home;
 /* antet: titlu, subtitlu, buton înapoi */
 const _rn=renderNow;renderNow=function(){_rn();const hub=tab==='hub',bk=$('back');if(bk)bk.hidden=hub;const s=$('hsub');if(s)s.textContent=hub?'Bugetul tău pe scurt':mLabel(month);$('title').textContent=hub?'Buget':NAV.find(n=>n[0]===tab)[2]};
-document.addEventListener('click',e=>{if(e.target.closest('#back')){tab='hub';render();scrollTo(0,0);e.stopPropagation()}},true);
+document.addEventListener('click',e=>{if(e.target.closest('#back')){if(tab==='rep'&&rsub!=='hub'){rsub='hub';render();scrollTo(0,0);e.stopPropagation();return}tab='hub';render();scrollTo(0,0);e.stopPropagation()}},true);
 window.AGENDA_HUB=()=>{tab='hub';render()};
 
 /* ---------- API pentru „Agenda Mea” (doar citește) ---------- */
@@ -17,3 +17,14 @@ window.AGENDA_PEEK=j=>{const v=validate(j);if(v.err)return{err:v.err};const o=v.
 window.AGENDA_IMPORT=async j=>{const v=validate(j);if(v.err)throw new Error(v.err);await Store.replace(v.out)};
 
 try{parent!==window&&parent.postMessage({agenda:'ready'},'*')}catch(e){}
+
+/* ---------- V5.6: Rapoarte cu butoane mari, curățenie de zerouri ---------- */
+(()=>{const RN={sum:['blue','chart','Rezumat','Imaginea de ansamblu'],over:['purple','pie','Prezentare','Venituri, cheltuieli, grafice'],bud:['green','target','Bugete','Cât ai folosit din fiecare'],cat:['orange','list','Categorie','Detalii pe categorii'],dbt:['red','bank','Datorii și economii','Rambursări, obiective'],acc:['teal','card','Conturi și tichete','Solduri și carduri'],fc:['slate','cal','Prognoză','Cum se încheie luna'],yr:['blue','chart','An','Lună cu lună']};
+const base=V.rep;let lastTab='';
+V.rep=()=>{if(rsub==='hub'||!RN[rsub]){rsub='hub';return`<div class="hubg">${subs.filter(s=>RN[s[0]]).map(([k])=>bt(`data-rs="${k}"`,RN[k][0],RN[k][1],RN[k][2],RN[k][3])).join('')}</div>`}
+ let h=base().replace(/^<div class="seg sc">.*?<\/div>/,'');
+ h=h.replace(/<tr><td>\d\d<\/td><td>0<\/td><td>0<\/td><td>0<\/td><td class="[^"]*"><b>-?0<\/b><\/td><\/tr>/g,'').replace(/<text[^>]*>0<\/text>/g,'');
+ return`<button class="rback" data-rs="hub">‹ Toate rapoartele · <b>${RN[rsub][2]}</b></button>`+h};
+const rn=renderNow;renderNow=function(){if(tab==='rep'&&lastTab!=='rep')rsub='hub';lastTab=tab;rn()};
+document.addEventListener('click',e=>{const t=e.target.closest('[data-rs]');if(t&&t.tagName==='BUTTON'){rsub=t.dataset.rs;render();scrollTo(0,0)}},true)})();
+if(window.parent!==window){let ly=0;addEventListener('scroll',()=>{const y=scrollY;try{parent.postMessage({agenda:'scroll',d:y>ly+4?1:y<ly-4?-1:0,y},'*')}catch(e){}ly=y},{passive:true})}
