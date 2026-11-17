@@ -37,8 +37,8 @@ const autoCrop=c=>{const W=400/Math.max(c.width,c.height)*c.width,{w,h,g}=gray(c
  const[x0,x1]=span(col,.15,Math.round(w*.22)),row=new Float32Array(h);for(let y=0;y<h;y++)for(let x=x0;x<=x1;x++)row[y]+=e[y*w+x];const[y0,y1]=span(row,.08,Math.round(h*.06)),p=4;
  const r={x0:Math.max(0,x0-p)/w,y0:Math.max(0,y0-p)/h,x1:Math.min(w,x1+p)/w,y1:Math.min(h,y1+p)/h};return(r.x1-r.x0<.2||r.y1-r.y0<.2)?{x0:0,y0:0,x1:1,y1:1}:r};
 // bucata decupată, la o lățime bună pentru citire, în gri cu contrast întins; opțional prag adaptiv (anti-umbre)
-const prep=(c,cr,prag)=>{const sx=Math.round(cr.x0*c.width),sy=Math.round(cr.y0*c.height),sw=Math.max(10,Math.round((cr.x1-cr.x0)*c.width)),sh=Math.max(10,Math.round((cr.y1-cr.y0)*c.height));
- let s=Math.min(2.2,Math.max(.5,1300/sw));if(sh*s>6000)s=6000/sh;const w=Math.round(sw*s),h=Math.round(sh*s),o=document.createElement('canvas');o.width=w;o.height=h;const x=o.getContext('2d',{willReadFrequently:true});x.imageSmoothingQuality='high';x.drawImage(c,sx,sy,sw,sh,0,0,w,h);
+const prep=(c,cr,prag,W)=>{W=W||1300;const sx=Math.round(cr.x0*c.width),sy=Math.round(cr.y0*c.height),sw=Math.max(10,Math.round((cr.x1-cr.x0)*c.width)),sh=Math.max(10,Math.round((cr.y1-cr.y0)*c.height));
+ let s=Math.min(W>1300?3:2.2,Math.max(.5,W/sw));if(sh*s>6000)s=6000/sh;const w=Math.round(sw*s),h=Math.round(sh*s),o=document.createElement('canvas');o.width=w;o.height=h;const x=o.getContext('2d',{willReadFrequently:true});x.imageSmoothingQuality='high';x.drawImage(c,sx,sy,sw,sh,0,0,w,h);
  const im=x.getImageData(0,0,w,h),d=im.data,n=w*h,g=new Float32Array(n),hist=new Uint32Array(256);for(let i=0,j=0;j<n;i+=4,j++){g[j]=(d[i]*299+d[i+1]*587+d[i+2]*114)/1000;hist[g[j]|0]++}
  let a=0,lo=0,hi=255;for(let i=0;i<256;i++){a+=hist[i];if(a>n*.02){lo=i;break}}a=0;for(let i=255;i>=0;i--){a+=hist[i];if(a>n*.02){hi=i;break}}const k=255/Math.max(1,hi-lo);for(let j=0;j<n;j++)g[j]=Math.max(0,Math.min(255,(g[j]-lo)*k));
  if(!prag){for(let j=0;j<n;j++)d[j*4]=d[j*4+1]=d[j*4+2]=g[j]}
@@ -52,6 +52,7 @@ const score=(r,tip)=>tip==='income'?(r.total==null?1e9:0):(r.total==null||!r.pro
 const read=async()=>{S.step='busy';S.pas=.25;S.pasL=.7;prog(.03,'Pregătesc poza…');render();
  try{const w=await getWorker();let r=await w.recognize(prep(S.img,S.crop,false)),t=r.data.text||'',best={t,r:parse(S.tip,t)};
   if(score(best.r,S.tip)>=.5){S.pas=.6;S.pasL=.38;prog(.6,'Mai încerc o dată, cu alt filtru…');r=await w.recognize(prep(S.img,S.crop,true));const t2=r.data.text||'',r2=parse(S.tip,t2);if(score(r2,S.tip)<score(best.r,S.tip))best={t:t2,r:r2}}
+  if(score(best.r,S.tip)>=.5){S.pas=.8;S.pasL=.18;prog(.8,'Încă o încercare, la altă mărime…');for(const pg of [false,true]){r=await w.recognize(prep(S.img,S.crop,pg,1900));const t3=r.data.text||'',r3=parse(S.tip,t3);if(score(r3,S.tip)<score(best.r,S.tip))best={t:t3,r:r3};if(score(best.r,S.tip)<.5)break}}
   fromText(best.t,S.tip,best.r)}
  catch(e){console.error(e);S.step='crop';render();alert(navigator.onLine?'Nu am putut citi bonul: '+(e.message||e):'Prima scanare are nevoie de internet, ca să descarce dicționarul românesc (aprox. 10 MB).')}};
 

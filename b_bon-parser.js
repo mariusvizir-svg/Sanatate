@@ -137,6 +137,7 @@
 
   // Corectează greșeli tipice OCR în zona numerelor: O->0, l/I->1, S->5 lângă cifre, „12 ,98” -> „12,98”
   function curataLinie(l) {
+    l = l.replace(/(\bKG|\bBUC|\bBUC\.|\bL)\s+[AK×]\s+(?=\d)/i, '$1 X ');
     l = l.replace(/[|]/g, ' ').replace(/[“”"„«»]/g, ' ').replace(/\s+/g, ' ').trim();
     l = l.replace(/(\d)\s*([.,])\s*(\d{2})(?!\d)/g, '$1$2$3');
     l = l.replace(/(?<=\d)[Oo](?=[\d.,])|(?<=[\d.,])[Oo](?=\d|\b)/g, '0');
@@ -199,7 +200,7 @@
     for (i = 0; i < Math.min(5, liniiN.length); i++) {
       var l = liniiN[i];
       if (/\d[.,]\d/.test(l)) break;   // am ajuns la produse
-      if (/[A-Z]{3,}/.test(l) && !IGNORA.test(l) && !RE_CANT.test(l) && !RE_SUMA_FINAL.test(l)) return { nume: l.replace(/\b(S\.?R\.?L\.?|S\.?A\.?)\b.*$/, '').trim(), categorie: null };
+      if (/[A-Z]{3,}/.test(l) && !IGNORA.test(l) && !RE_CANT.test(l) && !RE_SUMA_FINAL.test(l)) return { nume: l.replace(/\s+[S$5]\.?\s?[RP]\.?\s?[L1I]\.?\s*$/, '').replace(/\b(S\.?R\.?L\.?|S\.?A\.?)\b.*$/, '').trim(), categorie: null };
     }
     return { nume: '', categorie: null };
   }
@@ -229,6 +230,13 @@
       if (m) {
         var z = +m[1], l = +m[2], a = +m[3];
         if (a < 100) a += 2000;
+        var an0 = new Date().getFullYear();
+        if (a < an0 - 3 || a > an0 + 1) { // cifră de an citită greșit (ex. 2076): încercăm o singură cifră schimbată
+          var fixat = null, sa = String(a);
+          for (var ci = 0; ci < 4 && fixat == null; ci++) for (var cd = 0; cd <= 9; cd++) { var ya = +(sa.slice(0, ci) + cd + sa.slice(ci + 1)); if (ya >= an0 - 1 && ya <= an0 && String(ya) !== sa) { fixat = ya; break; } }
+          if (fixat == null) continue;
+          a = fixat;
+        }
         if (z >= 1 && z <= 31 && l >= 1 && l <= 12 && a >= 2015 && a <= 2100) {
           return a + '-' + (l < 10 ? '0' : '') + l + '-' + (z < 10 ? '0' : '') + z;
         }
@@ -318,6 +326,7 @@
         var dupa = L.slice(L.indexOf(mc[0]) + mc[0].length);
         var md = dupa.match(RE_SUMA_FINAL);
         var total = me ? numar(me[1]) : (md ? numar(md[1]) : rot(c * pu));
+        var totalCitit = (me || md) ? total : null, cCitit = c, puCitit = pu;
         // cantitatea citită greșit (ex. 1.990 în loc de 1.000): o recalculăm din total / preț
         if (pu > 0 && Math.abs(rot(c * pu) - total) > 0.02) {
           var c2 = Math.round(total / pu * 1000) / 1000;
@@ -352,7 +361,7 @@
         }
         if (numeReal(bucataNume)) {
           produse.push({ nume: curataNume(orig.slice(0, orig.toUpperCase().indexOf(mc[0].toUpperCase())) || bucataNume),
-            cantitate: c, pretUnitar: pu, suma: total, um: unitate(mc[2]) });
+            cantitate: c, pretUnitar: pu, suma: total, um: unitate(mc[2]), citit: totalCitit != null ? { c: cCitit, pu: puCitit, a: totalCitit } : null });
           numeAsteptat = null; cantAsteptata = null;
         } else if (numeAsteptat) {
           produse.push({ nume: numeAsteptat, cantitate: c, pretUnitar: pu, suma: total, um: unitate(mc[2]) });
@@ -488,6 +497,57 @@
     var suma0 = rot(produse.reduce(function (s, p) { return s + p.suma; }, 0));
     var total = detecteazaTotal(liniiN, suma0);
     var data = detecteazaData(liniiN);
+    var totalCorectat = false;
+    // cifre citite greșit pe un rând „cantitate x preț = sumă": căutăm o corecție de o singură cifră
+    // (la cantitate sau preț) care face înmulțirea să iasă și suma să se potrivească cu alte fragmente de pe bon
+    produse.forEach(function (p) {
+      if (!p.citit || !(p.citit.c > 0 && p.citit.pu > 0)) return;
+      if (Math.abs(p.citit.c * p.citit.pu - p.citit.a) <= 0.011 && total != null && Math.abs(total - p.suma) <= 0.011) return;
+      var qC = p.citit.c, pC = p.citit.pu, aC = p.citit.a;
+      var cifre = function (n, z) { return n.toFixed(z).replace('.', ''); };
+      var dinCif = function (c, z) { return parseFloat(c.slice(0, c.length - z) + '.' + c.slice(c.length - z)); };
+      var variante = function (n, z) { // n cu 0 sau 1 cifră schimbată
+        var c = cifre(n, z), out = [n];
+        for (var i = 0; i < c.length; i++) for (var d = 0; d <= 9; d++) { if (String(d) === c[i]) continue; out.push(dinCif(c.slice(0, i) + d + c.slice(i + 1), z)); }
+        return out;
+      };
+      // fragmente de sumă din restul bonului, cu o cifră necunoscută (?)
+      var tipare = [];
+      linii.forEach(function (l) {
+        if (/KG|BUC|\bX\b/i.test(l) && /=/.test(l)) return;
+        (l.match(/[0-9A-Za-zăâîșțĂÂÎȘȚ]{1,4}[.,]\d{2}(?!\d)/g) || []).forEach(function (f) {
+          var intp = f.replace(/[.,]\d{2}$/, ''), z = intp.replace(/\d/g, '').length;
+          if (z > 1 || intp.length < 2) return;
+          tipare.push(f.replace(/,/, '.').replace(/[^\d.]/, '?'));
+        });
+      });
+      var Avar = variante(aC, 2).map(function (x) { return { A: x, ch: x !== aC ? 1 : 0, ev: 0 }; });
+      tipare.forEach(function (t) {
+        var cuv = t.indexOf('?') >= 0 ? [0,1,2,3,4,5,6,7,8,9].map(function (d) { return t.replace('?', d); }) : [t];
+        cuv.forEach(function (a) { Avar.push({ A: parseFloat(a), ch: Math.abs(parseFloat(a) - aC) < 0.005 ? 0 : 1, ev: 1 }); });
+      });
+      var gasite = [];
+      variante(qC, 3).forEach(function (q) {
+        variante(pC, 2).forEach(function (pr) {
+          if (!(q > 0 && pr > 0)) return;
+          var chq = q !== qC ? 1 : 0, chp = pr !== pC ? 1 : 0;
+          if (chq && chp) return;
+          var m = rot(q * pr);
+          Avar.forEach(function (x) {
+            if (Math.abs(m - x.A) > 0.011) return;
+            gasite.push({ q: q, pr: pr, A: rot(x.A), ch: chq + chp + x.ch, ev: x.ev, rd: Math.abs(pr - Math.round(pr)) < 1e-9 ? 2 : (Math.abs(pr * 10 - Math.round(pr * 10)) < 1e-9 ? 1 : 0) });
+          });
+        });
+      });
+      if (!gasite.length) return;
+      gasite.sort(function (a, b) { return a.ch - b.ch || b.ev - a.ev || b.rd - a.rd; });
+      var g = gasite[0], alt = gasite.filter(function (x) { return x.A !== g.A && x.ch === g.ch && x.ev === g.ev && x.rd === g.rd; });
+      if (alt.length || g.ch > 2) return; // nesigur
+      if (g.A === aC && g.q === qC && g.pr === pC) return;
+      p.sumaCitita = aC; p.suma = g.A; p.cantitate = g.q; p.pretUnitar = g.pr; p.corectat = true;
+      if (produse.length === 1 && (total == null || Math.abs(total - suma0) >= 0.01)) { total = g.A; totalCorectat = true; }
+      suma0 = rot(produse.reduce(function (s, x) { return s + x.suma; }, 0));
+    });
     // o sumă citită greșit: dacă un singur produs, corectat, face ca bonul să se potrivească, îl corectăm
     if (total != null && Math.abs(total - suma0) >= 0.01) {
       var dif0 = rot(total - suma0);
@@ -497,7 +557,7 @@
       });
       if (cand.length === 1) { cand[0].sumaCitita = cand[0].suma; cand[0].suma = rot(cand[0].suma + dif0); cand[0].corectat = true; if (cand[0].cantitate === 1) cand[0].pretUnitar = cand[0].suma; suma0 = total; }
     }
-    produse.forEach(function (p) { delete p.calc; });
+    produse.forEach(function (p) { delete p.calc; delete p.citit; });
     // un singur produs cu sumă estimată: îl potrivim cu totalul bonului
     var est = produse.filter(function (p) { return p.estimat; });
     if (total != null && est.length === 1) {
@@ -509,7 +569,7 @@
       p.categorie = r.categorie; p.sursa = r.sursa;
     });
     var suma = rot(produse.reduce(function (s, p) { return s + p.suma; }, 0));
-    var totalGasit = total != null;
+    var totalGasit = total != null && (typeof totalCorectat === 'undefined' || true);
     if (total == null && produse.length) total = suma;
     var plata = detecteazaPlata(liniiN);
     return {

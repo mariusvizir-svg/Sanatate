@@ -36,7 +36,7 @@ function more(){const d=lb(),n=days(d),old=!d||n>=14;$('more').innerHTML=`<div c
 <button class="mt t3" data-g="set"><span class="i"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.400-7-10a4 4 0 0 1 7-2.500A4 4 0 0 1 19 10c0 5.600-7 10-7 10z"/></svg></span><span><b>Setări Sănătate</b><small>Parolă, pacienți, .ics</small></span></button>
 <button class="mt t4" data-bg="set"><span class="i"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/></svg></span><span><b>Setări Buget</b><small>Securitate, categorii</small></span></button></div>
 <input type="file" id="impall" accept=".json,application/json" hidden>
-<div class="c ins"><h2>ℹ️ Despre</h2><p>Agenda Mea V5.6.0. Datele rămân pe telefonul tău. La import se face automat un instantaneu de siguranță, deci poți reveni dacă ceva nu e bine.</p></div>`}
+<div class="c ins"><h2>ℹ️ Despre</h2><p>Agenda Mea V5.6.1. Datele rămân pe telefonul tău. La import se face automat un instantaneu de siguranță, deci poți reveni dacă ceva nu e bine.</p></div>`}
 const kindOf=j=>j&&j.__agenda?'all':j&&Array.isArray(j.transactions)?'budget':j&&Array.isArray(j.patients)?'health':null;
 async function backupAll(){try{const h=await fs.contentWindow.AGENDA_EXPORT(),b=await bud.contentWindow.AGENDA_EXPORT(),dd=new Date(),z=x=>String(x).padStart(2,'0'),ds=dd.getFullYear()+'-'+z(dd.getMonth()+1)+'-'+z(dd.getDate()),nm='backup-agenda-mea-'+ds+'.json',txt=JSON.stringify({__agenda:1,created:dd.toISOString(),health:h,budget:b}),file=new File([txt],nm,{type:'application/json'});
  try{if(navigator.canShare&&navigator.canShare({files:[file]}))await navigator.share({files:[file],title:nm});else dl(nm,txt)}catch(e){if(e&&e.name==='AbortError'){toast('Backup anulat');return}dl(nm,txt)}
