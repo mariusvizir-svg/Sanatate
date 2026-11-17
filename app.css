@@ -226,3 +226,6 @@ body.dark .hbt.lt{background:var(--card)}
 .card.apc{border-top:4px solid #ee9a2c}
 .card.apc .row{align-items:center}
 details.card>summary{cursor:pointer;padding:2px 0}
+
+/* în Agenda Mea: fără meniu lateral și fără ＋ propriu (există unul comun) */
+html.emb aside,html.emb #burger,html.emb #scrim,html.emb .fab,html.emb header>.btn{display:none!important}

@@ -62,3 +62,10 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 
 ## V5.1.2
 - Fix pentru iPhone: iframe-urile ascunse (Sănătate, Buget) nu se mai pornesc cu `display:none`, ci rămân încărcate în fundal, ca ecranul Acasă să le citească imediat, fără să deschizi mai întâi tabul.
+
+## V5.2.0 — navigare uniformă
+- **Buget** are acum același stil ca Sănătate: antet albastru, buton înapoi, butoane mari (Scanează bon, Cheltuială, Istoric, Rapoarte, Planificare, Economii, Situația lunii, Persoane, Datorii, Carduri, Setări). Fără meniu lateral.
+- **Un singur ＋** pentru toată aplicația (Scanează bon, Cheltuială, Măsoară tensiune, Am luat pastila, Programare). Dispar ＋ propriu din Buget și Sănătate și rândul de butoane mici de pe Acasă.
+- **Apăs din nou pe tabul curent** = revin la ecranul lui cu butoane mari.
+- Titlurile sunt unice: „Buget”, „Sănătate” (nu mai sunt trei „Acasă”).
+- Acasă: un singur card „Pe scurt” (tensiune + buget).
