@@ -796,7 +796,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-ap],[data-
 window.AGENDA_API=()=>{try{if(typeof data==='undefined'||!data)return{ready:false,why:'loading'};if(!P())return{ready:false,why:'noprofile'};const t=today(),sl=slotsOn(pid,t).map(s=>({name:s.m.name,dose:s.m.dose||'',time:s.t,st:state(s)})).filter(s=>s.st==='due'||s.st==='miss'||s.st==='up'),a=pbp(pid),last=a.slice(-1)[0],ws=bpStats(pbp(pid,addD(t,-6),t),pid),w0=bpStats(pbp(pid,addD(t,-13),addD(t,-7)),pid),od=data.appts.filter(x=>x.pid===pid&&!x.done&&x.date<t).length;
  return{ready:true,name:P().first||(pname(P())||'').split(' ')[0],pills:sl,up:upcoming(pid).filter(u=>dleft(u.date)<=30).map(u=>({title:u.title,sub:u.sub,date:u.date,time:u.time,n:dleft(u.date)})),od,
   bp:last?{sys:last.sys,dia:last.dia,pulse:last.pulse,date:last.date,time:last.time,cat:catOf(last.sys,last.dia).n,ago:ago(last.date,last.time)}:null,
-  w:ws.n?{sys:r0(ws.sys),dia:r0(ws.dia),n:ws.n}:null,w0:w0.n?{sys:r0(w0.sys),dia:r0(w0.dia),n:w0.n}:null}}catch(e){return{ready:false,err:String(e&&e.message||e)}}};
+  bp7:a.slice(-7).map(x=>({sys:x.sys,dia:x.dia,date:x.date})),w:ws.n?{sys:r0(ws.sys),dia:r0(ws.dia),n:ws.n}:null,w0:w0.n?{sys:r0(w0.sys),dia:r0(w0.dia),n:w0.n}:null}}catch(e){return{ready:false,err:String(e&&e.message||e)}}};
 if(window.parent!==window){document.documentElement.classList.add('emb');}
 window.AGENDA_GO=k=>{if(!P())return;hubs.add=hubs.dosar=hubs.rep=hubs.life=0;
  if(k==='bp'){tab='add'}else if(k==='pills'){tab='meds'}else if(k==='prog'){tab='dosar';dosTab='prog'}else if(k==='home'){tab='home'}else if(k==='set'){tab='set'}else if(k==='newappt'){tab='dosar';dosTab='prog';render();apptForm(null);return}else if(k==='dosar'){tab='dosar';hubs.dosar=1}
