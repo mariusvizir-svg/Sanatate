@@ -11,7 +11,7 @@
     try {
       var t = get(), r = (doc || document).documentElement, st = r.style;
       st.setProperty('--a2', t.c); st.setProperty('--a1', mix(t.c, [255, 255, 255], .22)); st.setProperty('--a3', mix(t.c, [0, 0, 0], .38));
-      st.setProperty('--ac', mix(t.c, [0, 0, 0], .12)); st.setProperty('--th', SZ[t.s] + 'px');
+      var dk = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches && !(doc || document).documentElement.classList.contains('emb'); st.setProperty('--ac', dk ? mix(t.c, [255, 255, 255], .4) : mix(t.c, [0, 0, 0], .12)); st.setProperty('--th', SZ[t.s] + 'px'); r.setAttribute('data-sz', t.s);
       var m = (doc || document).querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', mix(t.c, [0, 0, 0], .38));
     } catch (e) { }
   }
@@ -23,5 +23,6 @@
   }
   window.AMTheme = { get: get, set: set, apply: apply, presets: PRE };
   apply(document);
+  if (window.matchMedia) { try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { apply(document); }); } catch (e) { } }
   addEventListener('storage', function (e) { if (e.key === K) apply(document); });
 })();

@@ -57,3 +57,8 @@ iframe.v{opacity:0;transition:opacity .22s ease}iframe.v.on{opacity:1;animation:
 .sw{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.swb{position:relative;height:54px;border:3px solid transparent;border-radius:18px;color:#fff;font:inherit;font-size:11.5px;font-weight:650;cursor:pointer;display:grid;place-items:end center;padding-bottom:6px;box-shadow:0 4px 12px rgba(0,0,0,.15)}.swb.on{border-color:var(--tx);box-shadow:0 0 0 2px var(--card) inset}
 .swb input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}.swb span{text-shadow:0 1px 3px rgba(0,0,0,.45)}
 .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--bg);padding:4px;border-radius:14px}.sg button{border:0;background:none;color:var(--mu);font:inherit;font-weight:650;padding:9px;border-radius:11px;cursor:pointer}.sg button.on{background:var(--card);color:var(--ac);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.sg button.on{background:var(--a2,#0a4f7c);color:#fff}
+
+html[data-sz=mici] .mt{min-height:0;padding:10px 12px;gap:6px;border-radius:17px}html[data-sz=mici] .mt .i{width:30px;height:30px;border-radius:10px}html[data-sz=mici] .mt svg{width:18px;height:18px}html[data-sz=mici] .mt b{font-size:13.5px}html[data-sz=mici] .mt small{font-size:10.8px}html[data-sz=mici] .mg{gap:8px}
+html[data-sz=mici] .m{padding:11px 13px;border-radius:18px}html[data-sz=mici] .m b{font-size:24px}html[data-sz=mici] .q button{padding:9px 4px;font-size:12px}
+html[data-sz=mari] .mt{min-height:150px;padding:16px}
