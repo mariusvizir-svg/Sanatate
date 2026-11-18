@@ -77,3 +77,8 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 
 ## V5.8.0
 - Acasă nu mai rămâne blocat pe „Se încarcă Sănătatea…” la redeschidere: aplicațiile din interior anunță când sunt gata, iar Acasă reîncearcă la fiecare 0,6 s (în loc să aștepte 20 s). Cardul Buget se arată imediat ce Bugetul e gata, chiar dacă Sănătatea încă se încarcă.
+
+## V6.0.0
+- Sănătate: card „Medicul meu de familie” (Sună, E-mail, Navighează, Programare), program cabinet și e-mail în Contacte.
+- Programări: telefon, cost, plată (CNAS/Privat/Parțial), trimitere, pregătire, rezultat, notă, repetare automată (1/3/6/12 luni).
+- Dosar: ecran „Tipărește / Exportă” cu filtre pe specialități, perioadă și secțiuni; PDF generat pe telefon.

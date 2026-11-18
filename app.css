@@ -261,3 +261,9 @@ html[data-sz=mici] .hubg{gap:8px;margin-bottom:10px}
 html[data-sz=mici] .tile{min-height:64px;padding:8px 4px;border-radius:17px;font-size:12px;gap:2px}html[data-sz=mici] .tile svg{width:20px;height:20px}
 html[data-sz=mari] .hbt{padding:15px;min-height:140px;border-radius:26px}html[data-sz=mari] .hbt .hic{width:52px;height:52px}html[data-sz=mari] .hbt b{font-size:18px}html[data-sz=mari] .hbt.w,html[data-sz=mari] .hbt.lt{min-height:0}
 html[data-sz=mari] .tile{min-height:120px}
+/* ===== V6.0: medic de familie, export dosar ===== */
+.famc .famh{display:flex;gap:12px;align-items:center}.famc .av{width:50px;height:50px;border-radius:17px;display:grid;place-items:center;font-size:24px;background:linear-gradient(150deg,var(--a1,#0e7aa0),var(--a2,#0a4f7c))}
+.famb{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.famb .btn{text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.exg{display:flex;flex-wrap:wrap;gap:8px}.exc{border:0;border-radius:999px;padding:9px 14px;font:inherit;font-size:13px;font-weight:650;background:var(--bg);color:var(--mu);cursor:pointer;box-shadow:inset 0 0 0 1px var(--ln)}.exc.on{background:var(--a2,#0a4f7c);color:#fff;box-shadow:none}
+.exd{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.exd label{font-size:12px;color:var(--mu);display:flex;flex-direction:column;gap:4px}.exd input{font:inherit;padding:10px;border-radius:12px;border:1px solid var(--ln);background:var(--card);color:var(--tx)}
+.card.exp{position:sticky;bottom:96px;box-shadow:0 12px 30px rgba(10,60,100,.18)}
