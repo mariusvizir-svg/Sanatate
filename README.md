@@ -88,3 +88,6 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 
 ## V6.2.0
 - Meniu lateral (limba din stânga / glisare de la margine): Buget, Sănătate, submeniuri, acces direct la rapoarte, programări, export dosar.
+
+## V6.3.0
+- Sănătate Acasă: scor de sănătate (inel), carduri Tensiune/Tratament, cronologie recentă. Buget hub: Disponibil mare, conturi, obiective cu inel, donut pe categorii, ultimele 6 luni.

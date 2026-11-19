@@ -184,3 +184,12 @@ html[data-sz=mari] .tile{min-height:120px}
 .rr{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;border:0;background:none;color:var(--tx);font:inherit;text-align:left;padding:11px 0;cursor:pointer;border-bottom:1px solid var(--ln)}.rr:last-child{border-bottom:0}.rr small{display:block;color:var(--mu);font-size:12px;margin-top:2px}.rr .rv{text-align:right;flex:none}
 .card.rb{padding:2px 14px}.card.rb .rr{border-bottom:0}.rit{padding:0 0 10px;border-top:1px solid var(--ln)}.rl{padding:2px 14px}
 .rch{width:100%;height:auto;max-width:560px;display:block;margin:8px auto 4px}.rcp{padding:8px 0;border-bottom:1px solid var(--ln)}.rcp:last-child{border:0}
+
+/* V6.3 hub buget */
+.hz .hbig{font-size:36px;font-weight:800;letter-spacing:-.02em;margin:2px 0 4px}.hz .hsm{display:flex;gap:16px;font-size:13px;font-weight:700;margin-bottom:6px}.hz .bar{margin:8px 0 6px}
+.acs{display:flex;gap:10px;overflow-x:auto;margin:12px 14px 0;padding-bottom:4px;scrollbar-width:none}.acs::-webkit-scrollbar{display:none}.acs>div{flex:0 0 150px;height:92px;border-radius:18px;padding:13px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 6px 16px rgba(0,0,0,.15)}.acs span{font-size:12px;opacity:.92}.acs b{font-size:18px}.ac1{background:linear-gradient(150deg,var(--a1,#0e7aa0),var(--a3,#0a4f7c))}.ac2{background:linear-gradient(150deg,#2bb584,#16805c)}.ac3{background:linear-gradient(150deg,#f5a524,#c26d0a)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.gl{border:0;font:inherit;color:var(--tx);text-align:center;padding:10px 4px;border-radius:16px;background:rgba(128,128,128,.09);cursor:pointer;min-width:0}.gl .bgr{margin:0 auto 6px}.gt{display:block;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gl .mu{font-size:10.5px}
+.bgr{position:relative}.bgr svg{transform:rotate(-90deg);display:block}.bgr>div{position:absolute;inset:0;display:grid;place-items:center}.bgr b{font-size:13px}
+.dn{display:flex;gap:16px;align-items:center;margin-top:10px}.dl{flex:1}.dl div{display:flex;justify-content:space-between;font-size:13px;margin:6px 0}.dl u{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;text-decoration:none}.tr6{width:100%;margin-top:8px;display:block}
+.hz{text-align:left}.hz .hbig{font-size:36px!important;color:var(--tx)}.hc>h2{display:flex!important;justify-content:space-between;align-items:center;text-align:left!important}
+.acs{margin:12px 0 0!important}
