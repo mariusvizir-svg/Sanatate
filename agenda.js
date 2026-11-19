@@ -49,9 +49,9 @@ function more(){const d=lb(),n=days(d),old=!d||n>=14;$('more').innerHTML=`<div c
 <button class="mt t4" data-bg="set"><span class="i"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/></svg></span><span><b>Setări Buget</b><small>Securitate, categorii</small></span></button></div>
 <div class="c"><h2>🎨 Aspect</h2><p class="mu" style="margin:4px 0 10px">Alege tema și culoarea. Se aplică în toată aplicația.</p>
 <div class="sw">${AMTheme.presets.map(p=>`<button class="swb${AMTheme.get().c.toLowerCase()===p[1]?' on':''}" data-tc="${p[1]}" style="background:linear-gradient(150deg,${p[1]},#000a)" aria-label="${p[0]}"><span>${p[0]}</span></button>`).join('')}<label class="swb cu" style="background:conic-gradient(#e0516a,#ee9a2c,#2bb584,#0e7aa0,#8a5ae0,#e0516a)"><input type="color" id="tcc" value="${AMTheme.get().c}"><span>Alta</span></label></div>
-<p class="mu" style="margin:12px 0 6px">Mărimea butoanelor</p><div class="sg">${[['mari','Mari'],['normale','Normale'],['mici','Mici']].map(s=>`<button data-ts="${s[0]}" class="${AMTheme.get().s===s[0]?'on':''}">${s[1]}</button>`).join('')}</div><p class="mu" id="szd" style="margin-top:8px;font-size:11px"></p></div>
+<p class="mu" style="margin:12px 0 6px">Aspect</p><div class="sg" style="grid-template-columns:1fr 1fr">${[['light','☀️ Luminos'],['dark','🌙 Întunecat']].map(s=>`<button data-tm="${s[0]}" class="${AMTheme.get().m===s[0]?'on':''}">${s[1]}</button>`).join('')}</div><p class="mu" style="margin:12px 0 6px">Mărimea butoanelor</p><div class="sg">${[['mari','Mari'],['normale','Normale'],['mici','Mici']].map(s=>`<button data-ts="${s[0]}" class="${AMTheme.get().s===s[0]?'on':''}">${s[1]}</button>`).join('')}</div><p class="mu" id="szd" style="margin-top:8px;font-size:11px"></p></div>
 <input type="file" id="impall" accept=".json,application/json" hidden>
-<div class="c ins"><h2>ℹ️ Despre</h2><p>Agenda Mea V6.0.0. Datele rămân pe telefonul tău. La import se face automat un instantaneu de siguranță, deci poți reveni dacă ceva nu e bine.</p></div>`;szd()}
+<div class="c ins"><h2>ℹ️ Despre</h2><p>Agenda Mea V6.2.0. Datele rămân pe telefonul tău. La import se face automat un instantaneu de siguranță, deci poți reveni dacă ceva nu e bine.</p></div>`;szd()}
 const szd=()=>{const e=$('szd');if(!e)return;const g=f=>{try{return f.contentDocument.documentElement.dataset.sz||'—'}catch(x){return'?'}};e.textContent='Aplicat: Acasă '+(document.documentElement.dataset.sz||'—')+' · Sănătate '+g(fs)+' · Buget '+g(bud)};
 const kindOf=j=>j&&j.__agenda?'all':j&&Array.isArray(j.transactions)?'budget':j&&Array.isArray(j.patients)?'health':null;
 async function backupAll(){try{const h=await fs.contentWindow.AGENDA_EXPORT(),b=await bud.contentWindow.AGENDA_EXPORT(),dd=new Date(),z=x=>String(x).padStart(2,'0'),ds=dd.getFullYear()+'-'+z(dd.getMonth()+1)+'-'+z(dd.getDate()),nm='backup-agenda-mea-'+ds+'.json',txt=JSON.stringify({__agenda:1,created:dd.toISOString(),health:h,budget:b}),file=new File([txt],nm,{type:'application/json'});
@@ -76,9 +76,31 @@ let tries=0;(function retry(){if(cur==='home'&&!document.hidden&&(!api().ready||
 window.addEventListener('message',e=>{if(e.data&&e.data.agenda==='scroll'){const f=$('fab');if(f&&e.data.d)f.classList.toggle('sh',e.data.d>0&&e.data.y>60)}if(e.data&&e.data.agenda==='ready'&&cur==='home')home()});
 setInterval(()=>{if(cur==='home'&&!document.hidden)home()},20000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){tries=0;if(cur==='home')home()}});
-fs.src='sanatate.html?v=6.0.0';bud.src='buget.html?v=6.0.0';show('home');
-document.addEventListener('click',e=>{const a=e.target.closest('[data-tc]'),b=e.target.closest('[data-ts]');if(a){AMTheme.set({c:a.dataset.tc});more()}else if(b){AMTheme.set({s:b.dataset.ts});more();szd()}});
-document.addEventListener('click',e=>{const n=e.target.closest('[data-nv]');if(!n)return;const v=n.dataset.nv,k=v.slice(2);if(v[0]==='b'){bgo(k);show('budget')}else{go(k);show('health')}});
+fs.src='sanatate.html?v=6.2.0';bud.src='buget.html?v=6.2.0';show('home');
+document.addEventListener('click',e=>{const a=e.target.closest('[data-tc]'),b=e.target.closest('[data-ts]'),m=e.target.closest('[data-tm]');if(m){AMTheme.set({m:m.dataset.tm});more()}else if(a){AMTheme.set({c:a.dataset.tc});more()}else if(b){AMTheme.set({s:b.dataset.ts});more();szd()}});
+document.addEventListener('click',e=>{const n=e.target.closest('[data-nv]');if(!n)return;const v=n.dataset.nv,k=v.slice(2);if(v==='home'){show('home');return}if(v[0]==='b'){bgo(k);show('budget')}else{go(k);show('health')}});
 document.addEventListener('input',e=>{if(e.target.id==='tcc')AMTheme.set({c:e.target.value})});
 document.addEventListener('change',e=>{if(e.target.id==='tcc')more()});
+})();
+
+/* ---- meniu lateral (V6.2) ---- */
+(function(){
+const CH='<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>';
+const M=[['ACASĂ',[['Acasă','home',0,'🏠']]],
+['BUGET',[['Scanează bon','b:scan',0,'📷'],['Cheltuială nouă','b:add',0,'➕'],['Istoric','b:hist',0,'🕘'],['Rapoarte','b:rep:hub',[['Bonuri scanate','b:rep:bons'],['Produse','b:rep:prod'],['Furnizori','b:rep:furn'],['Prețuri','b:rep:pret'],['Pe zile','b:rep:zile'],['Top cheltuieli','b:rep:top']],'📊'],['Planificare','b:plan',0,'🗓️'],['Datorii și persoane','b:debt',[['Datorii','b:debt'],['Persoane','b:pers'],['Obiective','b:goal']],'🤝'],['Setări Buget','b:set',0,'⚙️']]],
+['SĂNĂTATE',[['Tensiune','h:bp',0,'❤️'],['Pastile','h:pills',0,'💊'],['Programări','h:prog',[['Toate programările','h:prog'],['Programare nouă','h:newappt']],'📅'],['Dosar medical','h:dosar',[['Dosar și specialități','h:dosar'],['Tipărește / Exportă','h:exp']],'📁'],['Setări Sănătate','h:set',0,'⚙️']]]];
+let open=null;
+function build(){const el=document.getElementById('dr');if(!el)return;
+ el.innerHTML='<div class="drh"><span class="drl">A</span><div><b>Agenda Mea</b><small>MENIU</small></div><button class="drx" aria-label="Închide">✕</button></div><div class="drs">'+M.map(g=>'<div class="drt">'+g[0]+'</div>'+g[1].map((it,i)=>{const id=g[0]+i,sub=it[2],o=open===id;return '<div class="drg'+(o?' o':'')+'"><button class="dri" '+(sub?'data-dg="'+id+'"':'data-nv="'+it[1]+'" data-dc="1"')+'><i></i><span class="dre">'+it[3]+'</span><b>'+it[0]+'</b>'+(sub?'<em>'+CH+'</em>':'')+'</button>'+(sub?'<div class="dsub"><div>'+sub.map(s=>'<button data-nv="'+s[1]+'" data-dc="1"><u></u>'+s[0]+'</button>').join('')+'</div></div>':'')+'</div>'}).join('')).join('')+'</div>'}
+function op(){const d=document.getElementById('dr');build();d.classList.add('on');document.getElementById('drb').classList.add('on')}
+function cl(){const d=document.getElementById('dr');if(d){d.classList.remove('on');document.getElementById('drb').classList.remove('on')}}
+window.AMMenu={open:op,close:cl};
+document.addEventListener('click',e=>{const t=e.target;if(t.closest('[data-menu]')){op();return}
+ if(t.closest('.drx')||t.id==='drb'){cl();return}
+ const g=t.closest('[data-dg]');if(g){open=open===g.dataset.dg?null:g.dataset.dg;build();return}
+ const n=t.closest('#dr [data-nv]');if(n){const v=n.dataset.nv;cl();if(v==='home'){show('home')}}});
+let x0=null,y0=0;
+document.addEventListener('touchstart',e=>{const p=e.touches[0];x0=p.clientX<18?p.clientX:null;y0=p.clientY},{passive:true});
+document.addEventListener('touchmove',e=>{if(x0==null)return;const p=e.touches[0];if(p.clientX-x0>50&&Math.abs(p.clientY-y0)<40){x0=null;op()}},{passive:true});
+document.addEventListener('DOMContentLoaded',()=>{});
 })();

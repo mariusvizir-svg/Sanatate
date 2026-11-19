@@ -82,3 +82,9 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 - Sănătate: card „Medicul meu de familie” (Sună, E-mail, Navighează, Programare), program cabinet și e-mail în Contacte.
 - Programări: telefon, cost, plată (CNAS/Privat/Parțial), trimitere, pregătire, rezultat, notă, repetare automată (1/3/6/12 luni).
 - Dosar: ecran „Tipărește / Exportă” cu filtre pe specialități, perioadă și secțiuni; PDF generat pe telefon.
+
+## V6.1.0
+- Setări → Aspect: mod Luminos / Întunecat (carduri sticlă, accent la alegere, în toată aplicația).
+
+## V6.2.0
+- Meniu lateral (limba din stânga / glisare de la margine): Buget, Sănătate, submeniuri, acces direct la rapoarte, programări, export dosar.

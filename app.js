@@ -800,7 +800,7 @@ window.AGENDA_API=()=>{try{if(typeof data==='undefined'||!data)return{ready:fals
   bp7:a.slice(-7).map(x=>({sys:x.sys,dia:x.dia,date:x.date})),w:ws.n?{sys:r0(ws.sys),dia:r0(ws.dia),n:ws.n}:null,w0:w0.n?{sys:r0(w0.sys),dia:r0(w0.dia),n:w0.n}:null}}catch(e){return{ready:false,err:String(e&&e.message||e)}}};
 if(window.parent!==window){document.documentElement.classList.add('emb');}
 window.AGENDA_GO=k=>{if(!P())return;hubs.add=hubs.dosar=hubs.rep=hubs.life=0;
- if(k==='bp'){tab='add'}else if(k==='pills'){tab='meds'}else if(k==='prog'){tab='dosar';dosTab='prog'}else if(k==='home'){tab='home'}else if(k==='set'){tab='set'}else if(k==='newappt'){tab='dosar';dosTab='prog';render();apptForm(null);return}else if(k==='dosar'){tab='dosar';hubs.dosar=1}
+ if(k==='bp'){tab='add'}else if(k==='pills'){tab='meds'}else if(k==='prog'){tab='dosar';dosTab='prog'}else if(k==='exp'){tab='dosar';dosTab='exp'}else if(k==='home'){tab='home'}else if(k==='set'){tab='set'}else if(k==='newappt'){tab='dosar';dosTab='prog';render();apptForm(null);return}else if(k==='dosar'){tab='dosar';hubs.dosar=1}
  render()};
 /* ---- backup unic ---- */
 window.AGENDA_EXPORT=async()=>{data.lastBackup=today();await Store.save(data).catch(()=>{});return{...data,__files:await Files.exportAll()}};
