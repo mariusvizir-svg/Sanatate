@@ -100,3 +100,6 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 
 ## V6.5.0
 - Scanare bon: orientare automată (bon întors cu capul în jos / pe o parte), nume produs din rândul următor când se citește zgomot. Meniul lateral din stânga a fost scos.
+
+## V6.5.1
+- Butonul + arată doar acțiunile ecranului curent (Buget: bon, cheltuială; Sănătate: tensiune, pastilă, programare).
