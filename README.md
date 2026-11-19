@@ -97,3 +97,6 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 
 ## V6.4.1
 - Fix: butonul + → Scanează bon nu mai duce în ecranul principal; bon cu „N BUC x preț” sub produs și rânduri TURA/DOC; mai puțină încărcare grafică (blur, puls).
+
+## V6.5.0
+- Scanare bon: orientare automată (bon întors cu capul în jos / pe o parte), nume produs din rândul următor când se citește zgomot. Meniul lateral din stânga a fost scos.

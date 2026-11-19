@@ -274,6 +274,7 @@
 
   // ---------- Produse ----------
   function curataNume(n) {
+    n = String(n).replace(/\s+\d+\s*QTY\b.*$/i, '');
     n = String(n).replace(/^[^A-Za-zĂÂÎȘȚăâîșț]+/, '');
     var t = n.split(/\s+/), k = 0;
     while (k < t.length - 1 && !(/^[A-Za-zĂÂÎȘȚăâîșț]{3,}/.test(t[k]) || /^[A-ZĂÂÎȘȚ]{2}$/.test(t[k]) && /^[A-ZĂÂÎȘȚ]{3,}/.test(t[k + 1] || ''))) k++;
@@ -414,6 +415,10 @@
         continue;
       }
 
+      // numele produsului anterior s-a citit ca zgomot, iar linia aceasta are un nume real fără sumă
+      if (!cantAsteptata && produse.length && !/[A-Za-zĂÂÎȘȚăâîșț]{4,}/.test(produse[produse.length - 1].nume || '') && numeReal(L) && !IGNORA.test(L) && /[A-ZĂÂÎȘȚ]{4,}/.test(orig)) {
+        produse[produse.length - 1].nume = curataNume(orig); produse[produse.length - 1].categorie = undefined; continue;
+      }
       // linie doar cu text: dacă avem deja cantitate × preț deasupra, e produsul (suma s-a pierdut la citire)
       if (cantAsteptata && numeReal(L) && !IGNORA.test(L)) {
         produse.push({ nume: curataNume(orig), cantitate: cantAsteptata.c, pretUnitar: cantAsteptata.pu,

@@ -49,8 +49,13 @@ const prep=(c,cr,prag,W)=>{W=W||1300;const sx=Math.round(cr.x0*c.width),sy=Math.
 /* ---------- citire ---------- */
 const parse=(tip,t)=>tip==='income'?P.citesteVenit(t):P.citesteBon(t,{invatare:{}});
 const score=(r,tip)=>tip==='income'?(r.total==null?1e9:0):(r.total==null||!r.produse.length?1e8-r.produse.length:Math.abs(r.diferenta)*100-r.produse.length*.01);
+// orientare automată: bonul poate fi fotografiat cu capul în jos sau pe o parte
+const okWords=r=>{const t=(r.data&&r.data.text)||'',cf=(r.data&&r.data.confidence)||0,w=(t.match(/[A-Za-zĂÂÎȘȚăâîșț]{4,}/g)||[]).length,d=(t.match(/\b\d+[.,]\d{2}\b/g)||[]).length;return Math.round((w+d*1.5)*Math.max(0,cf-30)/40)};
+const orient=async w=>{try{prog(.05,'Verific cum e ținut bonul…');let c=prep(S.img,S.crop,false,760),m0=okWords(await w.recognize(c));if(m0>=14)return;let best=0,bm=m0,cc=c;
+ for(let k=1;k<=3;k++){cc=rotate(cc);const m=okWords(await w.recognize(cc));if(m>bm*1.4+2){bm=m;best=k}if(k===2&&bm>=14)break}
+ if(best){for(let i=0;i<best;i++)S.img=rotate(S.img);S.crop=autoCrop(S.img)}}catch(e){console.warn('orient',e)}};
 const read=async()=>{S.step='busy';S.pas=.25;S.pasL=.7;prog(.03,'Pregătesc poza…');render();
- try{const w=await getWorker();let r=await w.recognize(prep(S.img,S.crop,false)),t=r.data.text||'',best={t,r:parse(S.tip,t)};
+ try{const w=await getWorker();await orient(w);let r=await w.recognize(prep(S.img,S.crop,false)),t=r.data.text||'',best={t,r:parse(S.tip,t)};
   if(score(best.r,S.tip)>=.5){S.pas=.6;S.pasL=.38;prog(.6,'Mai încerc o dată, cu alt filtru…');r=await w.recognize(prep(S.img,S.crop,true));const t2=r.data.text||'',r2=parse(S.tip,t2);if(score(r2,S.tip)<score(best.r,S.tip))best={t:t2,r:r2}}
   if(score(best.r,S.tip)>=.5){S.pas=.8;S.pasL=.18;prog(.8,'Încă o încercare, la altă mărime…');for(const pg of [false,true]){r=await w.recognize(prep(S.img,S.crop,pg,1900));const t3=r.data.text||'',r3=parse(S.tip,t3);if(score(r3,S.tip)<score(best.r,S.tip))best={t:t3,r:r3};if(score(best.r,S.tip)<.5)break}}
   fromText(best.t,S.tip,best.r)}
