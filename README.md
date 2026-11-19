@@ -91,3 +91,9 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 
 ## V6.3.0
 - Sănătate Acasă: scor de sănătate (inel), carduri Tensiune/Tratament, cronologie recentă. Buget hub: Disponibil mare, conturi, obiective cu inel, donut pe categorii, ultimele 6 luni.
+
+## V6.4.0
+- Animații comune (fx.js): numere care urcă, inele/bare/grafice care se desenează, intrare în cascadă, ondulație la atingere, FAB pulsatoriu; respectă „reduce motion”.
+
+## V6.4.1
+- Fix: butonul + → Scanează bon nu mai duce în ecranul principal; bon cu „N BUC x preț” sub produs și rânduri TURA/DOC; mai puțină încărcare grafică (blur, puls).

@@ -193,3 +193,4 @@ html[data-sz=mari] .tile{min-height:120px}
 .dn{display:flex;gap:16px;align-items:center;margin-top:10px}.dl{flex:1}.dl div{display:flex;justify-content:space-between;font-size:13px;margin:6px 0}.dl u{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;text-decoration:none}.tr6{width:100%;margin-top:8px;display:block}
 .hz{text-align:left}.hz .hbig{font-size:36px!important;color:var(--tx)}.hc>h2{display:flex!important;justify-content:space-between;align-items:center;text-align:left!important}
 .acs{margin:12px 0 0!important}
+html.emb header{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}

@@ -164,7 +164,7 @@
   var RE_DATA = /(\d{2})[.\/-](\d{2})[.\/-](\d{4}|\d{2})(?!\d)/;
 
   var STOP_PRODUSE = /^(SUB ?TOTAL|TOTAL|TOTA1|T0TAL|DE PLATA|PLATA|NUMERAR|CARD|REST|TVA|BAZA|COTA|ACHITAT|PUNCTE|ART(ICOLE)?\b|NR\.? ?ART)/;
-  var IGNORA = /(\bMUN\.|\bMN\.|\bJUD\b|\bJUD\.|\bSECTOR\b|\bORAS\b|\bCOM\.|\bSOS\.|SOSEAUA|CALEA |COD (DE )?IDENTIFICARE|\bC\.?I\.?F\b|\bCUI\b|\bC\.U\.I|NR\.? ?REG|\bJ\d\d\/|^STR\.? |\bSTR\. |STRADA|\bJUD\.|JUDETUL|^BD\.? |BULEVARD|\bLOC\. |\bTEL\.?[: ]+\d|WWW\.|HTTP|^LEI$|^RON$|CASIER|\bCASA\s*\d|OPERATOR|BON FISCAL|\bBF[: ]|\bZ[: ]\s*\d|ID UNIC|NR\.? ?BON|\bORA[: ]|\bDATA[: ]|MULTUMIM|LA REVEDERE|\bPOS\b|TERMINAL|AUTORIZAT|APROBAT|MASTERCARD|\bVISA\b|CONTACTLESS|\bSERIA?\b|FISCAL)/;
+  var IGNORA = /(\bMUN\.|\bMN\.|\bJUD\b|\bJUD\.|\bSECTOR\b|\bORAS\b|\bCOM\.|\bSOS\.|SOSEAUA|CALEA |COD (DE )?IDENTIFICARE|\bC\.?I\.?F\b|\bCUI\b|\bC\.U\.I|NR\.? ?REG|\bJ\d\d\/|^STR\.? |\bSTR\. |STRADA|\bJUD\.|JUDETUL|^BD\.? |BULEVARD|\bLOC\. |\bTEL\.?[: ]+\d|WWW\.|HTTP|^LEI$|^RON$|CASIER|^TURA\b|\bTURA\s*[:.]|^DOC\s*[:.]|AMEF|\bS\/N\b|^TD\s*[:.]|\bCASA\s*\d|OPERATOR|BON FISCAL|\bBF[: ]|\bZ[: ]\s*\d|ID UNIC|NR\.? ?BON|\bORA[: ]|\bDATA[: ]|MULTUMIM|LA REVEDERE|\bPOS\b|TERMINAL|AUTORIZAT|APROBAT|MASTERCARD|\bVISA\b|CONTACTLESS|\bSERIA?\b|FISCAL)/;
   var REDUCERE = /(REDUCERE|DISCOUNT|DISC\.?|PROMO|LIDL PLUS|CUPON|VOUCHER|ANULARE|STORNO|REDUCERI|ECONOMISIT|BONUS)/;
   var SGR = /(SGR|GARANTIE|GARANTIA|AMBALAJ|RETUR)/;
 
@@ -343,7 +343,7 @@
           // sau formatul invers: produsul cu suma deasupra, „2 x 6,49” dedesubt
           var pv = produse[produse.length - 1];
           numeAsteptat = null;
-          if (pv && !pv.cantitateSetata && pv.cantitate === 1 && c !== 1 && Math.abs(pv.suma - rot(c * pu)) < 0.02) {
+          if (pv && !pv.cantitateSetata && pv.cantitate === 1 && c !== 1 && Math.abs(pv.suma - rot(c * pu)) <= Math.max(0.02, c * 0.0051)) {
             pv.cantitate = c; pv.pretUnitar = pu; pv.um = unitate(mc[2]); pv.cantitateSetata = true;
             cantAsteptata = null;
             continue;
@@ -369,7 +369,7 @@
         } else if (produse.length && !produse[produse.length - 1].cantitateSetata && /^\s*$/.test(bucataNume)) {
           // format Lidl: produsul cu suma pe prima linie, „2 x 6,49” pe a doua
           var u = produse[produse.length - 1];
-          if (Math.abs(u.suma - rot(c * pu)) < 0.02) { u.cantitate = c; u.pretUnitar = pu; u.cantitateSetata = true; }
+          if (Math.abs(u.suma - rot(c * pu)) <= Math.max(0.02, c * 0.0051)) { u.cantitate = c; u.pretUnitar = pu; u.cantitateSetata = true; }
           else cantAsteptata = { c: c, pu: pu, total: total, um: unitate(mc[2]) };
         } else {
           cantAsteptata = { c: c, pu: pu, total: total, um: unitate(mc[2]) };

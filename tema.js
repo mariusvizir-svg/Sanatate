@@ -13,7 +13,7 @@
     'html[data-m=dark] .c,html[data-m=dark] .card,html[data-m=dark] .tile.w,html[data-m=dark] .kpi,html[data-m=dark] .rpc,html[data-m=dark] .q button,html[data-m=dark] dialog,html[data-m=dark] .row,html[data-m=dark] .famc{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02)),var(--card);border:1px solid rgba(255,255,255,.07);color:var(--tx);box-shadow:var(--sh1)}' +
     'html[data-m=dark] input,html[data-m=dark] select,html[data-m=dark] textarea{background:#0f131a;color:var(--tx);border-color:var(--ln)}' +
     'html[data-m=dark] nav#nv,html[data-m=dark] #nav,html[data-m=dark] .nb{background:rgba(16,19,26,.86)}' +
-    'html[data-m=dark] .c,html[data-m=dark] .card,html[data-m=dark] .tile{transition:transform .18s,box-shadow .18s}html[data-m=dark] .c:active,html[data-m=dark] .card:active,html[data-m=dark] .tile:active{transform:translateY(-2px) scale(.99)}' +
+    'html[data-m=dark] .c,html[data-m=dark] .card,html[data-m=dark] .tile{transition:transform .18s,box-shadow .18s}html[data-m=dark] .tile:active{transform:translateY(-2px) scale(.99)}' +
     'html[data-m=dark] .chip,html[data-m=dark] .chs button,html[data-m=dark] .sg{background:rgba(255,255,255,.06)}html[data-m=dark] .sg button.on{background:var(--a2)!important;color:#fff!important}';
   function inject(d) { try { var e = d.getElementById('am-dk'); if (!e) { e = d.createElement('style'); e.id = 'am-dk'; d.head.appendChild(e); } e.textContent = DK; } catch (x) { } }
   function apply(doc) {
