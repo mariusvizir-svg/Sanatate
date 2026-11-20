@@ -194,3 +194,4 @@ html[data-sz=mari] .tile{min-height:120px}
 .hz{text-align:left}.hz .hbig{font-size:36px!important;color:var(--tx)}.hc>h2{display:flex!important;justify-content:space-between;align-items:center;text-align:left!important}
 .acs{margin:12px 0 0!important}
 html.emb header{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.rck{display:flex!important;flex-direction:row!important;gap:10px;align-items:center;text-align:left;margin-top:12px}.rck input{width:20px;height:20px;flex:none}

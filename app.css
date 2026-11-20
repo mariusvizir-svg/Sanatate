@@ -276,3 +276,8 @@ html[data-sz=mari] .tile{min-height:120px}
 .tlv{position:relative;margin-top:12px;padding-left:20px}.tlv:before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--ln)}.tlv>div{position:relative;margin-bottom:11px;font-size:14px}.tlv>div:before{content:"";position:absolute;left:-19px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--a1,#0e7aa0);box-shadow:0 0 0 3px color-mix(in srgb,var(--a1,#0e7aa0) 25%,transparent)}.tlv .up:before{background:#f5a524}.tlv small{display:block;color:var(--mu);font-size:12px}
 .kk .card{margin:0!important}.kk{margin:12px 14px 0!important}.scc .chip{width:auto;display:inline-block}
 html.emb header{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+
+/* V6.6 analize bifabile */
+.lrw{align-items:center}.lck{flex:none;display:grid;place-items:center;width:38px;height:38px;margin:-6px 4px -6px -6px}.lck input{width:22px;height:22px;accent-color:var(--a1,#0e7aa0)}.lrw.rd{background:color-mix(in srgb,#f5a524 14%,transparent);border-radius:12px}
+.chk2{display:flex;gap:10px;align-items:center;margin:12px 0 6px;font-size:14px}.chk2 input{width:20px;height:20px;accent-color:var(--a1,#0e7aa0)}
+.lrw{flex-wrap:wrap;gap:4px 8px}.lrw>label+*{flex:1 1 130px;min-width:0;text-align:left}.lrw .ac{margin-left:auto}

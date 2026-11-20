@@ -103,3 +103,7 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 
 ## V6.5.1
 - Butonul + arată doar acțiunile ecranului curent (Buget: bon, cheltuială; Sănătate: tensiune, pastilă, programare).
+
+## V6.6.0
+- Sănătate → Analize: bifare „de refăcut”, grupare pe dată/tip, filtru, listă PDF și copiere text.
+- Buget → Setări: Resetare cheltuieli (filtru categorie/perioadă/cont/bonuri scanate), cu instantaneu automat de siguranță.
