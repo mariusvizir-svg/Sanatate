@@ -11,6 +11,7 @@
   var DK = 'html[data-m=dark]{color-scheme:dark;--bg:#0b0d12;--card:#161a22;--tx:#eef1f6;--mu:#98a2b3;--ln:#262c38;--sh1:0 1px 0 rgba(255,255,255,.05) inset,0 10px 30px rgba(0,0,0,.45);--sh2:0 1px 0 rgba(255,255,255,.06) inset,0 18px 44px rgba(0,0,0,.55)}' +
     'html[data-m=dark] body{background:var(--bg);color:var(--tx)}' +
     'html[data-m=dark] .c,html[data-m=dark] .card,html[data-m=dark] .tile.w,html[data-m=dark] .kpi,html[data-m=dark] .rpc,html[data-m=dark] .q button,html[data-m=dark] dialog,html[data-m=dark] .row,html[data-m=dark] .famc{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02)),var(--card);border:1px solid rgba(255,255,255,.07);color:var(--tx);box-shadow:var(--sh1)}' +
+    'html[data-m=dark] .card .row{background:none;box-shadow:none;border:0;border-bottom:1px solid var(--ln)}html[data-m=dark] .card .row:last-child{border-bottom:0}' +
     'html[data-m=dark] input,html[data-m=dark] select,html[data-m=dark] textarea{background:#0f131a;color:var(--tx);border-color:var(--ln)}' +
     'html[data-m=dark] nav#nv,html[data-m=dark] #nav,html[data-m=dark] .nb{background:rgba(16,19,26,.86)}' +
     'html[data-m=dark] .c,html[data-m=dark] .card,html[data-m=dark] .tile{transition:transform .18s,box-shadow .18s}html[data-m=dark] .tile:active{transform:translateY(-2px) scale(.99)}' +

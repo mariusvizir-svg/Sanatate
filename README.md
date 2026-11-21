@@ -107,3 +107,15 @@ Citirea textului din poze nu e sigură pe poze înclinate sau cu umbre; verific�
 ## V6.6.0
 - Sănătate → Analize: bifare „de refăcut”, grupare pe dată/tip, filtru, listă PDF și copiere text.
 - Buget → Setări: Resetare cheltuieli (filtru categorie/perioadă/cont/bonuri scanate), cu instantaneu automat de siguranță.
+
+## V6.7.0
+- Backup: card pe Acasă „Salvează backup acum” (un tap), reamintire zilnică/săptămânală/oprită (Mai mult).
+
+## V6.8.0
+- Buget → Datorii: rezumat sus (total rămas, plătit, rate, scadențe), carduri cu progres și „Plătește”, scadență/rată/notă; secțiunea „Mi se datorează” (bani de primit, lucruri împrumutate) cu reamintire prin mesaj.
+
+## V6.9.0
+Carduri „Pe scurt” (total, ultima dată, valori importante) deasupra ecranelor: Sănătate – Analize, Documente, Consultații, Diagnostice, Prevenție, Programări, Cronologie, Pastile; Buget – Planificare, Economii, Carduri, Setări (fișier nou: b_sum.js).
+
+## V6.9.1 (stabilă)
+Istoric Buget: filtrele încap pe ecrane înguste (320px). Dosar → Tipărește: panoul „Va conține” nu mai e fixat peste conținut. Adăugat GHID.md.

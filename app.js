@@ -213,7 +213,7 @@ NAV=[['home','Acasă'],['add','Tensiune'],['meds','Pastile'],['life','Activitate
 IC=p=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`,
 ICON={life:IC('<path d="M3 12h4l3-8 4 16 3-8h4"/>'),dosar:IC('<path d="M4 4h10l6 6v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v6h6"/><path d="M9 15h6M12 12v6"/>'),home:IC('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'),add:IC('<path d="M12 21s-7-4.4-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 12C19 16.6 12 21 12 21z"/><path d="M7 12h3l1.5-2.5 2 5 1.5-2.5H17"/>'),hist:IC('<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>'),meds:IC('<rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9.5 8.2l5 7.6" transform="rotate(0)"/>'),rep:IC('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),set:IC('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>')};
 let histMode='bp',histDays=30,planDate=today(),snaps=[],snapsKey='',stor=null,healthRes=null;
-const DISC='Aplicația ajută la ținerea evidenței și nu înlocuiește medicul. Nu schimba tratamentul pe baza ei fără acordul medicului. · V6.6.0',
+const DISC='Aplicația ajută la ținerea evidenței și nu înlocuiește medicul. Nu schimba tratamentul pe baza ei fără acordul medicului. · V6.9.1',
 CRISIS='Valoare foarte mare (≥ 180/120 mmHg). Stai jos, liniștit, și măsoară din nou după 5 minute. Dacă valoarea se menține sau ai dureri în piept, lipsă de aer, slăbiciune, tulburări de vorbire sau de vedere, sună la 112. Anunță medicul.';
 const onboard=()=>`<div class="card"><h2>Bun venit 👋</h2><p class="mu" style="margin-top:0">Adaugă primul pacient (tu sau o rudă). Poți avea mai mulți pacienți, fiecare cu propriile măsurători, pastile și rapoarte. Datele rămân doar pe acest telefon.</p><form id="pf" class="form"><label>Prenume<input name="first" required placeholder="ex. Maria"></label><label>Nume<input name="last" placeholder="ex. Popescu"></label><label>Sex<select name="sex"><option value="">—</option><option value="M">Masculin</option><option value="F">Feminin</option></select></label><label>Data nașterii<input name="born" type="date"></label><label>Înălțime (cm)<input name="height" type="number" inputmode="numeric"></label><label>Greutate (kg)<input name="weight" type="number" step="0.1" inputmode="decimal"></label><label>Țintă sistolică<input name="sys" type="number" value="130" min="90" max="180" inputmode="numeric"></label><label>Țintă diastolică<input name="dia" type="number" value="80" min="50" max="110" inputmode="numeric"></label><div class="w"><button class="btn">Începe</button></div></form><small class="mu" style="display:block;margin-top:10px">${DISC}</small></div>`;
 const doseRows=(sl,d)=>sl.length?sl.map(s=>{const st=state(s),[lb,cl]=ST[st],k=`${s.m.id}|${s.t}|${s.d}`,i=intakeOf(s);
@@ -992,6 +992,29 @@ document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.c
  if(!labRedoItems().length){toast('Bifează întâi analizele de refăcut');return}
  if(b.hasAttribute('data-lcopy')){const tx=labRedoText();try{await navigator.clipboard.writeText(tx);toast('Lista a fost copiată')}catch(_){if(navigator.share)navigator.share({text:tx}).catch(()=>{});else toast('Nu am putut copia')}return}
  try{const blob=await buildLabListPdf();sendPdf(blob,`analize-de-refacut-${today()}.pdf`)}catch(er){console.error(er);toast('Nu am putut crea PDF-ul')}});
+
+/* ===== src/summ.js ===== */
+/* Sănătate · carduri de sumar (total, ultima dată, valori importante) deasupra fiecărui ecran */
+const smc=(ti,tiles,line)=>`<div class="smc"><div class="smh">${ti}</div><div class="smg">${tiles.map(([v,l,c])=>`<div class="smt${c?' '+c:''}"><b>${v}</b><small>${l}</small></div>`).join('')}</div>${line?`<div class="sml">${line}</div>`:''}</div>`,
+lastD=a=>a.map(x=>x.date||x.last||'').filter(Boolean).sort().pop(),
+SUMM={
+lab(){const l=data.labs.filter(x=>x.pid===pid),d=[...new Set(l.map(x=>x.date))].sort(),out=lastPerTest(l).filter(x=>labFlag(x)==='H'||labFlag(x)==='L'),rd=l.filter(x=>x.redo).length;
+ if(!l.length)return'';return smc('Analize · pe scurt',[[l.length,'valori'],[d.length,'recoltări'],[out.length,'în afara limitelor',out.length?'bad':'ok'],[rd,'de refăcut',rd?'wr':'']],`Ultima recoltare: <b>${fmtD(d[d.length-1])}</b>${out.length?' · '+out.slice(0,4).map(x=>esc(x.t)).join(', ')+(out.length>4?'…':''):''}`)},
+doc(){const l=data.docs.filter(x=>x.pid===pid),ref=l.filter(x=>x.kind==='trimitere'&&refState(x)==='de').length,f=l.reduce((s,x)=>s+(x.files||[]).length,0);
+ if(!l.length)return'';return smc('Documente · pe scurt',[[l.length,'documente'],[f,'fișiere'],[ref,'trimiteri de folosit',ref?'wr':'']],lastD(l)?`Ultimul document: <b>${fmtD(lastD(l))}</b>`:'')},
+vis(){const l=data.visits.filter(x=>x.pid===pid&&!x.planned);if(!l.length)return'';const z=[...l].sort((a,b)=>b.date.localeCompare(a.date))[0],y=l.filter(x=>x.date>=addD(today(),-365)).length;
+ return smc('Consultații · pe scurt',[[l.length,'consultații'],[y,'în ultimul an']],`Ultima: <b>${fmtD(z.date)}</b>${z.doctor?' · '+esc(z.doctor):''}`)},
+dx(){const l=data.dx.filter(x=>x.pid===pid);if(!l.length)return'';const a=l.filter(x=>x.status!=='rezolvat').length;
+ return smc('Diagnostice · pe scurt',[[a,'active',a?'wr':'ok'],[l.length-a,'rezolvate'],[l.length,'în total']],lastD(l)?`Cel mai recent: <b>${fmtD(lastD(l))}</b>`:'')},
+prev(){const l=data.prev.filter(x=>x.pid===pid);if(!l.length)return'';const due=prevDue(pid,30).length;
+ return smc('Prevenție · pe scurt',[[l.length,'controale/vaccinuri'],[due,'de făcut în 30 zile',due?'wr':'ok']],lastD(l)?`Ultimul efectuat: <b>${fmtD(lastD(l))}</b>`:'')},
+prog(){const u=APN(),m=data.appts.filter(x=>x.pid===pid),dn=m.filter(x=>x.done).length,od=m.filter(x=>!x.done&&x.date<today()).length;
+ if(!m.length)return'';return smc('Programări · pe scurt',[[u.length,'următoare'],[od,'întârziate',od?'bad':''],[dn,'efectuate']],u[0]?`Următoarea: <b>${fmtD(u[0].date)}${u[0].time?' '+u[0].time:''}</b> · ${esc(u[0].title)}`:'')},
+time(){const E=tlEvents(pid);if(!E.length)return'';return smc('Cronologie · pe scurt',[[E.length,'evenimente'],[E.filter(e=>e.d>=addD(today(),-90)).length,'în ultimele 90 zile']],`Ultimul: <b>${fmtD(E.map(e=>e.d).sort().pop())}</b>`)}
+};
+Object.keys(SUMM).forEach(k=>{const f=DOS[k];if(f)DOS[k]=function(){let s='';try{s=SUMM[k]()}catch(e){}return s+f.apply(this,arguments)}});
+{const f=V.meds;V.meds=function(){const h=f.apply(this,arguments);if(!P())return h;let s='';try{const t=today(),cur=data.meds.filter(m=>m.pid===pid&&!m.prn&&(!m.end||m.end>=t)),a=adh(pid,addD(t,-29),t),pc=a.exp?Math.round(a.taken/a.exp*100):null,ls=lowStock(pid).length;
+ if(cur.length)s=smc('Pastile · pe scurt',[[cur.length,'tratamente active'],[pc==null?'–':pc+'%','luate la timp · 30 zile',pc!=null&&pc<80?'wr':'ok'],[ls,'stoc mic',ls?'bad':'']],'')}catch(e){}return s+h}}
 
 /* ===== src/hub.js ===== */
 /* Sănătate · ecrane cu butoane mari (hub) pentru Tensiune, Dosar, Rapoarte, Activitate */
