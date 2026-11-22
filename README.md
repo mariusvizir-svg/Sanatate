@@ -119,3 +119,6 @@ Carduri „Pe scurt” (total, ultima dată, valori importante) deasupra ecranel
 
 ## V6.9.1 (stabilă)
 Istoric Buget: filtrele încap pe ecrane înguste (320px). Dosar → Tipărește: panoul „Va conține” nu mai e fixat peste conținut. Adăugat GHID.md.
+
+## V6.9.2
+Analize: butoane „Bifează toate”, „Debifează toate”, „Doar în afara limitelor” și „Bifează toată recoltarea” pe fiecare dată.
