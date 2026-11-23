@@ -122,3 +122,12 @@ Istoric Buget: filtrele încap pe ecrane înguste (320px). Dosar → Tipărește
 
 ## V6.9.2
 Analize: butoane „Bifează toate”, „Debifează toate”, „Doar în afara limitelor” și „Bifează toată recoltarea” pe fiecare dată.
+
+## V7.0.0
+Meniu de adăugare (foaie care urcă, buton + în centrul barei, 13 opțiuni Sănătate/Buget). Teme: Curat, Bancar, Contrast mare, Colorat (luminos/întunecat) din Mai mult → Aspect. Rapoarte și export fără numele/telefonul medicului (fișa de urgență le păstrează).
+
+## V7.1.0
+Card „Azi pe scurt” pe Acasă (cumulat Sănătate + Buget), în Sănătate și în Buget: pastile, tensiune, programări, cheltuit azi, plăți și datorii scadente.
+
+## V7.1.1
+Fără dubluri: pe Acasă cardul „Azi pe scurt” are doar tensiune, cheltuieli, datorii; în Sănătate cardul „De urmărit” are analize și prevenție.
