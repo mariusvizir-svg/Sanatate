@@ -30,3 +30,8 @@ const rn=renderNow;renderNow=function(){if(tab==='rep'&&lastTab!=='rep'&&!window
 document.addEventListener('click',e=>{const t=e.target.closest('[data-rs]');if(t&&t.tagName==='BUTTON'){rsub=t.dataset.rs;BR.reset();render();scrollTo(0,0)}},true)})();
 if(window.parent!==window){let ly=0;addEventListener('scroll',()=>{const y=scrollY;try{parent.postMessage({agenda:'scroll',d:y>ly+4?1:y<ly-4?-1:0,y},'*')}catch(e){}ly=y},{passive:true})}
 ;(()=>{const _a=window.AGENDA_API;window.AGENDA_API=()=>{const r=_a();if(r&&r.ready){try{const t=today(),tx=data.transactions.filter(x=>x.type==='expense'&&x.date===t);r.tdy={s:sum(tx,x=>x.amount),n:tx.length};const d7=new Date(new Date(t+'T12:00').getTime()+7*864e5).toISOString().slice(0,10),dd=(data.debts||[]).filter(x=>remaining(x)>0&&x.due&&x.due<=d7);r.dd={n:dd.length,s:sum(dd,x=>remaining(x)),od:dd.filter(x=>x.due<t).length}}catch(e){}}return r}})();
+;(()=>{const _a=window.AGENDA_API;window.AGENDA_API=()=>{const r=_a();if(r&&r.ready){try{const mo=today().slice(0,7),m0=mo+'-01',pl=(data.v11.plans||[]).filter(p=>!(p.done||{})[mo]),out=sum(pl.filter(p=>p.kind!=='income'),p=>p.amount),inc=sum(pl.filter(p=>p.kind==='income'),p=>p.amount),
+ D=data.debts||[],tot=sum(D,d=>d.amount),left=sum(D,remaining),G=data.v11.goals||[],gc=g=>val(sum(g.moves||[],m=>(m.kind==='deposit'?1:-1)*m.amount));
+ r.after={out,inc,left:val(inc-out),n:pl.length};
+ r.debt={n:D.filter(d=>remaining(d)>0).length,left,tot,pc:tot?Math.round(100*(tot-left)/tot):0,od:D.filter(d=>remaining(d)>0&&d.due&&d.due<today()).length};
+ r.goals={n:G.length,tc:sum(G,gc),tt:sum(G,g=>g.target),thisM:sum(G,g=>sum((g.moves||[]).filter(m=>m.date>=m0),m=>(m.kind==='deposit'?1:-1)*m.amount))}}catch(e){}}return r}})();

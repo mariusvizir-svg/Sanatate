@@ -1100,6 +1100,9 @@ const arrow=(d,good)=>d>0?'<span class="'+(good==='up'?'ok':good==='dn'?'er':'')
  const all=pbp(pid),by={};all.forEach(x=>(by[fmtD(x.date)]=by[fmtD(x.date)]||[]).push(x));let last='';
  out=h.replace(/<div class="row"><div><b class="big2"[^]*?<small>(\d\d\.\d\d\.\d{4}) /g,(m,d)=>{if(d===last)return m;last=d;const x=by[d]||[],st=bpStats(x,pid);return hd(d,x.length+(x.length===1?' măsurătoare':' măsurători')+(x.length>1?' · medie '+Math.round(st.sys)+'/'+Math.round(st.dia):''))+m})}catch(e){}return top+out}}
 }
+/* V7.4 – date suplimentare pentru Acasă */
+{const _a=window.AGENDA_API;window.AGENDA_API=()=>{const r=_a();if(r&&r.ready){try{const t=today(),ws=bpStats(pbp(pid,addD(t,-6),t),pid),a30=adh(pid,addD(t,-29),t),a60=adh(pid,addD(t,-59),addD(t,-30)),lb=lastPerTest(data.labs.filter(x=>x.pid===pid)).filter(x=>labFlag(x)==='H'||labFlag(x)==='L'),ls=lowStock(pid).filter(x=>x.days!=null&&x.days<999).sort((x,y)=>x.days-y.days)[0];
+ r.st={inT:ws.n?Math.round(100*ws.inT/ws.n):null,adh:a30.exp?Math.round(a30.pct):null,adhPrev:a60.exp?Math.round(a60.pct):null,act:wstats(pid,addD(t,-6),t).actMin,labs:lb.length,lab1:lb[0]?{t:lb[0].t,v:lb[0].v,date:lb[0].date}:null,stock:ls?{name:ls.m.name,days:ls.days}:null}}catch(e){}}return r}}
 
 /* ===== src/main.js ===== */
 /* Tensiunea Mea · evenimente, formulare, export, pornire */
