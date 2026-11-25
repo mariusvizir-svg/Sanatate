@@ -137,3 +137,7 @@ Butonul + nu mai rămâne ascuns după derulare: reapare după 0,5 s și la schi
 
 ## V7.2.0
 Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) – se poate comuta pe „Clasică” din Setări → Aspect → Formă. Glisare între Acasă · Buget · Sănătate · Setări. Setările Sănătate/Buget au fost mutate în Setări (cu „‹ Setări” pentru întoarcere). Acasă: grupuri Sănătate și Buget + buton Adaugă.
+
+## V7.4.0
+- Buget: Datorii (listă, detaliu cu istoric plăți, plan de achitare — V7.3), Planificare, Economii, Persoane, Carduri tichete, Istoric: rezumat sus + progres + estimări (`b_v74.js`).
+- Sănătate: Istoric tensiune (medie 30 zile + tendință + grupare pe zile), Pastile (aderență și stoc pe tratament), Analize (schimbări față de recoltarea anterioară) (`src/v74.js`).

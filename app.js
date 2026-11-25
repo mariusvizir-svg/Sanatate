@@ -213,7 +213,7 @@ NAV=[['home','Acasă'],['add','Tensiune'],['meds','Pastile'],['life','Activitate
 IC=p=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`,
 ICON={life:IC('<path d="M3 12h4l3-8 4 16 3-8h4"/>'),dosar:IC('<path d="M4 4h10l6 6v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v6h6"/><path d="M9 15h6M12 12v6"/>'),home:IC('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'),add:IC('<path d="M12 21s-7-4.4-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 12C19 16.6 12 21 12 21z"/><path d="M7 12h3l1.5-2.5 2 5 1.5-2.5H17"/>'),hist:IC('<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>'),meds:IC('<rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9.5 8.2l5 7.6" transform="rotate(0)"/>'),rep:IC('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),set:IC('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>')};
 let histMode='bp',histDays=30,planDate=today(),snaps=[],snapsKey='',stor=null,healthRes=null;
-const DISC='Aplicația ajută la ținerea evidenței și nu înlocuiește medicul. Nu schimba tratamentul pe baza ei fără acordul medicului. · V7.2.0',
+const DISC='Aplicația ajută la ținerea evidenței și nu înlocuiește medicul. Nu schimba tratamentul pe baza ei fără acordul medicului. · V7.4.0',
 CRISIS='Valoare foarte mare (≥ 180/120 mmHg). Stai jos, liniștit, și măsoară din nou după 5 minute. Dacă valoarea se menține sau ai dureri în piept, lipsă de aer, slăbiciune, tulburări de vorbire sau de vedere, sună la 112. Anunță medicul.';
 const onboard=()=>`<div class="card"><h2>Bun venit 👋</h2><p class="mu" style="margin-top:0">Adaugă primul pacient (tu sau o rudă). Poți avea mai mulți pacienți, fiecare cu propriile măsurători, pastile și rapoarte. Datele rămân doar pe acest telefon.</p><form id="pf" class="form"><label>Prenume<input name="first" required placeholder="ex. Maria"></label><label>Nume<input name="last" placeholder="ex. Popescu"></label><label>Sex<select name="sex"><option value="">—</option><option value="M">Masculin</option><option value="F">Feminin</option></select></label><label>Data nașterii<input name="born" type="date"></label><label>Înălțime (cm)<input name="height" type="number" inputmode="numeric"></label><label>Greutate (kg)<input name="weight" type="number" step="0.1" inputmode="decimal"></label><label>Țintă sistolică<input name="sys" type="number" value="130" min="90" max="180" inputmode="numeric"></label><label>Țintă diastolică<input name="dia" type="number" value="80" min="50" max="110" inputmode="numeric"></label><div class="w"><button class="btn">Începe</button></div></form><small class="mu" style="display:block;margin-top:10px">${DISC}</small></div>`;
 const doseRows=(sl,d)=>sl.length?sl.map(s=>{const st=state(s),[lb,cl]=ST[st],k=`${s.m.id}|${s.t}|${s.d}`,i=intakeOf(s);
@@ -1076,6 +1076,30 @@ function aziHealth(){if(!P())return'';const t=today(),R=[],l=data.labs.filter(x=
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-azg]');if(b&&typeof AGENDA_GO==='function')AGENDA_GO(b.dataset.azg)});
 {const f=V.set;if(f)V.set=function(){return(window.parent!==window?'<button class="bkb" data-bk>‹ Setări</button>':'')+f.apply(this,arguments)}}
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('[data-bk]'))try{parent.postMessage({agenda:'settings'},'*')}catch(x){}});
+
+/* ===== src/v74.js ===== */
+/* V7.4 – Sănătate: tendințe (Analize, Pastile, Istoric tensiune) */
+{
+const arrow=(d,good)=>d>0?'<span class="'+(good==='up'?'ok':good==='dn'?'er':'')+'">↑</span>':d<0?'<span class="'+(good==='dn'?'ok':good==='up'?'er':'')+'">↓</span>':'→',
+ hd=(t,sub)=>`<div class="dyh2"><span>${t}</span><span>${sub||''}</span></div>`;
+/* Analize: schimbări față de recoltarea anterioară */
+{const f=DOS.lab;if(f)DOS.lab=function(){const h=f.apply(this,arguments);let s='';try{const l=data.labs.filter(x=>x.pid===pid&&Number.isFinite(+x.v)),by={};
+ l.sort((a,b)=>a.date.localeCompare(b.date)).forEach(x=>(by[x.t]=by[x.t]||[]).push(x));
+ const R=Object.values(by).filter(a=>a.length>=2).map(a=>{const x=a[a.length-1],p=a[a.length-2];return{x,p,d:+x.v-+p.v,fl:labFlag(x)}}).filter(r=>r.d!==0).sort((a,b)=>((b.fl==='H'||b.fl==='L')-(a.fl==='H'||a.fl==='L'))||Math.abs(b.d/(+b.p.v||1))-Math.abs(a.d/(+a.p.v||1))).slice(0,6);
+ if(R.length)s=`<div class="card"><h2>Schimbări față de recoltarea anterioară</h2>${R.map(r=>`<div class="row"><div>${esc(r.x.t)}<small>${fmtS(r.p.date)} → ${fmtS(r.x.date)}</small></div><div style="text-align:right"><b class="${r.fl==='H'||r.fl==='L'?'er':''}">${r.p.v} → ${r.x.v}</b> ${arrow(r.d)}<small>${r.fl==='H'?'peste limită':r.fl==='L'?'sub limită':'în limite'}${r.x.u?' · '+esc(r.x.u):''}</small></div></div>`).join('')}</div>`}catch(e){}return s+h}}
+/* Pastile: aderență și stoc pe fiecare tratament */
+{const f=V.meds;V.meds=function(){const h=f.apply(this,arguments);if(!P())return h;let s='';try{const t=today(),cur=data.meds.filter(m=>m.pid===pid&&!m.prn&&(!m.end||m.end>=t));
+ if(cur.length){const a=adh(pid,addD(t,-29),t);
+  s=`<div class="card"><h2>Pe fiecare pastilă · 30 zile</h2>${cur.map(m=>{const b=a.by[m.id],pc=b&&b.exp?Math.round(100*b.taken/b.exp):null,sd=stockDays(m),until=sd!=null?fmtD(addD(t,sd)):'';
+  return `<div class="rw2"><div class="dr1"><b>${esc(m.name)}</b><span>${pc==null?'–':pc+'%'}</span></div><span class="sbar sm"><i class="${pc!=null&&pc<80?'r':'g'}" style="width:${pc||0}%"></i></span><div class="dr2 mu"><span>${b?b.taken+' luate din '+b.exp:'fără doze în perioadă'}${b&&b.miss?' · '+b.miss+' ratate':''}</span>${sd==null?'':`<span class="dch${sd<=7?' bad':sd<=14?' mid':''}">stoc ~${sd} zile · ${until}</span>`}</div></div>`}).join('')}</div>`}}catch(e){}return s+h}}
+/* Istoric tensiune: rezumat 30 zile cu tendință + grupare pe zile */
+{const f=V.hist;V.hist=function(){const h=f.apply(this,arguments);if(!P())return h;let top='',out=h;try{const t=today(),a=pbp(pid,addD(t,-29),t),b=pbp(pid,addD(t,-59),addD(t,-30)),sa=bpStats(a,pid),sb=bpStats(b,pid);
+ if(a.length){const ds=b.length?Math.round(sa.sys-sb.sys):null,dd=b.length?Math.round(sa.dia-sb.dia):null,pc=Math.round(100*sa.inT/sa.n);
+  top=`<div class="card dha"><small class="mu">Media ultimelor 30 de zile</small><div class="dbig2">${Math.round(sa.sys)}/${Math.round(sa.dia)} <small class="mu" style="font-size:14px">mmHg</small></div>
+  <div class="dst2"><div><small>Față de 30 zile înainte</small><b>${ds==null?'—':(ds>0?'+':'')+ds+'/'+(dd>0?'+':'')+dd+' '+arrow(ds,'dn')}</b></div><div><small>Sub țintă</small><b class="${pc>=70?'ok':'er'}">${pc}%</b></div><div><small>Măsurători</small><b>${a.length}</b></div></div></div>`}
+ const all=pbp(pid),by={};all.forEach(x=>(by[fmtD(x.date)]=by[fmtD(x.date)]||[]).push(x));let last='';
+ out=h.replace(/<div class="row"><div><b class="big2"[^]*?<small>(\d\d\.\d\d\.\d{4}) /g,(m,d)=>{if(d===last)return m;last=d;const x=by[d]||[],st=bpStats(x,pid);return hd(d,x.length+(x.length===1?' măsurătoare':' măsurători')+(x.length>1?' · medie '+Math.round(st.sys)+'/'+Math.round(st.dia):''))+m})}catch(e){}return top+out}}
+}
 
 /* ===== src/main.js ===== */
 /* Tensiunea Mea · evenimente, formulare, export, pornire */
