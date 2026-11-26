@@ -37,8 +37,9 @@ const autoCrop=c=>{const W=400/Math.max(c.width,c.height)*c.width,{w,h,g}=gray(c
  const[x0,x1]=span(col,.15,Math.round(w*.22)),row=new Float32Array(h);for(let y=0;y<h;y++)for(let x=x0;x<=x1;x++)row[y]+=e[y*w+x];const[y0,y1]=span(row,.08,Math.round(h*.06)),p=4;
  const r={x0:Math.max(0,x0-p)/w,y0:Math.max(0,y0-p)/h,x1:Math.min(w,x1+p)/w,y1:Math.min(h,y1+p)/h};return(r.x1-r.x0<.2||r.y1-r.y0<.2)?{x0:0,y0:0,x1:1,y1:1}:r};
 // bucata decupată, la o lățime bună pentru citire, în gri cu contrast întins; opțional prag adaptiv (anti-umbre)
-const prep=(c,cr,prag,W)=>{W=W||1300;const sx=Math.round(cr.x0*c.width),sy=Math.round(cr.y0*c.height),sw=Math.max(10,Math.round((cr.x1-cr.x0)*c.width)),sh=Math.max(10,Math.round((cr.y1-cr.y0)*c.height));
- let s=Math.min(W>1300?3:2.2,Math.max(.5,W/sw));if(sh*s>6000)s=6000/sh;const w=Math.round(sw*s),h=Math.round(sh*s),o=document.createElement('canvas');o.width=w;o.height=h;const x=o.getContext('2d',{willReadFrequently:true});x.imageSmoothingQuality='high';x.drawImage(c,sx,sy,sw,sh,0,0,w,h);
+const prep=(c,cr,prag,W)=>{W=W||1300;let o,x;const sx=Math.round(cr.x0*c.width),sy=Math.round(cr.y0*c.height),sw=Math.max(10,Math.round((cr.x1-cr.x0)*c.width)),sh=Math.max(10,Math.round((cr.y1-cr.y0)*c.height));
+ let s=Math.min(W>1300?3:2.2,Math.max(.5,W/sw));if(sh*s>6000)s=6000/sh;const w=Math.round(sw*s),h=Math.round(sh*s);o=document.createElement('canvas');o.width=w;o.height=h;x=o.getContext('2d',{willReadFrequently:true});x.imageSmoothingQuality='high';x.drawImage(c,sx,sy,sw,sh,0,0,w,h);
+ if(S.skew&&Math.abs(S.skew)>=.5){const o2=document.createElement('canvas');o2.width=w;o2.height=h;const x2=o2.getContext('2d',{willReadFrequently:true});x2.fillStyle='#fff';x2.fillRect(0,0,w,h);x2.translate(w/2,h/2);x2.rotate(S.skew*Math.PI/180);x2.drawImage(o,-w/2,-h/2);x2.setTransform(1,0,0,1,0,0);o=o2;x=x2}
  const im=x.getImageData(0,0,w,h),d=im.data,n=w*h,g=new Float32Array(n),hist=new Uint32Array(256);for(let i=0,j=0;j<n;i+=4,j++){g[j]=(d[i]*299+d[i+1]*587+d[i+2]*114)/1000;hist[g[j]|0]++}
  let a=0,lo=0,hi=255;for(let i=0;i<256;i++){a+=hist[i];if(a>n*.02){lo=i;break}}a=0;for(let i=255;i>=0;i--){a+=hist[i];if(a>n*.02){hi=i;break}}const k=255/Math.max(1,hi-lo);for(let j=0;j<n;j++)g[j]=Math.max(0,Math.min(255,(g[j]-lo)*k));
  if(!prag){for(let j=0;j<n;j++)d[j*4]=d[j*4+1]=d[j*4+2]=g[j]}
@@ -54,10 +55,26 @@ const okWords=r=>{const t=(r.data&&r.data.text)||'',cf=(r.data&&r.data.confidenc
 const orient=async w=>{try{prog(.05,'Verific cum e ținut bonul…');let c=prep(S.img,S.crop,false,760),m0=okWords(await w.recognize(c));if(m0>=14)return;let best=0,bm=m0,cc=c;
  for(let k=1;k<=3;k++){cc=rotate(cc);const m=okWords(await w.recognize(cc));if(m>bm*1.4+2){bm=m;best=k}if(k===2&&bm>=14)break}
  if(best){for(let i=0;i<best;i++)S.img=rotate(S.img);S.crop=autoCrop(S.img)}}catch(e){console.warn('orient',e)}};
+// textul de pe bon poate fi ușor înclinat: căutăm unghiul la care rândurile de text se aliniază cel mai bine
+const skewAngle=(c,cr)=>{try{S.skew=0;const o=prep(c,cr,false,520),w=o.width,h=o.height,d=o.getContext('2d').getImageData(0,0,w,h).data,xs=[],ys=[];
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){if(d[(y*w+x)*4]<90){xs.push(x-w/2);ys.push(y-h/2)}}if(xs.length<400)return 0;
+ const vr=a=>{const t=a*Math.PI/180,sn=Math.sin(t),cs=Math.cos(t),H=new Float32Array(w+h+4);for(let i=0;i<xs.length;i++){const yy=Math.round(xs[i]*sn+ys[i]*cs+(w+h)/2);if(yy>=0&&yy<H.length)H[yy]++}let m=0,q=0;for(let i=0;i<H.length;i++){m+=H[i];q+=H[i]*H[i]}return q/H.length-(m/H.length)**2};
+ let best=0,bv=vr(0);const v0=bv;for(let a=-7;a<=7.01;a+=.5){const v=vr(a);if(v>bv){bv=v;best=a}}return(Math.abs(best)>=.5&&bv>v0*1.08)?best:0}catch(e){return 0}};
+// magazin citit „curat”: recunoscut din listă sau cel puțin două cuvinte reale
+const storeOk=r=>!!(r.categorieMagazin||(r.magazin&&(r.magazin.match(/[A-Za-zĂÂÎȘȚăâîșț]{4,}/g)||[]).length>=2&&!/[^A-Za-zĂÂÎȘȚăâîșț0-9 .,&'\-]/.test(r.magazin)));
+const good=r=>S.tip==='income'?r.total!=null:(score(r,S.tip)<.5&&!!r.data&&storeOk(r));
 const read=async()=>{S.step='busy';S.pas=.25;S.pasL=.7;prog(.03,'Pregătesc poza…');render();
- try{const w=await getWorker();await orient(w);let r=await w.recognize(prep(S.img,S.crop,false)),t=r.data.text||'',best={t,r:parse(S.tip,t)};
-  if(score(best.r,S.tip)>=.5){S.pas=.6;S.pasL=.38;prog(.6,'Mai încerc o dată, cu alt filtru…');r=await w.recognize(prep(S.img,S.crop,true));const t2=r.data.text||'',r2=parse(S.tip,t2);if(score(r2,S.tip)<score(best.r,S.tip))best={t:t2,r:r2}}
-  if(score(best.r,S.tip)>=.5){S.pas=.8;S.pasL=.18;prog(.8,'Încă o încercare, la altă mărime…');for(const pg of [false,true]){r=await w.recognize(prep(S.img,S.crop,pg,1900));const t3=r.data.text||'',r3=parse(S.tip,t3);if(score(r3,S.tip)<score(best.r,S.tip))best={t:t3,r:r3};if(score(best.r,S.tip)<.5)break}}
+ try{const w=await getWorker();await w.setParameters({tessedit_pageseg_mode:'6'});await orient(w);S.skew=skewAngle(S.img,S.crop);
+  const plan=[[false,1300,'6'],[true,1300,'6'],[false,1900,'6'],[false,1500,'4'],[true,1900,'4']],res=[];
+  for(let k=0;k<plan.length;k++){const[pg,W,psm]=plan[k];S.pas=.25+.7*k/plan.length;S.pasL=.7/plan.length;if(k)prog(S.pas,k===1?'Mai încerc o dată, cu alt filtru…':'Încă o încercare, ca să fiu sigur…');
+   await w.setParameters({tessedit_pageseg_mode:psm});const r=await w.recognize(prep(S.img,S.crop,pg,W)),t=r.data.text||'',pr=parse(S.tip,t);res.push({t,r:pr,s:score(pr,S.tip)});if(good(pr))break}
+  await w.setParameters({tessedit_pageseg_mode:'6'});
+  const pen=x=>x.s+(S.tip==='income'?0:(x.r.data?0:.3)+(storeOk(x.r)?0:.2)),best=res.slice().sort((a,b)=>pen(a)-pen(b))[0];
+  if(S.tip!=='income'){ // completăm ce lipsește din celelalte citiri
+   if(!best.r.data){const ds={};res.forEach(x=>{if(x.r.data)ds[x.r.data]=(ds[x.r.data]||0)+1});const d=Object.keys(ds).sort((a,b)=>ds[b]-ds[a])[0];if(d)best.r.data=d}
+   const tv={};res.forEach(x=>{if(x.r.total!=null&&x.r.totalGasit!==false&&x.r.total>0)tv[x.r.total]=(tv[x.r.total]||0)+1});const tk=Object.keys(tv).sort((a,b)=>tv[b]-tv[a]),tm=tk.length&&tv[tk[0]]>=2?+tk[0]:null;
+   if(tm!=null&&(best.r.total==null||best.r.totalGasit===false||(+best.r.total!==tm&&tv[best.r.total]<tv[tm]))){best.r.total=tm;best.r.totalGasit=true;if(best.r.produse.length===1){const p=best.r.produse[0];p.suma=tm;p.pretUnitar=p.cantitate>0?Math.round(tm/p.cantitate*100)/100:tm}}
+   if(!storeOk(best.r)){const o=res.find(x=>storeOk(x.r));if(o){best.r.magazin=o.r.magazin;best.r.categorieMagazin=o.r.categorieMagazin}}}
   fromText(best.t,S.tip,best.r)}
  catch(e){console.error(e);S.step='crop';render();alert(navigator.onLine?'Nu am putut citi bonul: '+(e.message||e):'Prima scanare are nevoie de internet, ca să descarce dicționarul românesc (aprox. 10 MB).')}};
 

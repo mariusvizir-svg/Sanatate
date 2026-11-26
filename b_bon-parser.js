@@ -57,7 +57,7 @@
       'VITAMINE', 'MAGNEZIU', 'CALCIU', 'OMEGA', 'SIROP', 'PICATURI', 'UNGUENT', 'PLASTURE', 'BANDAJ', 'TERMOMETRU',
       'TENSIOMETRU', 'COMPRIMATE', 'CPR', 'CAPSULE', 'CPS', 'TABLETE', 'FARMACIE', 'TRATAMENT', 'TEST ', 'MASCA', 'SPIRT',
       'BETADINE', 'RETETA'],
-    masina: ['BENZINA', 'MOTORINA', 'DIESEL', 'EFIX', 'EFIXD', 'EVO', 'EVOD', 'MAXXMOTION', 'MAXX', 'ACTIVE ', 'EKO',
+    masina: ['ABONAMENT', 'CALATORI', 'BILET AUTOBUZ', 'TRAMVAI', 'METROU', 'BENZINA', 'MOTORINA', 'DIESEL', 'EFIX', 'EFIXD', 'EVO', 'EVOD', 'MAXXMOTION', 'MAXX', 'ACTIVE ', 'EKO',
       'MOL ', 'DYNAMIC', 'EFFIX', 'PREMIUM 95', 'PREMIUM 98', 'GPL', 'ADBLUE', 'AD BLUE', 'ANTIGEL', 'LICHID PARBRIZ',
       'ULEI MOTOR', 'SPALATORIE', 'SPALARE AUTO', 'ROVINIETA', 'PARCARE', 'TAXA POD', 'PEAJ', 'ITP', 'ANVELOPE', 'STERGATOARE'],
     restaurant: ['CAFEA ESPRESSO', 'CAFEA LA PAHAR', 'ESPRESSO', 'CAPPUCCINO', 'LATTE', 'AMERICANO', 'FLAT WHITE', 'MENIU', 'SHAORMA', 'BURGER', 'SANDWICH',
@@ -79,7 +79,7 @@
     ['MEGA IMAGE', 'Mega Image', 'alimente'], ['MEGA', 'Mega Image', 'alimente'], ['PROFI', 'Profi', 'alimente'],
     ['PENNY', 'Penny', 'alimente'], ['AUCHAN', 'Auchan', 'alimente'], ['SELGROS', 'Selgros', 'alimente'],
     ['METRO', 'Metro', 'alimente'], ['CORA', 'Cora', 'alimente'], ['LA DOI PASI', 'La Doi Pași', 'alimente'],
-    ['ANNABELLA', 'Annabella', 'alimente'], ['PETROM', 'Petrom', 'masina'], ['OMV', 'OMV', 'masina'],
+    ['TRANSPORT PUBLIC', 'Transport public', 'masina'], ['TRANSPORT PUB', 'Transport public', 'masina'], ['CTP CLUJ', 'CTP Cluj', 'masina'], ['METROREX', 'Metrorex', 'masina'], ['STB SA', 'STB', 'masina'], ['ANNABELLA', 'Annabella', 'alimente'], ['PETROM', 'Petrom', 'masina'], ['OMV', 'OMV', 'masina'],
     ['ROMPETROL', 'Rompetrol', 'masina'], ['LUKOIL', 'Lukoil', 'masina'], ['MOL ', 'MOL', 'masina'],
     ['SOCAR', 'Socar', 'masina'], ['GAZPROM', 'Gazprom', 'masina'], ['CATENA', 'Catena', 'sanatate'],
     ['DONA', 'Dona', 'sanatate'], ['SENSIBLU', 'Sensiblu', 'sanatate'], ['HELP NET', 'HelpNet', 'sanatate'],
@@ -95,7 +95,7 @@
   ];
 
   // coduri fiscale văzute pe bonuri reale
-  var CIF = [['22891860', 'Lidl', 'alimente'], ['11588780', 'Carrefour', 'alimente'], ['11735628', 'Carrefour Market', 'alimente']];
+  var CIF = [['22891860', 'Lidl', 'alimente'], ['11588780', 'Carrefour', 'alimente'], ['11735628', 'Carrefour Market', 'alimente'], ['201195', 'Transport public Cluj', 'masina']];
   var APROX = [['KAUFLAND', 'Kaufland', 'alimente'], ['CARREFOUR', 'Carrefour', 'alimente'], ['DISCOUNT', 'Lidl', 'alimente'],
     ['ARTIMA', 'Carrefour Market', 'alimente'], ['MARKET', 'Carrefour Market', 'alimente'], ['AUCHAN', 'Auchan', 'alimente'], ['PENNY', 'Penny', 'alimente'],
     ['PROFI', 'Profi', 'alimente'], ['SELGROS', 'Selgros', 'alimente'], ['PETROM', 'Petrom', 'masina'],
@@ -146,6 +146,7 @@
     l = l.replace(/(\d[.,]\d)%(\s*[A-E€](?:\W{0,3})$)/, '$18$2');
     l = l.replace(/(\d[.,]\d{2})\s*€\s*\W{0,3}$/, '$1 C');
     l = l.replace(/(^|[^\d.,])(\d{1,4})(\d{2})\s+([AB])\W{0,3}$/, function (m, p0, i, d, t) { return p0 + i + ',' + d + ' ' + t; });
+    l = l.replace(/(\d+)\s*BUC[ĂA]?\.?\s+(\d+[.,]\d{2})\s+(\d+[.,]\d{2})\s*[A-E£€]?\s*$/i, '$1 BUC X $2 = $3 A');
     return l;
   }
 
@@ -163,7 +164,7 @@
   }
   var RE_DATA = /(\d{2})[.\/-](\d{2})[.\/-](\d{4}|\d{2})(?!\d)/;
 
-  var STOP_PRODUSE = /^(SUB ?TOTAL|TOTAL|TOTA1|T0TAL|DE PLATA|PLATA|NUMERAR|CARD|REST|TVA|BAZA|COTA|ACHITAT|PUNCTE|ART(ICOLE)?\b|NR\.? ?ART)/;
+  var STOP_PRODUSE = /^(SUB ?TOTAL|TOTAL|TOTA1|T0TAL|DE PLATA|PLATA|NUMERAR|CARD|REST|TVA|BAZA|COTA|ACHITAT|PUNCTE|ART(ICOLE)?\b|NR\.? ?ART)|\bTOTAL\s+T[UVWY]/;
   var IGNORA = /(\bMUN\.|\bMN\.|\bJUD\b|\bJUD\.|\bSECTOR\b|\bORAS\b|\bCOM\.|\bSOS\.|SOSEAUA|CALEA |COD (DE )?IDENTIFICARE|\bC\.?I\.?F\b|\bCUI\b|\bC\.U\.I|NR\.? ?REG|\bJ\d\d\/|^STR\.? |\bSTR\. |STRADA|\bJUD\.|JUDETUL|^BD\.? |BULEVARD|\bLOC\. |\bTEL\.?[: ]+\d|WWW\.|HTTP|^LEI$|^RON$|CASIER|^TURA\b|\bTURA\s*[:.]|^DOC\s*[:.]|AMEF|\bS\/N\b|^TD\s*[:.]|\bCASA\s*\d|OPERATOR|BON FISCAL|\bBF[: ]|\bZ[: ]\s*\d|ID UNIC|NR\.? ?BON|\bORA[: ]|\bDATA[: ]|MULTUMIM|LA REVEDERE|\bPOS\b|TERMINAL|AUTORIZAT|APROBAT|MASTERCARD|\bVISA\b|CONTACTLESS|\bSERIA?\b|FISCAL)/;
   var REDUCERE = /(REDUCERE|DISCOUNT|DISC\.?|PROMO|LIDL PLUS|CUPON|VOUCHER|ANULARE|STORNO|REDUCERI|ECONOMISIT|BONUS)/;
   var SGR = /(SGR|GARANTIE|GARANTIA|AMBALAJ|RETUR)/;
@@ -181,7 +182,7 @@
     for (i = 0; i < Math.min(10, liniiN.length); i++) { if ((r = cauta(liniiN[i]))) return r; }
     // după codul fiscal (cifrele citite pot avea o greșeală)
     for (i = 0; i < Math.min(12, liniiN.length); i++) {
-      if (!/FISCAL|C\.?I\.?F|CUI|\bRO\s?\d/.test(liniiN[i])) continue;
+      if (!/FISCAL|C\.?I\.?F|CUI|\bRO\s?\d|R[O0]\s?\d{5,}/.test(liniiN[i])) continue;
       var cif = (liniiN[i].replace(/[OZ]/g, function (c) { return c === 'O' ? '0' : '2'; }).match(/\d{6,10}/g) || []).join(' ');
       for (var k = 0; k < CIF.length; k++) {
         var c = CIF[k][0];
@@ -208,7 +209,7 @@
   function detecteazaPlata(liniiN) {
     // întâi liniile de după TOTAL (acolo e scris cum s-a plătit)
     var iT = -1;
-    for (var i = 0; i < liniiN.length; i++) if (/^(TOTAL|TOTA|T0TAL)/.test(liniiN[i]) && !/TVA|TUA/.test(liniiN[i])) { iT = i; break; }
+    for (var i = 0; i < liniiN.length; i++) if (/^(TOTAL|TOTA|T0TAL)/.test(liniiN[i]) && !/TVA|TUA|TUR|TVR|TVH/.test(liniiN[i])) { iT = i; break; }
     if (iT >= 0) {
       for (i = iT + 1; i < Math.min(liniiN.length, iT + 6); i++) {
         var l = liniiN[i];
@@ -249,7 +250,7 @@
     var candidati = [], sub = [];
     for (var i = 0; i < liniiN.length; i++) {
       var l = liniiN[i];
-      if (/TOTA|T0TAL|TOTAI|DE PLATA/.test(l) && !/TVA|TUA|TAIA|ECONOM|REDUC|TOTAL ART/.test(l)) {
+      if (/TOTA|T0TAL|TOTAI|DE PLATA/.test(l) && !/TVA|TUA|TUR\b|TURA|TVR|TAIA|ECONOM|REDUC|TOTAL ART/.test(l)) {
         var m = l.match(RE_SUMA_FINAL) || (liniiN[i + 1] || '').match(/^\s*(\d{1,3}(?:[ .]\d{3})*[.,]\d{2})\s*$/);
         if (m) (/SUB/.test(l) ? sub : candidati).push(numar(m[1]));
       }
@@ -361,7 +362,12 @@
           continue;
         }
         if (numeReal(bucataNume)) {
-          produse.push({ nume: curataNume(orig.slice(0, orig.toUpperCase().indexOf(mc[0].toUpperCase())) || bucataNume),
+          var ix = orig.toUpperCase().indexOf(mc[0].toUpperCase()), nm0 = ix > 0 ? orig.slice(0, ix) : bucataNume;
+          if (!produse.length && i > start && norm(nm0).replace(/[^A-Z]/g, '').length < 14) {
+            var pl = liniiN[i - 1];
+            if (pl && /[A-Z]{4,}/.test(pl) && !RE_SUMA_FINAL.test(pl) && !RE_CANT.test(pl) && !IGNORA.test(pl) && !STOP_PRODUSE.test(pl) && !/C\.?I\.?F|FISCAL|\bRO\s?\d/.test(pl)) nm0 = linii[i - 1] + ' ' + nm0;
+          }
+          produse.push({ nume: curataNume(nm0),
             cantitate: c, pretUnitar: pu, suma: total, um: unitate(mc[2]), citit: totalCitit != null ? { c: cCitit, pu: puCitit, a: totalCitit } : null });
           numeAsteptat = null; cantAsteptata = null;
         } else if (numeAsteptat) {

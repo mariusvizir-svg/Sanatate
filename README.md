@@ -148,3 +148,7 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 
 ## V7.5.0
 - Buget (ecranul principal): card „Disponibil acum” cu inel de buget, comutator Azi / 7 zile / Luna cu comparație față de perioada anterioară, carusel „Statistici” (datorii, economii, după facturi, persoane, carduri, medie pe zi, top categorie), widget-uri iPhone în locul tile-urilor colorate.
+
+## V7.5.1 — Scanare bon mai robustă
+- Citire în până la 5 treceri OCR (scări/praguri/psm diferite), îndreptare automată a înclinării, alegerea celui mai bun rezultat și completarea câmpurilor lipsă (dată, magazin, total prin vot între treceri).
+- Recunoaștere transport public (CTP Cluj etc.) → categoria Transport; linii „1 BUC 108.00 A” normalizate; TVA nu mai e confundat cu totalul.
