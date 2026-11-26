@@ -213,7 +213,7 @@ NAV=[['home','Acasă'],['add','Tensiune'],['meds','Pastile'],['life','Activitate
 IC=p=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`,
 ICON={life:IC('<path d="M3 12h4l3-8 4 16 3-8h4"/>'),dosar:IC('<path d="M4 4h10l6 6v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v6h6"/><path d="M9 15h6M12 12v6"/>'),home:IC('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'),add:IC('<path d="M12 21s-7-4.4-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 12C19 16.6 12 21 12 21z"/><path d="M7 12h3l1.5-2.5 2 5 1.5-2.5H17"/>'),hist:IC('<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>'),meds:IC('<rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9.5 8.2l5 7.6" transform="rotate(0)"/>'),rep:IC('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),set:IC('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>')};
 let histMode='bp',histDays=30,planDate=today(),snaps=[],snapsKey='',stor=null,healthRes=null;
-const DISC='Aplicația ajută la ținerea evidenței și nu înlocuiește medicul. Nu schimba tratamentul pe baza ei fără acordul medicului. · V7.5.2',
+const DISC='Aplicația ajută la ținerea evidenței și nu înlocuiește medicul. Nu schimba tratamentul pe baza ei fără acordul medicului. · V7.6.0',
 CRISIS='Valoare foarte mare (≥ 180/120 mmHg). Stai jos, liniștit, și măsoară din nou după 5 minute. Dacă valoarea se menține sau ai dureri în piept, lipsă de aer, slăbiciune, tulburări de vorbire sau de vedere, sună la 112. Anunță medicul.';
 const onboard=()=>`<div class="card"><h2>Bun venit 👋</h2><p class="mu" style="margin-top:0">Adaugă primul pacient (tu sau o rudă). Poți avea mai mulți pacienți, fiecare cu propriile măsurători, pastile și rapoarte. Datele rămân doar pe acest telefon.</p><form id="pf" class="form"><label>Prenume<input name="first" required placeholder="ex. Maria"></label><label>Nume<input name="last" placeholder="ex. Popescu"></label><label>Sex<select name="sex"><option value="">—</option><option value="M">Masculin</option><option value="F">Feminin</option></select></label><label>Data nașterii<input name="born" type="date"></label><label>Înălțime (cm)<input name="height" type="number" inputmode="numeric"></label><label>Greutate (kg)<input name="weight" type="number" step="0.1" inputmode="decimal"></label><label>Țintă sistolică<input name="sys" type="number" value="130" min="90" max="180" inputmode="numeric"></label><label>Țintă diastolică<input name="dia" type="number" value="80" min="50" max="110" inputmode="numeric"></label><div class="w"><button class="btn">Începe</button></div></form><small class="mu" style="display:block;margin-top:10px">${DISC}</small></div>`;
 const doseRows=(sl,d)=>sl.length?sl.map(s=>{const st=state(s),[lb,cl]=ST[st],k=`${s.m.id}|${s.t}|${s.d}`,i=intakeOf(s);
@@ -233,7 +233,8 @@ ${todayCard()}${famCard()}
 <div class="grid"><div class="card kpi"><small>Media 7 zile</small><b>${ws.n?r0(ws.sys)+'/'+r0(ws.dia):'—'}</b></div><div class="card kpi"><small>Sub țintă (7 zile)</small><b class="${ws.n&&ws.inT/ws.n>=.7?'ok':''}">${ws.n?r0(ws.inT/ws.n*100)+'%':'—'}</b></div><div class="card kpi"><small>Pastile luate (7 zile)</small><b class="${pctCls(ad.pct)}">${ad.exp?r0(ad.pct)+'%':'—'}</b></div><div class="card kpi"><small>Măsurători azi</small><b>${nm}</b></div></div>
 ${weekCard()}${lifeCard()}<div class="card"><h2>Ultimele măsurători</h2>${a.length?a.slice(-5).reverse().map(x=>bpRow(x,false)).join(''):'<div class="empty">Nicio măsurătoare.</div>'}<div class="acts2"><button class="btn s" data-go="hist">Tot istoricul</button><button class="btn s" data-go="rep">Rapoarte</button><button class="btn s" data-emerg="1">🆘 Card urgență</button></div></div>
 <small class="mu">${DISC}</small>`},
-add(){if(!P())return onboard();return`<div class="card"><h2>Măsurare nouă · ${esc(P().name)}</h2><form id="bf" class="form"><label>Sistolică (mare)<input name="sys" type="number" inputmode="numeric" min="50" max="300" required class="bigin" autofocus></label><label>Diastolică (mică)<input name="dia" type="number" inputmode="numeric" min="30" max="200" required class="bigin"></label><label>Puls (opțional)<input name="pulse" type="number" inputmode="numeric" min="20" max="250"></label><label>Data<input name="date" type="date" value="${today()}" required></label><label>Ora<input name="time" type="time" value="${nowT()}" required></label>
+add(){if(!P())return onboard();return`<div class="card bpcam"><h2>📷 Citește din poză</h2><p class="mu" style="margin-top:0">Fotografiază ecranul tensiometrului, cu cifrele drepte și fără reflexii. Valorile se completează singure, tu le verifici și salvezi.</p><div class="acts2"><label class="btn bpc-big">📷 Fă o poză<input type="file" id="bpCam" accept="image/*" capture="environment" hidden></label><label class="btn s bpc-big">🖼 Din galerie<input type="file" id="bpGal" accept="image/*" hidden></label></div><div id="bpMsg" class="bpmsg" hidden></div></div>
+<div class="card"><h2>Măsurare nouă · ${esc(P().name)}</h2><form id="bf" class="form"><label>Sistolică (mare)<input name="sys" type="number" inputmode="numeric" min="50" max="300" required class="bigin" autofocus></label><label>Diastolică (mică)<input name="dia" type="number" inputmode="numeric" min="30" max="200" required class="bigin"></label><label>Puls (opțional)<input name="pulse" type="number" inputmode="numeric" min="20" max="250"></label><label>Data<input name="date" type="date" value="${today()}" required></label><label>Ora<input name="time" type="time" value="${nowT()}" required></label>
 <label>Braț<select name="arm"><option value="st">Stâng</option><option value="dr">Drept</option></select></label><label>Poziție<select name="pos"><option value="sed">Șezând</option><option value="cul">Culcat</option><option value="pic">În picioare</option></select></label><div class="w"><small class="mu">Ce s-a întâmplat înainte? (opțional)</small><div class="seg dseg tags" style="margin-top:6px">${TAGS.map(([k,n])=>`<label class="dchk"><input type="checkbox" name="tg_${k}"><span>${n}</span></label>`).join('')}</div></div><label class="w">Notă (opțional)<input name="note" placeholder="ex. după plimbare"></label><details class="w"><summary>A doua măsurătoare (se salvează media)</summary><div class="form"><label>Sistolică 2<input name="sys2" type="number" inputmode="numeric" min="50" max="300"></label><label>Diastolică 2<input name="dia2" type="number" inputmode="numeric" min="30" max="200"></label><label>Puls 2<input name="pulse2" type="number" inputmode="numeric" min="20" max="250"></label></div></details><div id="pv" class="w pv">Introdu valorile ca să vezi încadrarea.</div><div class="w"><button class="btn">Salvează măsurătoarea</button></div></form></div>
 <div class="card"><h2>Cum măsori corect</h2><div class="ins"><div class="in2"><i>1</i><span>Stai jos 5 minute, liniștit, fără să vorbești.</span></div><div class="in2"><i>2</i><span>Spatele sprijinit, picioarele pe podea, brațul la nivelul inimii.</span></div><div class="in2"><i>3</i><span>Fără cafea, fumat sau efort cu 30 de minute înainte.</span></div><div class="in2"><i>4</i><span>Măsoară de 2 ori la 1–2 minute distanță și notează ambele valori sau media.</span></div></div></div>`},
 hist(){if(!P())return onboard();const f=histDays?addD(today(),-(histDays-1)):'0000-00-00',t=today(),a=pbp(pid,f,t).reverse(),ins=data.intakes.filter(i=>i.pid===pid&&i.date>=f&&i.date<=t).sort((x,y)=>(y.date+(y.at||'')).localeCompare(x.date+(x.at||'')));
@@ -1103,6 +1104,95 @@ const arrow=(d,good)=>d>0?'<span class="'+(good==='up'?'ok':good==='dn'?'er':'')
 /* V7.4 – date suplimentare pentru Acasă */
 {const _a=window.AGENDA_API;window.AGENDA_API=()=>{const r=_a();if(r&&r.ready){try{const t=today(),ws=bpStats(pbp(pid,addD(t,-6),t),pid),a30=adh(pid,addD(t,-29),t),a60=adh(pid,addD(t,-59),addD(t,-30)),lb=lastPerTest(data.labs.filter(x=>x.pid===pid)).filter(x=>labFlag(x)==='H'||labFlag(x)==='L'),ls=lowStock(pid).filter(x=>x.days!=null&&x.days<999).sort((x,y)=>x.days-y.days)[0];
  r.st={inT:ws.n?Math.round(100*ws.inT/ws.n):null,adh:a30.exp?Math.round(a30.pct):null,adhPrev:a60.exp?Math.round(a60.pct):null,act:wstats(pid,addD(t,-6),t).actMin,labs:lb.length,lab1:lb[0]?{t:lb[0].t,v:lb[0].v,date:lb[0].date}:null,stock:ls?{name:ls.m.name,days:ls.days}:null}}catch(e){}}return r}}
+
+/* ===== src/bpcam.js ===== */
+/* Tensiunea Mea · citire tensiometru din poză (afișaj cu 7 segmente), fără internet, fără OCR */
+const BPC_D=[];
+const BPC=(()=>{
+const SEG={'1111110':0,'0110000':1,'1101101':2,'1111001':3,'0110011':4,'1011011':5,'1011111':6,'1110000':7,'1111111':8,'1111011':9};
+const SK=Object.keys(SEG);
+function mm(src,w,h,r,max){ // filtru separabil min/max, pătrat
+ const t=new Uint8Array(w*h),o=new Uint8Array(w*h);
+ for(let y=0;y<h;y++){const b=y*w;for(let x=0;x<w;x++){let v=src[b+x];const a=Math.max(0,x-r),z=Math.min(w-1,x+r);for(let i=a;i<=z;i++){const q=src[b+i];if(max?q>v:q<v)v=q}t[b+x]=v}}
+ for(let x=0;x<w;x++){for(let y=0;y<h;y++){let v=t[y*w+x];const a=Math.max(0,y-r),z=Math.min(h-1,y+r);for(let i=a;i<=z;i++){const q=t[i*w+x];if(max?q>v:q<v)v=q}o[y*w+x]=v}}
+ return o}
+function otsu(a){const hs=new Array(256).fill(0);a.forEach(v=>hs[v]++);const n=a.length;let s=0;for(let i=0;i<256;i++)s+=i*hs[i];let sb=0,wb=0,best=0,th=0;for(let i=0;i<256;i++){wb+=hs[i];if(!wb)continue;const wf=n-wb;if(!wf)break;sb+=i*hs[i];const d=sb/wb-(s-sb)/wf,v=wb*wf*d*d;if(v>best){best=v;th=i}}return th}
+function work(img,maxS){const w0=img.naturalWidth||img.width,h0=img.naturalHeight||img.height,k=Math.min(1,maxS/Math.max(w0,h0)),w=Math.round(w0*k),h=Math.round(h0*k),c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,w,h);return{w,h,d:x.getImageData(0,0,w,h).data}}
+function findLcd(W){ // zona gri-închis, puțin colorată, dreptunghiulară
+ const{w,h,d}=W,m=new Uint8Array(w*h);
+ for(let i=0,p=0;i<w*h;i++,p+=4){const r=d[p],g=d[p+1],b=d[p+2],mx=Math.max(r,g,b),mn=Math.min(r,g,b);m[i]=(mx>35&&mx<140&&(mx-mn)*255<130*mx&&b<=Math.max(r,g)+8)?255:0}
+ const c=mm(mm(m,w,h,4,true),w,h,4,false),lab=new Int32Array(w*h);let best=null,id=0;const st=[];
+ for(let s=0;s<w*h;s++){if(!c[s]||lab[s])continue;id++;let n=0,x0=w,x1=0,y0=h,y1=0;st.length=0;st.push(s);lab[s]=id;
+  while(st.length){const q=st.pop(),x=q%w,y=(q-x)/w;n++;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;
+   if(x>0&&c[q-1]&&!lab[q-1]){lab[q-1]=id;st.push(q-1)}if(x<w-1&&c[q+1]&&!lab[q+1]){lab[q+1]=id;st.push(q+1)}if(y>0&&c[q-w]&&!lab[q-w]){lab[q-w]=id;st.push(q-w)}if(y<h-1&&c[q+w]&&!lab[q+w]){lab[q+w]=id;st.push(q+w)}}
+  const bw=x1-x0+1,bh=y1-y0+1,fill=n/(bw*bh),asp=bw/bh;
+  if(n>w*h*.02&&fill>.28&&asp>.5&&asp<1.7&&x0>2&&y0>2&&x1<w-3&&y1<h-3&&(!best||n>best.n))best={n,x0,y0,x1,y1}}
+ return best}
+function shear(bin,w,x0,x1,y0,y1){ // îndreptăm înclinarea cifrelor (afișaj italic)
+ const bh=y1-y0+1,ww=x1-x0+1;let bk=0,bs=-1;
+ for(let k=-.04;k<=.31;k+=.01){const col=new Float32Array(ww+Math.ceil(bh*.35)+4);for(let y=0;y<bh;y++){const sh=Math.round(k*(bh-y));for(let x=0;x<ww;x++)if(bin[(y0+y)*w+x0+x])col[x+sh+4]++}let sc=0;for(let i=0;i<col.length;i++)sc+=col[i]*col[i];if(sc>bs){bs=sc;bk=k}}
+ const nw=ww+Math.ceil(bh*.35)+4,o=new Uint8Array(nw*bh);
+ for(let y=0;y<bh;y++){const sh=Math.round(bk*(bh-y));for(let x=0;x<ww;x++)if(bin[(y0+y)*w+x0+x])o[y*nw+x+sh+4]=1}
+ return{o,nw,bh,bk}}
+function decode(bin0,w0,x0_,x1_,y0_,y1_,strict){ // citește cifrele dintr-o bandă
+ const sh=shear(bin0,w0,x0_,x1_,y0_,y1_),bin=sh.o,w=sh.nw,x0=0,x1=w-1,y0=0,y1=sh.bh-1;BPC_D.push({k:sh.bk});
+ const bh=y1-y0+1,col=[];for(let x=x0;x<=x1;x++){let n=0;for(let y=y0;y<=y1;y++)n+=bin[y*w+x];col.push(n)}
+ const th=Math.max(2,bh*.07),gr=[];let a=-1;
+ for(let i=0;i<=col.length;i++){const on=i<col.length&&col[i]>th;if(on&&a<0)a=i;if(!on&&a>=0){gr.push([x0+a,x0+i-1]);a=-1}}
+ // unim bucăți apropiate (segmente separate ale aceleiași cifre)
+ const g2=[];gr.forEach(g=>{const l=g2[g2.length-1];if(l&&g[0]-l[1]<bh*.09)l[1]=g[1];else g2.push(g.slice())});
+ BPC_D.push({gr:g2});const ok=g2.filter(g=>{if(g[1]-g[0]<bh*.06)return false;let a=bh,b=-1;for(let y=y0;y<=y1;y++){for(let x=g[0];x<=g[1];x++)if(bin[y*w+x]){if(y<a)a=y;if(y>b)b=y;break}}return b-a>=bh*.5});if(!ok.length||ok.length>4)return null;
+ let s='';
+ for(const[gx0,gx1]of ok){const gw=gx1-gx0+1;
+  if(gw<bh*.3){s+='1';continue}
+  const z=(fx0,fx1,fy0,fy1)=>{let n=0,t=0;const xa=Math.round(gx0+fx0*gw),xb=Math.round(gx0+fx1*gw),ya=Math.round(y0+fy0*bh),yb=Math.min(y1,Math.round(y0+fy1*bh)-1);for(let y=ya;y<=yb;y++)for(let x=xa;x<=xb;x++){n+=bin[y*w+x];t++}return t?n/t:0};
+  const zz=[z(.2,.8,0,.1),z(.8,1,.12,.42),z(.8,1,.58,.88),z(.2,.8,.9,1),z(0,.2,.58,.88),z(0,.2,.12,.42),z(.2,.8,.45,.55)];const f=zz.map(v=>v>.4?1:0).join('');BPC_D.push({zz:zz.map(v=>+v.toFixed(2))});
+  let bs=null,bd=9;SK.forEach(k=>{let d=0;for(let i=0;i<7;i++)if(k[i]!==f[i])d++;if(d<bd){bd=d;bs=k}});
+  (BPC_D.push({gx0,gx1,f,bd}));if(bd>(strict?0:1))return null;s+=SEG[bs]}
+ return s}
+function bands(bin,w,h,minH,thr){const r=[];for(let y=0;y<h;y++){let n=0;for(let x=0;x<w;x++)n+=bin[y*w+x];r.push(n)}
+ const o=[];let a=-1,gap=0;for(let y=0;y<=h;y++){const on=y<h&&r[y]>thr;if(on){if(a<0)a=y;gap=0}else if(a>=0){gap++;if(gap>h*.015||y===h){o.push([a,y-gap]);a=-1;gap=0}}}
+ return o.filter(b=>b[1]-b[0]>=minH)}
+function read(img){
+ const W=work(img,1100),L=findLcd(W)||{x0:0,y0:0,x1:W.w-1,y1:W.h-1},lw0=L.x1-L.x0+1,lh0=L.y1-L.y0+1,
+  px=Math.round(lw0*.03),pyT=Math.round(lh0*.03),pyB=Math.round(lh0*.12),
+  x0=Math.max(0,L.x0-px),y0=Math.max(0,L.y0-pyT),x1=Math.min(W.w-1,L.x1+px),y1=Math.min(W.h-1,L.y1+pyB),w=x1-x0+1,h=y1-y0+1;
+ const g=new Uint8Array(w*h);for(let y=0;y<h;y++)for(let x=0;x<w;x++){const p=((y0+y)*W.w+x0+x)*4;g[y*w+x]=(W.d[p]*.3+W.d[p+1]*.59+W.d[p+2]*.11)|0}
+ {const t=g.slice();for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){let a=0;for(let j=-1;j<=1;j++)for(let i=-1;i<=1;i++)a+=t[(y+j)*w+x+i];g[y*w+x]=a/9|0}}
+ const r=Math.max(6,Math.round(w*.08)),cl=mm(mm(g,w,h,r,true),w,h,r,false),bh=new Uint8Array(w*h);for(let i=0;i<w*h;i++)bh[i]=Math.min(255,Math.max(0,(cl[i]-g[i])*200/Math.max(20,cl[i])));
+ const sorted=Array.from(bh).sort((a,b)=>a-b),p99=sorted[Math.floor(sorted.length*.985)],th=Math.max(6,Math.round(otsu(bh)*.8)),bin=new Uint8Array(w*h);for(let i=0;i<w*h;i++)bin[i]=bh[i]>th?1:0;
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){const q=((y0+y)*W.w+x0+x)*4;if(W.d[q+2]>Math.max(W.d[q],W.d[q+1])+10)bin[y*w+x]=0}
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++)if(x<w*.01||x>w*.99||y<h*.01)bin[y*w+x]=0;
+ {const t=new Uint8Array(w*h);for(let i=0;i<w*h;i++)t[i]=bin[i]?255:0;const o=mm(mm(t,w,h,Math.max(2,Math.round(w*.011)),false),w,h,Math.max(2,Math.round(w*.011)),true);for(let i=0;i<w*h;i++)bin[i]=o[i]?1:0}
+ { // scoatem petele mici (reflexii, praf): păstrăm doar bare de segment
+  const lb=new Int32Array(w*h),stk=[];let id=0;
+  for(let s0=0;s0<w*h;s0++){if(!bin[s0]||lb[s0])continue;id++;const pts=[];let a=w,b=0,c=h,d=0;stk.length=0;stk.push(s0);lb[s0]=id;
+   while(stk.length){const q=stk.pop(),x=q%w,y=(q-x)/w;pts.push(q);if(x<a)a=x;if(x>b)b=x;if(y<c)c=y;if(y>d)d=y;
+    for(const n of[x>0?q-1:-1,x<w-1?q+1:-1,y>0?q-w:-1,y<h-1?q+w:-1])if(n>=0&&bin[n]&&!lb[n]){lb[n]=id;stk.push(n)}}
+   const bw=b-a+1,bh2=d-c+1,fill=pts.length/(bw*bh2);
+   if(!BPC.nf&&!(Math.max(bw,bh2)>=h*.07&&Math.min(bw,bh2)>=h*.012))for(const q of pts)bin[q]=0}}
+ // fără margini zgomotoase
+ if(BPC.dump){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d'),im=x.createImageData(w,h);for(let i=0;i<w*h;i++){im.data[i*4]=im.data[i*4+1]=im.data[i*4+2]=bin[i]?255:0;im.data[i*4+3]=255}x.putImageData(im,0,0);BPC.dumpURL=c.toDataURL()}
+ const bn=bands(bin,w,h,h*.14,w*.06),dbg={lcd:[x0,y0,w,h],bands:bn,th,rows:Array.from({length:Math.floor(h/8)},(_,i)=>{let n=0;for(let x=0;x<w;x++)n+=bin[i*8*w+x];return n})};
+ if(!bn.length)return{err:'Nu am găsit cifrele. Încearcă o poză mai de aproape, fără reflexii.',dbg};
+ {const rc=y=>{let n=0;for(let x=0;x<w;x++)n+=bin[y*w+x];return n},h1=bn[0][1]-bn[0][0];let st=-1;for(let y=bn[0][1]+3;y<h;y++)if(rc(y)>w*.03){st=y;break}
+  if(st<0||st+h1*.5>h)return{err:'Nu am găsit cifrele. Încearcă o poză mai de aproape, fără reflexii.',dbg};let en=st,gp=0;for(let y=st;y<h&&y<st+h1*1.2;y++){if(rc(y)>w*.03){en=y;gp=0}else if(++gp>h*.02)break}en=Math.max(en,st+h1*.9);bn.length=1;bn.push([st,Math.min(h-1,Math.round(en))])}
+ const cx0=Math.round(w*.04),cx1=Math.round(w*.97),sys=decode(bin,w,cx0,cx1,bn[0][0],bn[0][1]),dia=decode(bin,w,cx0,cx1,bn[1][0],bn[1][1]);
+ let pulse=null; // cifrele mici ale pulsului sunt prea șterse pe aceste aparate: nu ghicim, îl scrie utilizatorul
+ dbg.raw={sys,dia,pulse};
+ const S=+sys,D=+dia,P=pulse?+pulse:null;
+ if(!sys||!dia||!(S>=60&&S<=260)||!(D>=30&&D<=160)||S<=D)return{err:'Nu am putut citi sigur cifrele. Încearcă o poză mai dreaptă și mai de aproape.',dbg,sys:S||null,dia:D||null};
+ return{sys:S,dia:D,pulse:P&&P>=25&&P<=220?P:null,dbg}}
+const o={read,D:BPC_D,work,findLcd,mm};return o})();
+
+document.addEventListener('change',async e=>{const t=e.target;if(t.id!=='bpCam'&&t.id!=='bpGal')return;const f=t.files&&t.files[0];t.value='';if(!f)return;
+ const m=document.getElementById('bpMsg');const say=(h,c)=>{if(m){m.hidden=false;m.className='bpmsg '+(c||'');m.innerHTML=h}};say('Citesc cifrele…');
+ try{const u=URL.createObjectURL(f),im=new Image();im.src=u;await im.decode();await new Promise(r=>setTimeout(r,30));const r=BPC.read(im);URL.revokeObjectURL(u);
+  const fm=document.getElementById('bf');
+  if(r.err&&!(r.sys&&r.dia)){say('⚠️ '+r.err+' Poți scrie valorile de mână mai jos.','bad');return}
+  if(fm){if(r.sys)fm.sys.value=r.sys;if(r.dia)fm.dia.value=r.dia;if(r.pulse)fm.pulse.value=r.pulse;fm.sys.dispatchEvent(new Event('input',{bubbles:true}))}
+  say(r.err?'⚠️ '+r.err:'✅ Am citit <b>'+r.sys+'/'+r.dia+'</b>'+(r.pulse?' · puls <b>'+r.pulse+'</b>':' · scrie și pulsul (cifrele mici nu se pot citi sigur din poză)')+'. Verifică cu aparatul și apasă Salvează.',r.err?'bad':'ok');
+  if(fm&&fm.pulse&&!fm.pulse.value&&!r.err){try{fm.pulse.focus({preventScroll:true})}catch(_){}}if(m&&m.scrollIntoView)m.scrollIntoView({block:"nearest"})}catch(x){say('⚠️ Nu am putut deschide poza.','bad')}});
 
 /* ===== src/main.js ===== */
 /* Tensiunea Mea · evenimente, formulare, export, pornire */

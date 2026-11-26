@@ -155,3 +155,15 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 
 ## V7.5.2
 - Total lipsă pe bon: se deduce din rândul TVA (21/11/9/19/5%) și se potrivește cu o sumă citită; produsele care nu se potrivesc sunt corectate.
+
+## V7.5.3
+- Sănătate → Tensiune nouă: „Citește din poză” (cititor local de afișaj cu 7 segmente: sistolică, diastolică, puls când se vede clar). Valorile se completează în formular, nu se salvează automat.
+
+## V7.5.4
+- Citire tensiometru: funcționează și pe poze foarte apropiate (ecran plin), cu culori de iPhone; ignoră rama albastră și petele de pe margini.
+
+## V7.5.5
+- Citire tensiometru: pulsul nu se mai ghicește (cifre prea șterse); după citire cursorul trece direct în câmpul Puls.
+
+## V7.6.0
+- Buget → ecranul principal: sold, butoane colorate (Cheltuială/Venit/Transfer/Scanează), cifre utile (medie/zi, estimare final de lună, cea mai mare cheltuială, zile fără cheltuieli), frază de concluzii, „Cheltuieli pe categorii”, ultimele 5 operațiuni cu modifică/duplică/șterge.
