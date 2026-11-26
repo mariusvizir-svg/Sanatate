@@ -152,3 +152,6 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 ## V7.5.1 — Scanare bon mai robustă
 - Citire în până la 5 treceri OCR (scări/praguri/psm diferite), îndreptare automată a înclinării, alegerea celui mai bun rezultat și completarea câmpurilor lipsă (dată, magazin, total prin vot între treceri).
 - Recunoaștere transport public (CTP Cluj etc.) → categoria Transport; linii „1 BUC 108.00 A” normalizate; TVA nu mai e confundat cu totalul.
+
+## V7.5.2
+- Total lipsă pe bon: se deduce din rândul TVA (21/11/9/19/5%) și se potrivește cu o sumă citită; produsele care nu se potrivesc sunt corectate.
