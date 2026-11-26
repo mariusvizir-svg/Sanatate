@@ -145,3 +145,6 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 
 ## V7.4.1
 - Buget → Setări: „Resetare completă” (alegi ce ștergi: operațiuni, datorii, împrumuturi, obiective, planificări, carduri, bugete, solduri inițiale), cu instantaneu de siguranță și confirmare scrisă (`b_reset.js`).
+
+## V7.5.0
+- Buget (ecranul principal): card „Disponibil acum” cu inel de buget, comutator Azi / 7 zile / Luna cu comparație față de perioada anterioară, carusel „Statistici” (datorii, economii, după facturi, persoane, carduri, medie pe zi, top categorie), widget-uri iPhone în locul tile-urilor colorate.
