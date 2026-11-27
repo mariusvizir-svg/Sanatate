@@ -18,7 +18,7 @@ let tab='home',kind='all',q='',entry='expense',month=today().slice(0,7);
 const save=()=>{Store.save(data).catch(()=>alert('Nu s-au putut salva datele! Fă imediat un backup din Setări.'));render()},
 tx=(m=month)=>data.transactions.filter(t=>t.date?.slice(0,7)===m),by=(m,t)=>tx(m).filter(x=>x.type===t),
 remaining=d=>Math.max(0,val(d.amount-sum(data.transactions.filter(t=>t.type==='debt'&&t.debtId===d.id)))),
-balances=()=>{const b={Card:val(data.opening.Card),Numerar:val(data.opening.Numerar)};for(const t of data.transactions){const a=t.amount;if(t.type==='transfer'){if(t.account in b)b[t.account]-=a;if(t.to in b)b[t.to]+=a}else if(t.account in b)b[t.account]+=CREDIT.includes(t.type)?a:-a}return b},
+balances=(upTo)=>{const b={Card:val(data.opening.Card),Numerar:val(data.opening.Numerar)};for(const t of data.transactions){if(t.date>(upTo||today()))continue;const a=t.amount;if(t.type==='transfer'){if(t.account in b)b[t.account]-=a;if(t.to in b)b[t.to]+=a}else if(t.account in b)b[t.account]+=CREDIT.includes(t.type)?a:-a}return b},
 spent=id=>sum(data.transactions.filter(t=>t.type==='expense'&&t.account==='voucher:'+id)),
 legacy=k=>val(sum((data.v11?.vouchers||[]).filter(t=>t.account===k),t=>(t.kind==='load'?1:-1)*t.amount)-spent('legacy:'+k)),
 cardBal=c=>val((+c.opening||0)+sum(data.v14.cardMoves.filter(m=>m.cardId===c.id),m=>(m.kind==='load'?1:-1)*m.amount)-spent(c.id)),
