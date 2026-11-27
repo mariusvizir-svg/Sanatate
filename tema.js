@@ -53,6 +53,7 @@
       var t = get(), r = (doc || document).documentElement, st = r.style;
       st.setProperty('--a2', t.c); st.setProperty('--a1', mix(t.c, [255, 255, 255], .22)); st.setProperty('--a3', mix(t.c, [0, 0, 0], .38));
       var dk = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches && !(doc || document).documentElement.classList.contains('emb'); st.setProperty('--ac', dk ? mix(t.c, [255, 255, 255], .4) : mix(t.c, [0, 0, 0], .12)); st.setProperty('--th', SZ[t.s] + 'px'); r.setAttribute('data-sz', t.s); r.setAttribute('data-th', t.t); r.setAttribute('data-fm', t.f); inject(doc || document); if (t.m === 'dark' || THEMES[t.t][2]) { r.setAttribute('data-m', 'dark'); st.setProperty('--ac', mix(t.c, [255, 255, 255], .42)); } else r.removeAttribute('data-m');
+      try { var bd = (doc || document).body; if (bd) bd.classList.remove('dark'); } catch (x) { }
       var m = (doc || document).querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', mix(t.c, [0, 0, 0], .38));
     } catch (e) { }
   }

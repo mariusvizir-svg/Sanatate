@@ -23,5 +23,5 @@ else if(f==='cf'){data.v14.cards.push({id:id(),name:v.name.trim(),type:'meal',is
 else if(f==='lf'){data.v14.cardMoves.push({id:id(),cardId:v.cardId,kind:'load',amount:n,date:today(),note:''});save()}
 else if(f==='of'){data.opening={Card:val(v.Card),Numerar:val(v.Numerar)};save()}});
 (()=>{const m=cur(),dd=+today().slice(8);let ch=0;data.v11.plans.forEach(p=>{if(p.auto&&p.day<=dd&&!(p.done||{})[m]){data.transactions.push({id:id(),created:Date.now(),date:m+'-'+String(Math.min(p.day,dim(m))).padStart(2,'0'),type:p.kind,amount:p.amount,account:'Card',note:p.title+' (automat)',category:p.kind==='income'?incCats()[0]:'Altele',debtId:'',to:''});(p.done=p.done||{})[m]=true;ch=1}});if(ch)Store.save(data)})();
-if(localStorage.getItem('bm-theme')==='d')document.body.classList.add('dark');
+if(!window.AMTheme&&localStorage.getItem('bm-theme')==='d')document.body.classList.add('dark');
 render();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');

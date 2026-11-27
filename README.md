@@ -173,3 +173,6 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 
 ## V7.7.0
 - Setări → Temă: 10 aspecte noi pentru toată aplicația (Neo-brutal galben, Mentă pastel, Neon noapte, Ocean albastru, Hârtie, Monocrom, Apus de soare, Pădure întunecată, Lavandă, Negru-galben), cu previzualizare de culoare.
+
+## V7.7.1
+- Sănătate și Buget respectă tema aleasă în Setări (vechiul mod întunecat propriu din Sănătate/Buget nu mai suprascrie tema).
