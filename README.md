@@ -167,3 +167,9 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 
 ## V7.6.0
 - Buget → ecranul principal: sold, butoane colorate (Cheltuială/Venit/Transfer/Scanează), cifre utile (medie/zi, estimare final de lună, cea mai mare cheltuială, zile fără cheltuieli), frază de concluzii, „Cheltuieli pe categorii”, ultimele 5 operațiuni cu modifică/duplică/șterge.
+
+## V7.6.1
+- Acasă: graficul de tensiune cu linie a fost înlocuit cu plăcuțe colorate (SYS/DIA pe zile) + listă cu bare; media și câte măsurători optime.
+
+## V7.7.0
+- Setări → Temă: 10 aspecte noi pentru toată aplicația (Neo-brutal galben, Mentă pastel, Neon noapte, Ocean albastru, Hârtie, Monocrom, Apus de soare, Pădure întunecată, Lavandă, Negru-galben), cu previzualizare de culoare.
