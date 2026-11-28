@@ -208,3 +208,11 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 - Buget: casetele Cheltuieli / Venituri / Rămas se ating și arată din ce se compun (pe categorii, împrumuturi, calculul „Rămas”).
 - „Fără magazin trecut” se poate atinge: arată exact cheltuielile fără magazin (ex. Chirie, Utilități).
 - Istoric deschis din butoane/meniu pornește fără filtre vechi (nu mai rămâne blocat pe un magazin, ex. SuperBet).
+
+## V7.11.0
+- Buget → ecran principal: „🏦 Pe conturi” – pentru Card și Numerar: sold la început de lună, fiecare intrare/ieșire pe tip (venituri, transferuri, cheltuieli, împrumuturi, rate), sold la final; buton spre operațiunile contului.
+- „⚠️ De verificat”: cheltuieli fără magazin/persoană, fără notă, categorii aproape identice, date în viitor, sold negativ, datorii restante, nicio rată trecută luna asta, nicio încasare; fiecare deschide locul de corectat.
+- Istoric: totaluri „Pe conturi” (intrări/ieșiri pentru lista afișată), atingi ca să filtrezi.
+
+## V7.11.1
+- Acasă: cardurile „🏦 Bani pe conturi” (Card/Numerar: sold, început, intrări, ieșiri) și „⚠️ De verificat în Buget”; dacă luna curentă e goală, se arată ultima lună cu date.

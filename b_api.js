@@ -36,3 +36,7 @@ if(window.parent!==window){let ly=0;addEventListener('scroll',()=>{const y=scrol
  r.after={out,inc,left:val(inc-out),n:pl.length};
  r.debt={n:D.filter(d=>remaining(d)>0).length,left,tot,pc:tot?Math.round(100*(tot-left)/tot):0,od:D.filter(d=>remaining(d)>0&&d.due&&d.due<today()).length};
  r.goals={n:G.length,tc:sum(G,gc),tt:sum(G,g=>g.target),thisM:sum(G,g=>sum((g.moves||[]).filter(m=>m.date>=m0),m=>(m.kind==='deposit'?1:-1)*m.amount))}}catch(e){}}return r}})();
+
+;(()=>{const _a=window.AGENDA_API;window.AGENDA_API=()=>{const r=_a();if(r&&r.ready){const sv=month;try{if(!data.transactions.some(t=>(t.date||'').startsWith(month))){const ms=data.transactions.map(t=>(t.date||'').slice(0,7)).filter(Boolean).sort();if(ms.length)month=ms[ms.length-1]}const cm=month===today().slice(0,7),a=month+'-01',z=cm?today():month+'-31',pv=new Date(+month.slice(0,4),+month.slice(5,7)-1,0),pd=pv.getFullYear()+'-'+String(pv.getMonth()+1).padStart(2,'0')+'-'+String(pv.getDate()).padStart(2,'0'),b0=balances(pd),b1=balances(z);
+ r.acc={m:month,cur:cm,L:['Card','Numerar'].map(k=>{const{inn,out}=accMove(k,a,z);return{k,b0:b0[k],b1:b1[k],i:sum(Object.values(inn),x=>x),o:sum(Object.values(out),x=>x)}})};
+ r.chk=chkList().map(x=>[x[0],x[1],x[2]])}catch(e){}month=sv}return r}})();
