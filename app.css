@@ -300,3 +300,5 @@ html.emb header{-webkit-backdrop-filter:none!important;backdrop-filter:none!impo
 .lrow{all:unset;box-sizing:border-box;width:100%;cursor:pointer}.lrow[hidden]{display:none!important}.lgrp[hidden]{display:none!important}
 .ldh{display:flex;justify-content:space-between;align-items:flex-end;margin-top:12px}.lbig{font-size:38px;font-weight:900;line-height:1.1}.lbig small{font-size:15px;font-weight:600;color:var(--mu)}.lbig.er{color:#dc2626}.lbig.ok{color:#16a34a}
 .lrow{display:flex!important;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--ln)}.lrow>div:first-child{min-width:0;flex:1}.lrow .ac{display:flex;align-items:center;gap:6px;flex:none;white-space:nowrap}
+
+.bpcam,[data-ocr]{display:none!important}

@@ -15,7 +15,7 @@ else if(d.act==='csv')dl('operatiuni-'+month+'.csv','\ufeff'+['Data;Tip;Categori
 document.addEventListener('input',e=>{if(e.target.id==='q'){q=e.target.value.toLowerCase();const p=e.target.selectionStart;render();const i=$('q');i.focus();i.setSelectionRange(p,p)}});
 document.addEventListener('change',e=>{if(e.target.id==='month'){month=e.target.value||month;render()}if(e.target.id==='imp'){importFile(e.target.files[0]);e.target.value=''}});
 document.addEventListener('submit',e=>{const f=e.target.id,v=F(e),n=val(v.amount);
-if(f==='f'){if(!(n>0))return;const t={id:id(),created:Date.now(),date:v.date,type:entry,amount:n,account:v.account,note:v.note.trim(),category:v.category||'',debtId:v.debtId||'',to:v.to||'',...(entry==='expense'&&(v.shop||'').trim()?{shop:v.shop.trim()}:{})};
+if(f==='f'){if(!(n>0))return;const t={id:id(),created:Date.now(),date:v.date,type:entry,amount:n,account:v.account,note:v.note.trim(),category:v.category||'',debtId:v.debtId||'',to:v.to||'',...(entry==='expense'&&(v.shop||'').trim()?{shop:v.shop.trim()}:{}),...((v.person||'').trim()?{person:v.person.trim()}:{})};
 if(t.type==='transfer'&&t.account===t.to)return alert('Alege două conturi diferite.');if(t.type==='debt'&&!t.debtId)return alert('Adaugă întâi o datorie.');
 if(t.account.startsWith('voucher:')&&n>vbal(t.account))return alert('Sold insuficient pe cardul ales.');data.transactions.push(t);tab='home';save()}
 else if(f==='df'){data.debts.push({id:id(),name:v.name.trim(),amount:n});save()}
@@ -28,3 +28,15 @@ render();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js'
 
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-shpk]');if(!b)return;const i=document.querySelector('#f [name=shop]');if(i){i.value=b.dataset.shpk;document.querySelectorAll('.shpc').forEach(c=>c.classList.toggle('on',c===b))}});
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-totr]');if(!b)return;const x=data.transactions.find(t=>t.id===b.dataset.totr);if(!x)return;const old={...x},to=x.account==='Numerar'?'Numerar':'Card',fr=to==='Card'?'Numerar':'Card';Object.assign(x,{type:'transfer',account:fr,to,category:''});save();toast('Transformat în transfer '+fr+' → '+to+'. Nu mai e venit.',()=>{Object.assign(x,old);save()})});
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-perk]');if(!b)return;const i=document.querySelector('#f [name=person]');if(i){i.value=b.dataset.perk;document.querySelectorAll('[data-perk]').forEach(c=>c.classList.toggle('on',c===b))}});
+
+const pdRow=(n='',s='')=>`<div class="pdr"><input class="pdn" placeholder="ex. Pâine" maxlength="60" value="${esc(n)}"><input class="pds" type="number" step="0.01" min="0" inputmode="decimal" placeholder="0,00" value="${s}"><button type="button" class="btn d" data-pdx aria-label="Șterge produsul">✕</button></div>`;
+const pdSum=()=>{const r=[...document.querySelectorAll('#pdr .pdr')],it=r.map(x=>({n:x.querySelector('.pdn').value.trim(),s:val(x.querySelector('.pds').value)})).filter(i=>i.n||i.s>0),t=val(it.reduce((a,i)=>a+i.s,0)),o=document.getElementById('pdsum'),am=document.querySelector('#f [name=amount]');if(o)o.textContent=money(t);if(am){if(it.length){am.value=t||'';am.readOnly=true;am.classList.add('pdlock')}else{am.readOnly=false;am.classList.remove('pdlock')}}return it};
+document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-pdt],[data-pda],[data-pdx]');if(!t)return;const pd=document.getElementById('pd'),rr=document.getElementById('pdr');if(!pd)return;
+ if('pdt'in t.dataset){pd.hidden=!pd.hidden;if(!pd.hidden&&!rr.children.length){rr.insertAdjacentHTML('beforeend',pdRow());rr.querySelector('.pdn').focus()}}
+ else if('pda'in t.dataset){rr.insertAdjacentHTML('beforeend',pdRow());rr.lastElementChild.querySelector('.pdn').focus()}
+ else{t.closest('.pdr').remove();pdSum()}});
+document.addEventListener('input',e=>{if(e.target.closest&&e.target.closest('#pdr'))pdSum()});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.classList&&e.target.classList.contains('pds')){e.preventDefault();const rr=document.getElementById('pdr');rr.insertAdjacentHTML('beforeend',pdRow());rr.lastElementChild.querySelector('.pdn').focus()}});
+document.addEventListener('submit',e=>{if(e.target.id!=='f'||entry!=='expense')return;const it=document.getElementById('pdr')?pdSum():[];if(!it.length)return;const am=e.target.querySelector('[name=amount]');am.value=val(it.reduce((a,i)=>a+i.s,0));
+ setTimeout(()=>{const t=data.transactions[data.transactions.length-1];if(!t||t.type!=='expense')return;t.items=it.map(i=>({n:i.n||'Produs',s:i.s}));if(!t.note)t.note=it.filter(i=>i.n).slice(0,2).map(i=>i.n).join(', ')+(it.length>2?' …':'');t.bon={id:id(),total:t.amount,mag:t.shop||''};save()},0)},true);

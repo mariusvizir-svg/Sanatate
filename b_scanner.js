@@ -89,7 +89,7 @@ const fromText=(text,tip,r)=>{S.tip=tip;S.text=text;r=r||parse(tip,text);
 
 /* ---------- ecrane ---------- */
 const ICO='<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 011-1h3M16 4h3a1 1 0 011 1v3M20 16v3a1 1 0 01-1 1h-3M8 20H5a1 1 0 01-1-1v-3"/><path d="M8 9h8M8 12h8M8 15h5"/></svg>';
-NAV.splice(2,0,['scan',ICO,'Scanează bon']);
+/* scanarea a fost scoasă din meniu (V7.10) */
 const groups=items=>{const o={};items.filter(i=>i.s).forEach(i=>{(o[i.cat]=o[i.cat]||{cat:i.cat,s:0,n:[]}).s=val(o[i.cat].s+i.s);o[i.cat].n.push(i.n)});return Object.values(o).sort((a,b)=>b.s-a.s)};
 const catOpts=(sel)=>expCats().map(c=>`<option ${c===sel?'selected':''}>${esc(c)}</option>`).join('');
 V.scan=()=>{queueMicrotask(after);
@@ -187,7 +187,7 @@ function saveInc(){const v=S.inc,n=val(v.amount);if(!(n>0))return alert('Scrie s
  data.transactions.push(t);month=v.date.slice(0,7);reset();tab='home';document.body.classList.remove('scanning');save();scrollTo(0,0);toast((t.type==='transfer'?'Transfer salvat: ':'Venit salvat: ')+money(n),()=>{data.transactions=data.transactions.filter(x=>x!==t);save()})}
 
 /* ---------- butonul din „Adaugă” și cardul din Setări ---------- */
-const add2=V.add;V.add=()=>{const h=add2();return(entry==='expense'||entry==='income')?h.replace('<form id="f"',`<button type="button" class="btn s sc-addbtn" data-scan="${entry}">📷 ${entry==='income'?'Scanează chitanța de la bancă':'Scanează bonul în loc să scrii'}</button><form id="f"`):h};
+const add2=V.add;V.add=()=>{const h=add2();return false?h.replace('<form id="f"',`<button type="button" class="btn s sc-addbtn" data-scan="${entry}">📷 ${entry==='income'?'Scanează chitanța de la bancă':'Scanează bonul în loc să scrii'}</button><form id="f"`):h};
 const set2=V.set;V.set=()=>{const L=Object.entries(data.scanner.learn).filter(([k])=>k[0]!=='~');const h=set2(),A='<div class="card"><h2>🔐 Securitate</h2>',B='<div class="card"><h2>Backup</h2>',at=h.includes(A)?A:B;return h.replace(at,`<div class="card"><h2>Scanare bonuri</h2><p class="mu" style="margin-top:0">${L.length?`Am învățat ${L.length} produse din corecturile tale. Data viitoare le încadrez singur.`:'Când schimbi categoria unui produs scanat, o țin minte pentru data viitoare.'}</p>${L.slice(-15).reverse().map(([k,c])=>`<div class="row"><span>${esc(k)}</span><b>${esc(c)}</b></div>`).join('')}${L.length?'<button class="btn s m" data-scforget="1" style="margin-top:10px">Uită ce am învățat</button>':''}</div>${at}`)};
 document.addEventListener('click',e=>{const t=e.target.closest('[data-scforget]');if(!t)return;if(confirm('Uit toate categoriile învățate de la bonuri?')){data.scanner.learn={};save()}});
 return{fromText,state:()=>S}})();

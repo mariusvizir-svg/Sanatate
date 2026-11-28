@@ -187,3 +187,19 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 ## V7.8.1
 - Buget: o încasare care pare depunere/retragere de numerar e semnalată pe ecranul principal, cu buton „Transformă în transfer” (nu mai e numărată la venituri). În editare, o încasare poate fi schimbată în transfer.
 - Adaugă cheltuială: butoane „Alege rapid” cu magazinele folosite deja.
+
+## V7.9.0
+- Buget: câmp Persoană la cheltuieli (ex. chirie → proprietar), cu butoane rapide; filtru Persoană în Istoric; persoana apare în listă și se poate edita.
+- Rapoarte → „Magazine și persoane”: pe Lună/An/Tot; magazine (total, nr. cumpărături, medie, categorii, 
+## V7.9.0
+- Buget: câmp Persoană la cheltuieli (ex. chirie → proprietar), cu butoane rapide; filtru Persoană în Istoric; persoana apare în listă și se poate edita.
+- Rapoarte → „Magazine și persoane”: pe Lună/An/Tot; magazine (total, nr. cumpărături, medie, categorii, procent); persoane (cheltuit către ea/el, împrumutat, dat înapoi, mai ai de dat / de primit, progres).
+
+## V7.9.1
+- Buget: separare Datorii (firme: Kruk, Viva Credit… – plățile nu se scad din „Rămas”) vs Împrumuturi (persoane – restituirile și banii dați se scad din „Rămas”, banii recuperați se adună).
+- Datorii: buton „👤 E o persoană → mută la Împrumuturi” (convertește datoria și plățile ei, cu Anulează).
+- „Persoane” redenumit „Împrumuturi”; raportul pe persoane arată doar împrumuturi și cheltuieli către persoane.
+
+## V7.10.0
+- Scanarea scoasă din interfață: Buget (bon/chitanță, meniu, butoane rapide, Acasă) și Sănătate (citire tensiometru, „Citește textul” la documente).
+- Adaugă cheltuială: „🧾 Detalii produse” – rânduri produs + valoare, totalul se calculează și se trece automat la Sumă; produsele se salvează pe cheltuială și apar în Istoric și în rapoartele de produse/magazine.
