@@ -216,3 +216,13 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 
 ## V7.11.1
 - Acasă: cardurile „🏦 Bani pe conturi” (Card/Numerar: sold, început, intrări, ieșiri) și „⚠️ De verificat în Buget”; dacă luna curentă e goală, se arată ultima lună cu date.
+
+## V7.11.2
+- Sold 0 afișat corect (nu mai apare „-0,00” și nici avertizarea „Sold negativ” pentru 0).
+- După importul unui backup, „Nu ai făcut încă backup” nu mai apare.
+
+## V7.12.0
+- Iconiță nouă (bento 4 culori).
+- Buget: „📆 De plătit luna asta” – plăți fixe lunare (cu categorie și cont, se pot trece automat) + rate la firme (setezi rata și ziua, „Plătește” cu un tap).
+- „⚖️ Corectează soldul”: scrii cât ai real pe card și numerar; diferența se trece ca „Cheltuieli neînregistrate” sau „Corecție sold”.
+- Acasă: „📄 Raport lunar (PDF)” – bani + sănătate pe o lună, cu ‹ › pentru lună și Salvează PDF; „🆘 Card de urgență” direct de pe Acasă.

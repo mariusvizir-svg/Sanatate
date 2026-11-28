@@ -260,3 +260,4 @@ html.emb header{-webkit-backdrop-filter:none!important;backdrop-filter:none!impo
 .chkr{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid #f1dfb8;color:#3d2a06}.chkr i{font-style:normal;font-size:18px}.chkr span{flex:1;min-width:0;font-weight:650;font-size:13.5px}.chkr small{display:block;font-weight:500;color:#8a6a2c;font-size:12px}.chkr em{font-style:normal;opacity:.5}
 .chkok{font-size:14px;background:#e9f8ef!important;color:#14532d}
 html[data-m=dark] .chkc{background:#3a3217!important}html[data-m=dark] .chkh,html[data-m=dark] .chkr{color:#f3e2b0}
+.dnr{margin-top:8px}.dnr .shpc{margin:3px 2px}

@@ -1,7 +1,7 @@
 'use strict';
 /* Bugetul Meu · core: date, helperi, calcule de solduri, ecranele de bază */
 const KEY='bugetul-meu-v1',$=id=>document.getElementById(id),val=x=>Math.round((Number(x)||0)*100)/100,
-money=n=>new Intl.NumberFormat('ro-RO',{style:'currency',currency:'RON'}).format(n||0),
+money=n=>(n=Math.abs(+n||0)<0.005?0:+n,0)||new Intl.NumberFormat('ro-RO',{style:'currency',currency:'RON'}).format(n||0),
 esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),
 today=()=>{const d=new Date();return new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)},
 sum=(a,f=x=>x.amount)=>a.reduce((s,x)=>s+(Number(f(x))||0),0),COL=['#1a4d9c','#16a37a','#f08c2e','#8b5cf6','#e5484d','#0ea5c6','#d946a8','#84a30f'];
