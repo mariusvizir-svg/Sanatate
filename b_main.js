@@ -15,7 +15,7 @@ else if(d.act==='csv')dl('operatiuni-'+month+'.csv','\ufeff'+['Data;Tip;Categori
 document.addEventListener('input',e=>{if(e.target.id==='q'){q=e.target.value.toLowerCase();const p=e.target.selectionStart;render();const i=$('q');i.focus();i.setSelectionRange(p,p)}});
 document.addEventListener('change',e=>{if(e.target.id==='month'){month=e.target.value||month;render()}if(e.target.id==='imp'){importFile(e.target.files[0]);e.target.value=''}});
 document.addEventListener('submit',e=>{const f=e.target.id,v=F(e),n=val(v.amount);
-if(f==='f'){if(!(n>0))return;const t={id:id(),created:Date.now(),date:v.date,type:entry,amount:n,account:v.account,note:v.note.trim(),category:v.category||'',debtId:v.debtId||'',to:v.to||''};
+if(f==='f'){if(!(n>0))return;const t={id:id(),created:Date.now(),date:v.date,type:entry,amount:n,account:v.account,note:v.note.trim(),category:v.category||'',debtId:v.debtId||'',to:v.to||'',...(entry==='expense'&&(v.shop||'').trim()?{shop:v.shop.trim()}:{})};
 if(t.type==='transfer'&&t.account===t.to)return alert('Alege două conturi diferite.');if(t.type==='debt'&&!t.debtId)return alert('Adaugă întâi o datorie.');
 if(t.account.startsWith('voucher:')&&n>vbal(t.account))return alert('Sold insuficient pe cardul ales.');data.transactions.push(t);tab='home';save()}
 else if(f==='df'){data.debts.push({id:id(),name:v.name.trim(),amount:n});save()}

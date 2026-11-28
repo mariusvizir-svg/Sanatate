@@ -179,3 +179,7 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 
 ## V7.7.2
 - Buget: o lună fără operațiuni nu mai arată sume, grafice, statistici sau operațiuni din alte luni; apare „Nicio operațiune în <luna>” cu salt la luna cu date. Lista de operațiuni de pe ecranul principal arată doar luna aleasă. Soldul „acum” nu mai include operațiuni cu dată în viitor; pentru alte luni apare „Sold la sfârșitul lunii”.
+
+## V7.8.0
+- Sănătate → Rapoarte → Analize: căutare, „Doar în afara limitelor”, filtre pe tipuri (Hemogramă, Lipide, Ficat, Rinichi…), grupuri pliabile, fișa analizei (grafic cu limite, toate valorile, explicație).
+- Buget: câmp Magazin la cheltuieli (cu sugestii), filtru după magazin în Istoric, totaluri „Pe magazine” (sumă, nr. cumpărături, medie, ultima), card „Unde ai cumpărat” pe ecranul principal; bonurile scanate salvează magazinul.
