@@ -203,3 +203,8 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 ## V7.10.0
 - Scanarea scoasă din interfață: Buget (bon/chitanță, meniu, butoane rapide, Acasă) și Sănătate (citire tensiometru, „Citește textul” la documente).
 - Adaugă cheltuială: „🧾 Detalii produse” – rânduri produs + valoare, totalul se calculează și se trece automat la Sumă; produsele se salvează pe cheltuială și apar în Istoric și în rapoartele de produse/magazine.
+
+## V7.10.1
+- Buget: casetele Cheltuieli / Venituri / Rămas se ating și arată din ce se compun (pe categorii, împrumuturi, calculul „Rămas”).
+- „Fără magazin trecut” se poate atinge: arată exact cheltuielile fără magazin (ex. Chirie, Utilități).
+- Istoric deschis din butoane/meniu pornește fără filtre vechi (nu mai rămâne blocat pe un magazin, ex. SuperBet).
