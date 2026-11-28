@@ -226,3 +226,7 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 - Buget: „📆 De plătit luna asta” – plăți fixe lunare (cu categorie și cont, se pot trece automat) + rate la firme (setezi rata și ziua, „Plătește” cu un tap).
 - „⚖️ Corectează soldul”: scrii cât ai real pe card și numerar; diferența se trece ca „Cheltuieli neînregistrate” sau „Corecție sold”.
 - Acasă: „📄 Raport lunar (PDF)” – bani + sănătate pe o lună, cu ‹ › pentru lună și Salvează PDF; „🆘 Card de urgență” direct de pe Acasă.
+
+## V7.12.1
+- „Pe conturi”: fiecare rând (Cheltuieli, Transferuri, Împrumuturi…) se atinge și se desface: pe categorii, unde/cui s-au dus banii (magazin/persoană), lista operațiunilor cu ✎ și totalul.
+- „De verificat”: categoriile aproape identice (ex. Mâncare/Mancare) se unesc cu un tap (cu Anulează).
