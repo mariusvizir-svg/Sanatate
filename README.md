@@ -183,3 +183,7 @@ Formă iPhone (liste grupate, titluri mari, butoane capsulă, bară pilulă) –
 ## V7.8.0
 - Sănătate → Rapoarte → Analize: căutare, „Doar în afara limitelor”, filtre pe tipuri (Hemogramă, Lipide, Ficat, Rinichi…), grupuri pliabile, fișa analizei (grafic cu limite, toate valorile, explicație).
 - Buget: câmp Magazin la cheltuieli (cu sugestii), filtru după magazin în Istoric, totaluri „Pe magazine” (sumă, nr. cumpărături, medie, ultima), card „Unde ai cumpărat” pe ecranul principal; bonurile scanate salvează magazinul.
+
+## V7.8.1
+- Buget: o încasare care pare depunere/retragere de numerar e semnalată pe ecranul principal, cu buton „Transformă în transfer” (nu mai e numărată la venituri). În editare, o încasare poate fi schimbată în transfer.
+- Adaugă cheltuială: butoane „Alege rapid” cu magazinele folosite deja.

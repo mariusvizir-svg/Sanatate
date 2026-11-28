@@ -21,6 +21,8 @@ const iso=n=>new Date(new Date(today()+'T12:00').getTime()+n*864e5).toISOString(
  pr=i=>{const t=today();if(i===0)return[t,t,iso(-1),iso(-1),'față de ieri'];if(i===1)return[iso(-6),t,iso(-13),iso(-7),'față de cele 7 zile dinainte'];const pm=addM(month,-1);return[month+'-01',month+'-31',pm+'-01',pm+'-31','față de '+MONTHS[+pm.slice(5)-1]]},
  dlt=(n,o,good)=>{if(!o)return n?'nou':'—';const p=Math.round(100*(n-o)/o);if(!p)return'la fel';return`<span class="${(p>0)===!!good?'okc':'erc'}">${p>0?'↑':'↓'} ${Math.abs(p)}%</span>`},
  wg=(attr,col,ic,t,sub,w)=>`<button class="wgt${w?' w':''}" ${attr}><i class="wgi" style="background:${(PAL[col]||PAL.blue)[0]}">${hi(ic)}</i><span><b>${t}</b>${sub?`<small>${sub}</small>`:''}</span></button>`;
+function depWarn(){const l=by(month,'income').filter(t=>/depun|numerar|retrag|alimentare|transfer|economii proprii/i.test((t.note||'')+' '+(t.category||'')));if(!l.length)return'';
+ return l.slice(0,3).map(t=>`<div class="card dwarn"><b>⚠️ „${esc(t.note||t.category)}” (${money(t.amount)}) e trecut ca venit</b><p class="mu" style="margin:4px 0 10px">Dacă ai mutat bani între numerar și card, nu e venit nou: e un transfer, iar veniturile lunii scad cu ${money(t.amount)}.</p><button class="btn m" data-totr="${esc(t.id)}">Transformă în transfer ${t.account==='Numerar'?'Card → Numerar':'Numerar → Card'}</button></div>`).join('')}
 function hubShops(){const m={};by(month,'expense').forEach(t=>{const k=(t.shop||(t.bon&&t.bon.mag)||'').trim();if(k)m[k]=(m[k]||0)+t.amount});const k=Object.keys(m).sort((a,b)=>m[b]-m[a]);if(!k.length)return'';
  return`<div class="card"><h2 style="display:flex;justify-content:space-between;align-items:center">🏪 Unde ai cumpărat<button class="btn s" style="padding:6px 12px;font-size:12.5px" data-go="hist">Toate ›</button></h2>${k.slice(0,4).map(x=>`<div class="row"><span>${esc(x)}</span><b>${money(m[x])}</b></div>`).join('')}</div>`}
 function hkp(){const ex=by(month,'expense'),T=sum(ex,x=>x.amount);if(!ex.length)return'';const now=month===today().slice(0,7),dim=new Date(+month.slice(0,4),+month.slice(5,7),0).getDate(),dm=now?new Date().getDate():dim,
@@ -49,6 +51,7 @@ V.hub=()=>{const [a,z,pa,pz,pl]=pr(hp),ex=inr('expense',a,z),inc=inr('income',a,
  <div class="seg dseg" style="margin-top:12px">${['Azi','7 zile','Luna'].map((t,i)=>`<button class="${hp===i?'on':''}" data-hp="${i}">${t}</button>`).join('')}</div>
  <div class="dst2"><div><small>Cheltuit</small><b>${money(ex)}</b><i>${dlt(ex,pex,0)}</i></div><div><small>Venituri</small><b class="okc">${money(inc)}</b><i>${dlt(inc,pinc,1)}</i></div><div><small>Rămas</small><b class="${net<0?'erc':'okc'}">${net>0?'+':''}${money(net)}</b><i>&nbsp;</i></div></div><small class="mu" style="display:block;margin-top:8px">Comparație: ${pl}</small></div>
  <div class="adr">${[['expense','−','Cheltuială','#d13b4d'],['income','+','Venit','#16915f'],['transfer','⇄','Transfer','#1a4d9c']].map(x=>`<button class="adb" style="background:${x[3]}" data-hq="${x[0]}"><i>${x[1]}</i>${x[2]}</button>`).join('')}<button class="adb" style="background:#0e8f8a" data-scan="expense"><i>🧾</i>Scanează</button></div>
+ ${depWarn()}
  ${hkp()}
  ${hubDonut()}
  ${hubShops()}
